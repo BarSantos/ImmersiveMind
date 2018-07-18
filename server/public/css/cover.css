@@ -1,0 +1,151 @@
+/*!
+ * Start Bootstrap - Full (https://startbootstrap.com/template-overviews/full)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-full/blob/master/LICENSE)
+ */
+
+body {
+  background: url("../images/memories_pink.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+/* Coisas do título */
+
+header.masthead {
+  text-align: center;
+  color: white;
+}
+
+header.masthead .intro-text {
+  padding-top: 250px;
+}
+
+header.masthead .intro-text .intro-lead-in {
+  font-size: 22px;
+  font-style: italic;
+  line-height: 22px;
+  margin-bottom: 0px;
+  font-family: 'Old Standard TT';
+}
+
+header.masthead .intro-text .intro-heading {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 50px;
+  margin-bottom: 25px;
+  font-family: 'Chonburi';
+    color: #f5dbcf;
+    letter-spacing: 3px;
+}
+/* QUANDO A PAGINA E GRANDE, ISTO ACONTECE */
+@media (min-width: 768px) {
+  header.masthead .intro-text {
+    padding-top: 300px;
+    padding-bottom: 0px;
+  }
+  header.masthead .intro-text .intro-lead-in {
+    font-size: 40px;
+    font-style: italic;
+    line-height: 40px;
+    margin-bottom: 0px;
+    font-family: 'Old Standard TT';
+  }
+  header.masthead .intro-text .intro-heading {
+    font-size: 75px;
+    font-weight: 700;
+    line-height: 75px;
+    margin-bottom: 50px;
+    font-family: 'Chonburi';
+      color: #f5dbcf;
+      letter-spacing: 3px;
+  }
+    .navbar-nav > li{
+  padding-left:10px;
+  padding-right:10px;
+}
+}
+
+/* Barra de cima transparente e talz */
+.navbar-brand img {
+  height: 100%;
+  margin-right: 20px;
+}
+
+/******************** LOGIN ******************/
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0px;
+    overflow:hidden;
+    background-color:rgba(255,255,255,0.5);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+        background-color:rgba(255,255,255,0.5);
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+
+/*** Remover a seta que fica ao lado do login e registar ***/
+.dropdown-toggle::after {
+    display:none;
+}
+
+/* Mais espaço entre as opções do menu */
+.navbar > li{
+  padding-left:10px;
+  padding-right:10px;
+}
+
+/*
+.navbar > li > a{
+    color: #f5dbcf;
+    font-family: 'Muli';
+}
+*/
+
+/*Modifica a cor das letras na navbar */
+.nav.navbar.ml-auto li a{
+  color: #f5dbcf;
+    font-family: 'Muli';  
+}
+
+.col-md-12 {
+    font-size: 12px;
+   color: #f5dbcf;
+    font-family: 'Muli';  
+}
+
+/* Modificar a cor do botão */
+.btn.btn-primary.btn-block {
+    background: #7e7e7e;
+    border: #7e7e7e;
+}
+
+.btn.btn-primary.btn-block:hover {
+    background: #f5dbcf;
+    color: #3f3f3f;
+    border: #f5dbcf;
+}
+
+/* css para o popup do registo */
+.success-popup  {
+    transition: .3s ease all;
+    font-family: 'Roboto', sans-serif;
+}
