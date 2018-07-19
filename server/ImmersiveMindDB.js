@@ -70,8 +70,6 @@ function checkIfCuidadorIsLogged(cuidadorID)
 exports.createCuidador = function (email, passe, primeiroNome, ultimoNome, profissao)
 {
 	
-    email = ;
-    
 	var insertQuery = "INSERT INTO CUIDADORES SET ?";  
 	var toInsert = {EMAIL_ID: (email): null ? email,
 					PRIMEIRO_NOME: (primeiroNome): null ? primeiroNome,
