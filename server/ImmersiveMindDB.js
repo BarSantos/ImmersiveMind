@@ -71,8 +71,14 @@ exports.createCuidador = function (email, passe, primeiroNome, ultimoNome, profi
 {
 	
 	var insertQuery = "INSERT INTO CUIDADORES SET ?";  
-	var toInsert = {EMAIL_ID: (email): null ? email,
-					PRIMEIRO_NOME: (primeiroNome): null ? primeiroNome,
+	email = (email)? email : null;
+	primeiroNome = (primeiroNome)? primeiroNome : null;
+	ultimoNome = (ultimoNome)? ultimoNome : null;
+	profissao = (profissao)? profissao : null;
+	passe = (passe)? passe : null;
+	
+	var toInsert = {EMAIL_ID: email,
+					PRIMEIRO_NOME: primeiroNome,
 					ULTIMO_NOME: ultimoNome,
 					PROFISSAO: profissao,
 					PASSWORD: hashPassword(passe),
