@@ -75,7 +75,6 @@ exports.createCuidador = function (email, passe, primeiroNome, ultimoNome, profi
 	primeiroNome = (primeiroNome)? primeiroNome : null;
 	ultimoNome = (ultimoNome)? ultimoNome : null;
 	profissao = (profissao)? profissao : null;
-	passe = (passe)? passe : null;
 	
 	var toInsert = {EMAIL_ID: email,
 					PRIMEIRO_NOME: primeiroNome,

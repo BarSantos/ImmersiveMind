@@ -1,3 +1,4 @@
+
 /* Funcao para registar um novo cuidador para o servidor*/
 function RegistaCuidador() {
     var email = document.getElementById('emailregistar').value;
@@ -47,4 +48,43 @@ function LoginCuidador() {
     xhttp.setRequestHeader('cuidadorid', email);
     xhttp.setRequestHeader('password', passe);
     xhttp.send();
+}
+
+
+/************* Disable do botao quando não esta preenchido *****************/
+
+/*----- Para o REGISTAR: -----*/
+
+$( document ).ready(function() {
+    document.getElementById('registernav').addEventListener("keyup", validateRegistar);
+});
+
+
+function validateRegistar(){
+    if ($('#emailregistar').val().length   >   0   &&
+        $('#primeironomecuidador').val().length  >   0   &&
+        $('#ultimonomecuidador').val().length    >   0 &&
+        $('#passwordregistar').val().length > 0) {
+        $('#buttonregistar').prop("disabled", false);
+    }
+    else {
+        $('#buttonregistar').prop("disabled", true);
+    }
+}
+
+/*----- Para o LOGIN: -----*/
+
+$( document ).ready(function() {
+    document.getElementById('loginnav').addEventListener("keyup", validateLogin);
+});
+
+
+function validateLogin(){
+    if ($('#emaillogin').val().length   >   0   &&
+        $('#passwordlogin').val().length  >   0 ) {
+        $('#buttonlogin').prop("disabled", false);
+    }
+    else {
+        $('#buttonlogin').prop("disabled", true);
+    }
 }

@@ -4,17 +4,18 @@
   <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>ImmersiveMind</title>
-    <script src="http://localhost:8080/js/server.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/server.js"></script>
     <!-- Bootstrap core CSS -->
-    <link href="http://localhost:8080/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="http://localhost:8080/css/cover.css" rel="stylesheet">
+    <link href="/css/cover.css" rel="stylesheet">
       
       <!-- Font Awesome -->
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -26,120 +27,104 @@
     @import url('https://fonts.googleapis.com/css?family=Passion+One');
     @import url('https://fonts.googleapis.com/css?family=Muli');
 	</style>
-
   </head>
 
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-          <div class="navbar-header">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
 
-            <a class="navbar-brand" href="cover.html">  <img class="img-responsive" width="50px" height="" src="http://localhost:8080/images/brain_vr.png">
-            </a>
-          </div>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="cover.html">  <img class="img-responsive" width="50px" height="" src="images/brain_vr.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span> </button>
 
       <!-- Aqui começam as opções do menu -->    
           
-              <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="nav navbar ml-auto">
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav ml-auto">
          
          
-                <li><a class="navbar-text" href="#">Sobre o Projecto</a></li>
-          
-      <!--  <a class="navbar-brand" href="#"> <img class="img-responsive" width="50px" height="" src="images/brain_vr.png"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="nav navbar-nav ml-auto">
             
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sobre o Projecto</a>
+          
+                 <!-- ESTE É PARA O LOGIN -->
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><span class="fa fa-sign-in"></span> Login</a>
+                <ul id="login-dp" class="dropdown-menu">
+                    <li>
+                         <div class="row">
+                                <div class="col-md-12">
+                                    Vamos começar?
+                                    <p>Faça primeiro o seu login:</p>
+
+                                     <form class="form" role="form" method="get" action="" accept-charset="UTF-8" id="loginnav">
+                                            <div class="form-group">
+                                                 <label class="sr-only" for="exampleInputEmail2">Email</label>
+                                                 <input type="email" class="form-control" id="emaillogin" placeholder="Endereço Electrónico" required>
+                                            </div>
+                                            <div class="form-group">
+                                                 <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                 <input type="password" class="form-control" id="passwordlogin" placeholder="Palavra-passe" required>
+                                                <!-- Isto pode ser para um futuro -->
+                                                 <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
+                                            </div>
+                                            <div class="form-group">
+                                                 <button type="button" onclick="LoginCuidador()" class="btn btn-primary btn-block" id="buttonlogin" disabled="true">Começar!</button>
+                                            </div>
+                                     </form>
+                                </div>
+                         </div>
+                    </li>
+                </ul>
+            </li>
+                 <!-- ESTE É PARA O REGISTAR -->
+             <li class="dropdown nav-item">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><span class="fa fa-user-circle"></span> Registe-se</a>
+                    <ul id="register-dp" class="dropdown-menu">
+                        <li>
+                             <div class="row">
+                                    <div class="col-md-12">
+                                        Para usar a plataforma,
+                                        <p>registe-se primeiro!</p>
+
+                                         <form class="form" id="registernav" role="form">
+                                                <div class="form-group">
+                                                     <label class="sr-only" for="exampleInputEmail2">Email</label>
+                                                     <input type="email" class="form-control" id="emailregistar" placeholder="Endereço Electrónico" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="exampleFirstName">Primeiro Nome</label>
+                                                    <input type="text" class="form-control" id="primeironomecuidador" placeholder="Primeiro nome" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="exampleLastName">Último Nome</label>
+                                                    <input type="text" class="form-control" id="ultimonomecuidador" placeholder="Último Nome" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="exampleProfissao">Profissão</label>
+                                                    <input type="text" class="form-control" id="profissao" placeholder="Profissão">
+                                                </div>
+                                                <div class="form-group">
+                                                     <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                     <input type="password" class="form-control" id="passwordregistar" placeholder="Palavra-passe" required>
+                                                    <!-- Isto pode ser para um futuro -->
+                                                     <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
+                                                </div>
+                                                <div class="form-group">
+                                                     <button type="button" onclick="RegistaCuidador()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" id="buttonregistar" disabled="true">Registar!</button>
+                                                </div>
+                                         </form>
+                                    </div>
+                             </div>
+                        </li>
+                    </ul>
+                </li>
+              <li class="nav-item">
+                    <a class="nav-link" href="#">Sobre o Projecto</a>
             </li>
         </ul>
-       -->  
-                 <!-- ESTE É PARA O LOGIN -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-sign-in"></span> Login<span class="caret"></span></a>
-			<ul id="login-dp" class="dropdown-menu">
-				<li>
-					 <div class="row">
-							<div class="col-md-12">
-								Vamos começar?
-                                <p>Faça primeiro o seu login:</p>
-								
-								 <form class="form" role="form" method="get" action="" accept-charset="UTF-8" id="login-nav">
-										<div class="form-group">
-											 <label class="sr-only" for="exampleInputEmail2">Email</label>
-											 <input type="email" class="form-control" id="emaillogin" placeholder="Endereço Electrónico" required>
-										</div>
-										<div class="form-group">
-											 <label class="sr-only" for="exampleInputPassword2">Password</label>
-											 <input type="password" class="form-control" id="passwordlogin" placeholder="Palavra-passe" required>
-                                            <!-- Isto pode ser para um futuro -->
-                                             <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
-										</div>
-										<div class="form-group">
-											 <button type="submit" onclick="LoginCuidador()" class="btn btn-primary btn-block">Começar!</button>
-										</div>
-								 </form>
-							</div>
-					 </div>
-				</li>
-			</ul>
-        </li>
-                 <!-- ESTE É PARA O REGISTAR -->
-             <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-user-circle"></span> Registe-se<span class="caret"></span></a>
-			<ul id="login-dp" class="dropdown-menu">
-				<li>
-					 <div class="row">
-							<div class="col-md-12">
-								Para usar a plataforma,
-                                <p>registe-se primeiro!</p>
-								
-								 <form class="form" id="register-nav" role="form">
-										<div class="form-group">
-											 <label class="sr-only" for="exampleInputEmail2">Email</label>
-											 <input type="email" class="form-control" id="emailregistar" placeholder="Endereço Electrónico" required>
-										</div>
-                                     
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleFirstName">Primeiro Nome</label>
-                                            <input type="text" class="form-control" id="primeironomecuidador" placeholder="Primeiro nome" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleLastName">Último Nome</label>
-                                            <input type="text" class="form-control" id="ultimonomecuidador" placeholder="Último Nome" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleProfissao">Profissão</label>
-                                            <input type="text" class="form-control" id="profissao" placeholder="Profissão">
-                                        </div>
-										<div class="form-group">
-											 <label class="sr-only" for="exampleInputPassword2">Password</label>
-											 <input type="password" class="form-control" id="passwordregistar" placeholder="Palavra-passe" required>
-                                            <!-- Isto pode ser para um futuro -->
-                                             <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
-										</div>
-										<div class="form-group">
-											 <button type="submit" onclick="RegistaCuidador()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Registar!</button>
-										</div>
-								 </form>
-							</div>
-					 </div>
-				</li>
-			</ul>
-        </li>
-      </ul>
-        </div>
-      </div>
-    </nav>
+    </div>
+</nav>
       
       <!-- Popup do registo -->
     <div class="modal fade success-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -160,8 +145,7 @@
     </div>
 
     <!-- Page Content -->
-      
-          <!-- Header -->
+   
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
@@ -171,10 +155,11 @@
       </div>
     </header>
 
+          
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+     
   </body>
 
 </html>
