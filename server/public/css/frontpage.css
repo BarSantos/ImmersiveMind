@@ -1,40 +1,80 @@
 body {
-   background-color: #343A40;
+ /* padding-top: 58px;*/
+    background-color: #343A40;
 }
 
-html {
-  width: 100%;
-  height: 100%;
+body html{
+	height: 100%;
+}
+
+.card-deck{
+    margin-bottom: 0px;
+    /*position:absolute;*/
 }
 
 
-/*** Remover a seta que fica ao lado do login e registar ***/
-.dropdown-toggle::after {
-    display:none;
+.card {
+	border: none;
+	font-family: 'Muli';
+}
+
+.card a{
+    text-decoration: none;
+    color: #7e7e7e;
+    font-weight: bold;
+}
+
+.card:hover .card-img-top
+{
+	opacity: 0.5;
+	filter: alpha(opacity=30);
+     -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.card:hover .card-body{
+    background:#f5dbcf;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.card:hover a{
+    color: #3f3f3f;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.card-title {
+	color: #7e7e7e;
+	text-align: center;
+}
+
+.card-text {
+	 text-align: justify;
+}
+	
+@media (min-width: 768px) {
+
 }
 
 
-/****************** NAVBAR ****************/
-.navbar-nav > li > a{
-  color: #f5dbcf;
-    font-family: 'Muli';  
+.dropdown-menu {
+    background-color: rgba(255,255,255,0.5);
+     
+}
+.dropdown-menu li a{
+   color: white !important;
+    text-align: right !important;
 }
 
-/* Mais espaço entre as opções do menu */
-.navbar-nav > li{
-  padding-left:10px;
-  padding-right:10px;
-}
-
-.navbar{
-    -webkit-box-shadow: 0 8px 20px -6px black;
-	   -moz-box-shadow: 0 8px 20px -6px black;
-	        box-shadow: 0 8px 20px -6px black;
-    margin: auto;
-    z-index: 10px;
-}
-.col-md-12 {
-    font-size: 12px;
-   color: #f5dbcf;
-    font-family: 'Muli';  
+.dropdown-menu li{
+    /*margin-right: 21px;*/
+    text-align: center !important;
+    font-size: 120%;
 }

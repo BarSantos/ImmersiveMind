@@ -154,15 +154,16 @@ header.masthead .intro-text .intro-heading {
 }*/
 
 /****************** NAVBAR ****************/
-.navbar-nav > li > a{
+.navbar-nav li a{
   color: #f5dbcf;
     font-family: 'Muli';  
 }
 
 /* Mais espaço entre as opções do menu */
-.navbar-nav > li{
+.navbar-nav li{
   padding-left:10px;
   padding-right:10px;
+    color: #f5dbcf;
 }
 
 
