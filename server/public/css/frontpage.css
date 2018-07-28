@@ -1,0 +1,40 @@
+body {
+   background-color: #343A40;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+
+/*** Remover a seta que fica ao lado do login e registar ***/
+.dropdown-toggle::after {
+    display:none;
+}
+
+
+/****************** NAVBAR ****************/
+.navbar-nav > li > a{
+  color: #f5dbcf;
+    font-family: 'Muli';  
+}
+
+/* Mais espaço entre as opções do menu */
+.navbar-nav > li{
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.navbar{
+    -webkit-box-shadow: 0 8px 20px -6px black;
+	   -moz-box-shadow: 0 8px 20px -6px black;
+	        box-shadow: 0 8px 20px -6px black;
+    margin: auto;
+    z-index: 10px;
+}
+.col-md-12 {
+    font-size: 12px;
+   color: #f5dbcf;
+    font-family: 'Muli';  
+}

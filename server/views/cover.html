@@ -11,6 +11,12 @@
     <title>ImmersiveMind</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/server.js"></script>
+      
+          
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +40,7 @@
     <!-- Navigation -->
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" href="cover.html">  <img class="img-responsive" width="50px" height="" src="images/brain_vr.png"></a>
+    <a class="navbar-brand" href="/">  <img class="img-responsive" width="50px" height="" src="images/brain-logo-off.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span> </button>
 
@@ -68,9 +74,9 @@
                                                  <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
                                             </div>
                                             <div class="form-group">
-                                                 <button type="button" onclick="LoginCuidador()" class="btn btn-primary btn-block" id="buttonlogin" disabled="true">Começar!</button>
+                                                 <button type="button" onclick="LoginCuidador()" class="btn btn-primary btn-block" data-target="#myModal" data-backdrop="static" data-keyboard="false" id="buttonlogin" disabled="true">Começar!</button>
                                             </div>
-                                     </form>
+                                     </form> 
                                 </div>
                          </div>
                     </li>
@@ -111,7 +117,7 @@
                                                      <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
                                                 </div>
                                                 <div class="form-group">
-                                                     <button type="button" onclick="RegistaCuidador()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" id="buttonregistar" disabled="true">Registar!</button>
+                                                     <button type="button" onclick="RegistaCuidador()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" id="buttonregistar" disabled="true">Registar!</button>
                                                 </div>
                                          </form>
                                     </div>
@@ -130,16 +136,11 @@
     <div class="modal fade success-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="myModalLabel">Thank You !</h4>
-          </div>
           <div class="modal-body text-center">
-             <img src="http://osmhotels.com//assets/check-true.jpg">
-              <p id="testee" class="lead">Contact form successfully submitted. Thank you, We will get back to you soon!</p>
-              <a href="index.php" class="rd_more btn btn-default">Go to Home</a>
+             <img id="img-registo" class="img-responsive" width="80px" height="" src="images/SmileFaceFail.png" >
+              <p id="msnregisto" class="lead">Oops, aconteceu algum problema!</p>
+              <button data-dismiss="modal" class="btn btn-default button-popup-fail" id="btnpopupregisto">Tente outra vez</button>
           </div>
-
         </div>
       </div>
     </div>
@@ -154,11 +155,6 @@
         </div>
       </div>
     </header>
-
-          
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
      
   </body>
 

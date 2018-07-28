@@ -22,12 +22,14 @@ function RegistaCuidador() {
                                         if(JSON.parse(xhttp.responseText).message == 'Cuidador Criado')
                                         {
                                             // Cuidador criado com sucesso (Registado)
-                                            document.getElementById('testee').innerHTML= JSON.parse(xhttp.responseText).message; 
-                                        }
-                                        else
-                                        {
-                                            // Deu erro a criar o cuidador
-                                            document.getElementById('testee').innerHTML= JSON.parse(xhttp.responseText).message;
+                                            document.getElementById('msnregisto').innerHTML= 'Obrigado por se juntar à nossa plataforma!';
+                                            document.getElementById('img-registo').src = "images/SmileFaceSuccess.png";
+                                            document.getElementById('btnpopupregisto').innerHTML = 'Entrar na plataforma';
+                                            document.getElementById('btnpopupregisto').classList.remove('button-popup-fail');
+                                            document.getElementById('btnpopupregisto').classList.add('button-popup-success');
+                                            document.getElementById('btnpopupregisto').onclick = function(){
+                                                location.href = "frontpage";
+                                            };
                                         }
                                     }
                                 };
@@ -47,8 +49,25 @@ function LoginCuidador() {
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.setRequestHeader('cuidadorid', email);
     xhttp.setRequestHeader('password', passe);
+    
+    xhttp.onreadystatechange  = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        if(JSON.parse(xhttp.responseText).message == 'Error in LogIn')
+                                        {
+                                            // O cuidador provavelmente nao existe na BD
+                                            $("#myModal").modal();
+                                            
+                                        }
+                                        else{
+                                           location.href = "frontpage"; 
+                                        }
+                                    }
+                                };
+    
+    
     xhttp.send();
 }
+
 
 
 /************* Disable do botao quando não esta preenchido *****************/

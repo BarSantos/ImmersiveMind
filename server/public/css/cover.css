@@ -167,6 +167,9 @@ header.masthead .intro-text .intro-heading {
 
 
 .navbar{
+    -webkit-box-shadow: 0 8px 20px -6px black;
+	   -moz-box-shadow: 0 8px 20px -6px black;
+	        box-shadow: 0 8px 20px -6px black;
     margin: auto;
     z-index: 10px;
 }
@@ -191,7 +194,8 @@ header.masthead .intro-text .intro-heading {
 /* css para o popup do registo */
 .success-popup  {
     transition: .3s ease all;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Muli';
+    color: #7e7e7e;
 }
 
 /************FOOTER**********/
@@ -203,4 +207,29 @@ header.masthead .intro-text .intro-heading {
    background-color: red;
    color: white;
    text-align: center;
+}
+
+/********************* BOTOES POPUP ************************/
+
+.button-popup-success {
+    background: #009b00;
+    border: #009b00; 
+    color: white;
+}
+
+.button-popup-success:hover {
+    background: #ccff90;
+    border: #ccff90;
+    color: #3f3f3f;
+}
+.button-popup-fail {
+    background: #d60000;
+    border: #d60000; 
+    color: white;
+}
+
+.button-popup-fail:hover {
+    background: #ff6666;
+    border: #ff6666;
+    color: white;
 }

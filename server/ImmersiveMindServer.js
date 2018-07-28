@@ -23,6 +23,9 @@ app.get('/', function(req, res){
 	res.render('cover');
 });
 
+app.get('/frontpage', function(req, res){
+    res.render('frontpage');
+});
 /*	
 * 	O pedido POST faz com que
 *	se crie novos cuidadores
