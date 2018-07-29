@@ -103,7 +103,7 @@ exports.cuidadorLogin = function (cuidadorID, password)
 {	
 	var defer = Q.defer();
 		
-	var logQuery = "SELECT * "  
+	var logQuery = "SELECT EMAIL_ID, PRIMEIRO_NOME, ULTIMO_NOME "  
 				   +"FROM CUIDADORES "
 				   +"WHERE PASSWORD = ? "
 				   +"AND EMAIL_ID = ? ";
@@ -111,9 +111,9 @@ exports.cuidadorLogin = function (cuidadorID, password)
 	var toCheck = [hashPassword(password), cuidadorID];
 	connection.query(logQuery,
 					 toCheck ,
-					 function (err, results, fields)
+					 function (err, result, fields)
 					 {
-					 	if(err || results.length <= 0)
+					 	if(err || result.length <= 0)
 				 			defer.reject();
 					 	else
 					 	{	
@@ -122,9 +122,9 @@ exports.cuidadorLogin = function (cuidadorID, password)
 						 					+"WHERE EMAIL_ID = ?";
 					 		
 					 		connection.query(loginQuery, 
-					 						[true, results[0].EMAIL_ID]);
+					 						[true, result[0].EMAIL_ID]);
 					 						
-	 						defer.resolve();
+	 						defer.resolve(JSON.stringify(result));
 				 	 	}	
 					}
 	);

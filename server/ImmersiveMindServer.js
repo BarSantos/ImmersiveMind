@@ -6,8 +6,8 @@ var bodyParser 	= require('body-parser');
 var DB			= require('./ImmersiveMindDB.js');
 var http = require('http').Server(app);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080; 
 
@@ -71,7 +71,7 @@ router.route('/cuidadores').get(
 			if(pwd)
 			{
 				var loginPromise = DB.cuidadorLogin(cuidadorID, pwd);
-				promiseResolve(loginPromise, res,  'Logged In: ' + cuidadorID, 'Error in LogIn');
+				promiseWithResult(loginPromise, res,  'Logged In: ' + cuidadorID, 'Error in LogIn');
 			}
 			else
 			{
@@ -266,7 +266,7 @@ function promiseWithResult(promise, res, consoleMensage, errorMensage)
 	promise.then(function(result)
 				{
 					console.log(consoleMensage);
-					res.json(result.replace(/"/g, ''));
+					res.json(result);
 				},
 			 	 function()
 			  	{

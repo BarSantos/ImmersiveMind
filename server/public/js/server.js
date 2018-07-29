@@ -51,15 +51,22 @@ function LoginCuidador() {
     xhttp.setRequestHeader('password', passe);
     
     xhttp.onreadystatechange  = function () {
-                                    if (this.readyState == 4 && this.status == 200) {
-                                        if(JSON.parse(xhttp.responseText).message == 'Error in LogIn')
+                                    if (this.readyState == 4 && this.status == 200) {   
+                                        var resultJSON = JSON.parse(this.responseText);
+                                        if(resultJSON.message == 'Error in LogIn')
                                         {
                                             // O cuidador provavelmente nao existe na BD
                                             $("#myModal").modal();
                                             
                                         }
                                         else{
-                                           location.href = "frontpage"; 
+                                            
+                                            var jsonResult = JSON.parse(resultJSON);
+                        
+                                            window.sessionStorage.setItem("email_id", jsonResult[0].EMAIL_ID); 
+                                            window.sessionStorage.setItem("primeiro_nome", jsonResult[0].PRIMEIRO_NOME);
+                                            window.sessionStorage.setItem("ultimo_nome", jsonResult[0].ULTIMO_NOME);
+                                            location.href = "frontpage";
                                         }
                                     }
                                 };
@@ -107,13 +114,13 @@ function validateLogin(){
         $('#buttonlogin').prop("disabled", true);
     }
 }
+/*******************************************************************************/
 
-/* breadcrumb */
+/*------- Para aparecer o primeiro e ultimo nome no canto superior direito da pagina ----*/
+
 $(document).ready(function(){
-    $(window).resize(function() {
-
-        ellipses1 = $("#bc1 :nth-child(2)")
-        if ($("#bc1 a:hidden").length >0) {ellipses1.show()} else {ellipses1.hide()}
-    })
+    var primeiro_nome = window.sessionStorage.getItem("primeiro_nome");
+    var ultimo_nome = window.sessionStorage.getItem("ultimo_nome");
     
-});
+    document.getElementById('primeiroultimonome').innerHTML = "Olá, "+primeiro_nome+" "+ultimo_nome;
+})

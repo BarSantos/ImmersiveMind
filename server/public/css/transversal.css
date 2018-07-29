@@ -30,6 +30,11 @@
     font-size: 100%;
 }
 
+.textuser:hover{
+    font-weight:bold;
+    text-decoration: none;
+}
+
 @media (min-width: 455px) {
     .navbar-text{
          position: absolute;
@@ -42,6 +47,7 @@
         color: #f5dbcf !important;
         font-size: 200%;
     }
+
 }
 /*********************************************************************/
 
