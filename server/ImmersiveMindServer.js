@@ -6,8 +6,8 @@ var bodyParser 	= require('body-parser');
 var DB			= require('./ImmersiveMindDB.js');
 var http = require('http').Server(app);
 
-//app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080; 
 
@@ -37,7 +37,7 @@ app.get('/frontpage', function(req, res){
 router.route('/cuidadores').post(
 		function(req, res)
 		{
-			
+            
 			var email = req.body.cuidadorID;
 			var passe = req.body.password;
 			var primeiroNome = req.body.primeiroNome;

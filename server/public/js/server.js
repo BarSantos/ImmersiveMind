@@ -28,7 +28,7 @@ function RegistaCuidador() {
                                             document.getElementById('btnpopupregisto').classList.remove('button-popup-fail');
                                             document.getElementById('btnpopupregisto').classList.add('button-popup-success');
                                             document.getElementById('btnpopupregisto').onclick = function(){
-                                                location.href = "frontpage";
+                                                Login(document.getElementById('emailregistar').value, document.getElementById('passwordregistar').value);
                                             };
                                         }
                                     }
@@ -42,8 +42,11 @@ function RegistaCuidador() {
 function LoginCuidador() {
     var email = document.getElementById('emaillogin').value;
     var passe = document.getElementById('passwordlogin').value;
-    
-    
+    Login(email, passe);
+}
+
+function Login(email, passe){
+     
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "http://localhost:8080/api/cuidadores/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -74,7 +77,6 @@ function LoginCuidador() {
     
     xhttp.send();
 }
-
 
 
 /************* Disable do botao quando não esta preenchido *****************/
