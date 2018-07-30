@@ -1,4 +1,5 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-pt">
 
     <head>
 
@@ -41,10 +42,10 @@
 
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
             <a class="navbar-brand py-0" href="/">  <img class="img-responsive" width="50px" height="" src="images/brain-logo-off.png"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span> </button>
             <p class="navbar-text text-uppercase">ImmersiveMind</p>
-
+            <button class="navbar-toggler" type="button" data-toggle="collapse" style="z-index: 1" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span> </button>
+    
               <!-- Aqui começam as opções do menu -->    
 
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -52,7 +53,7 @@
                         <li class="dropdown">
                             <a href="#" id="primeiroultimonome" class="dropdown-toggle textuser" data-toggle="dropdown">Olá, Ana Li <b class="caret"></b></a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#">Logout <i class="fa fa-sign-out"></i></a></li>
+                                    <li><a href="#" id="logout">Logout <i class="fa fa-sign-out"></i></a></li>
                             </ul>
                         </li>
                 </ul>
@@ -63,7 +64,7 @@
     <!-- Page Content -->
 <div class="container-fluid">
     
-        <div class="btn btn-default btn-arrow-right"><span class="fa fa-home"></span></div>
+        <div class="btn btn-default btn-arrow-right"><a href="#"><span class="fa fa-home bread"></span></a></div>
         <!--<div class="btn btn-default btn-arrow-right">Ola</div>
         <div class="btn btn-default btn-arrow-right">Danger</div>-->
 
