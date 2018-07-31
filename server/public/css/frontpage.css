@@ -1,12 +1,3 @@
-body {
- /* padding-top: 58px;*/
-    background-color: #343A40;
-}
-
-body html{
-	height: 100%;
-}
-
 .card-deck{
     margin-bottom: 0px;
     /*position:absolute;*/
@@ -61,20 +52,4 @@ body html{
 	
 @media (min-width: 768px) {
 
-}
-
-
-.dropdown-menu {
-    background-color: rgba(255,255,255,0.5);
-     
-}
-.dropdown-menu li a{
-   color: white !important;
-    text-align: right !important;
-}
-
-.dropdown-menu li{
-    /*margin-right: 21px;*/
-    text-align: center !important;
-    font-size: 120%;
 }
