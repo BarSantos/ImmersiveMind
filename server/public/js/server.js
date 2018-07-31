@@ -78,6 +78,27 @@ function Login(email, passe){
     xhttp.send();
 }
 
+/*** LOGOUT popup ***/
+function Logout(){
+    var xhttp = new XMLHttpRequest();
+    var email = window.sessionStorage.getItem("email_id");
+    xhttp.open("GET", "http://localhost:8080/api/cuidadores/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.setRequestHeader('cuidadorid', email);
+    
+    xhttp.onreadystatechange  = function () {
+                                    if (this.readyState == 4 && this.status == 200) {   
+                        
+                                            window.sessionStorage.removeItem("email_id");
+                                            window.sessionStorage.removeItem("primeiro_nome");
+                                            window.sessionStorage.removeItem("ultimo_nome");
+                                        /* Volta para a página principal */
+                                            location.href = "/";
+                                        
+                                    }
+                                };
+    xhttp.send();
+}
 
 /************* Disable do botao quando não esta preenchido *****************/
 

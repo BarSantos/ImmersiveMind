@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>ImmersiveMind</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/js/server.js"></script>
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Bootstrap core CSS -->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="/css/frontpage.css" rel="stylesheet">
+        <link href="/css/transversal.css" rel="stylesheet">
+
+        <!-- Font Awesome -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+          <!-- Fontes -->
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Chonburi');
+            @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
+            @import url('https://fonts.googleapis.com/css?family=Passion+One');
+            @import url('https://fonts.googleapis.com/css?family=Muli');
+        </style>
+
+    </head>
+
+    <body>
+        
+         <!-- ***********************************************NAVBAR E TRALHA*************************************************** -->
+    <!-- Navigation -->
+
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a class="navbar-brand py-0" href="/">  <img class="img-responsive" width="50px" height="" src="images/brain-logo-off.png"></a>
+            <p class="navbar-text text-uppercase">ImmersiveMind</p>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" style="z-index: 1" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span> </button>
+    
+              <!-- Aqui começam as opções do menu -->    
+
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                        <li class="dropdown">
+                            <a href="#" id="primeiroultimonome" class="dropdown-toggle textuser" data-toggle="dropdown">Olá, Ana Li <b class="caret"></b></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#" id="logout" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Logout <i class="fa fa-sign-out"></i></a></li>
+                            </ul>
+                        </li>
+                </ul>
+            </div>
+        </nav>
+ 
+        <!-- Popup do LOGOUT -->
+        <div class="modal fade success-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Sair de ImmersiveMind?</h4>
+                </div>
+                <div class="modal-body text-center">
+
+
+                    <img class="img-responsive center" width="100px" height="" src="images/brain-logo-off-inverted.png">
+                <p></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                           <button data-dismiss="modal" class="btn btn-default btn-lg btn-block button-popup-success">Ficar :)</button> 
+                        </div>
+                        <div class="col-sm-6">
+                            <button data-dismiss="modal" onclick="Logout()" class="btn btn-default btn-lg btn-block button-popup-fail">Sair :(</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!--page Content --> 
+        <div class="container-fluid">
+    
+            <!-- BREADCRUMB-->
+
+            <div class="btn btn-default btn-arrow-right"><a href="frontpage"><span class="fa fa-home bread"></span></a></div>
+            <div class="btn btn-default btn-arrow-right bread">Gerir Utentes</div>
+            <!--<div class="btn btn-default btn-arrow-right">Danger</div>-->
+        
+ <!-- ******************************************************************************************************************* -->
+            
+        </div>
+    </body>
+</html>

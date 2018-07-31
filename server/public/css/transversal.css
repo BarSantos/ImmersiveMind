@@ -155,3 +155,35 @@ button:focus {outline: none !important;}
 .btn-arrow-right:before { /* hide arrow tails background */
     background-color: #343A40; /*mesma cor que o fundo*/
 }
+
+/********************* BOTOES POPUP ************************/
+
+/* css para o popup do registo */
+.success-popup  {
+    transition: .3s ease all;
+    font-family: 'Muli';
+    color: #7e7e7e;
+}
+
+.button-popup-success {
+    background: #009b00;
+    border: #009b00; 
+    color: white;
+}
+
+.button-popup-success:hover {
+    background: #ccff90;
+    border: #ccff90;
+    color: #3f3f3f;
+}
+.button-popup-fail {
+    background: #d60000;
+    border: #d60000; 
+    color: white;
+}
+
+.button-popup-fail:hover {
+    background: #ff6666;
+    border: #ff6666;
+    color: white;
+}
