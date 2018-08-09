@@ -119,6 +119,7 @@ router.route('/doentes').get(
 		{
 			var cuidadorID = req.headers.cuidadorid;
 			var doenteID = req.headers.doenteid;
+            console.log('Aqui é o cuidador id '+cuidadorID);
 			
 			if(doenteID)
 			{
@@ -129,7 +130,8 @@ router.route('/doentes').get(
 			{
 				
 				var getDoentesPromise = DB.getDoentes(cuidadorID);
-				promiseWithResult(getDoentesPromise, res, "Foram devolvidos Doentes", 'Erro a devolver doentes');
+                console.log("fez a promessa");
+				promiseWithResult(getDoentesPromise, res, "Foram devolvidos Doentes", "Erro a devolver doentes");
 			}	
 		});
 		
