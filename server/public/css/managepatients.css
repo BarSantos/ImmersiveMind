@@ -7,3 +7,33 @@ h3{
 .col-lg-4{
     margin-bottom: 20px !important;
 }
+
+.bolitas{
+    width:200px; 
+    height:200px;
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: top center;
+    -webkit-box-shadow: 5px 5px 17px 1px rgba(0,0,0,0.7);
+    -moz-box-shadow: 5px 5px 17px 1px rgba(0,0,0,0.7);
+    box-shadow: 5px 5px 17px 1px rgba(0,0,0,0.7);
+}
+
+.bolitas_plus{
+    background-image:url(../images/plus_sign_cool.png);
+    width:200px; 
+    height:200px;
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: top center;
+    -webkit-box-shadow: 5px 5px 17px 1px rgba(0,0,0,0.7);
+    -moz-box-shadow: 5px 5px 17px 1px rgba(0,0,0,0.7);
+    box-shadow: 5px 5px 17px 1px rgba(0,0,0,0.7);
+}
+
+
+.bolitas_plus:hover{
+    background-image:url('../images/plus_sign_cool_pressed.png');
+}

@@ -27,7 +27,7 @@ function Bolinhas(){
                                             /* Popular com doentes */
                                             for(var i=0; i<jsonResult.length; i++){
                                                 fillstring += '<div class="col-lg-4 col-sm-6 text-center mb-4">';
-                                                fillstring += '<img class="rounded-circle img-fluid d-block mx-auto" src="http://placehold.it/200x200" alt="">';
+                                                fillstring += '<img class="rounded-circle img-fluid d-block mx-auto bolitas" src="http://placehold.it/200x200" alt="">';
                                                 fillstring+= '<h3>'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+'</h3></div>';
                                             }
                                         }
@@ -36,8 +36,8 @@ function Bolinhas(){
                                     /* Sinal plus */ 
                                         fillstring+='<div class="col-lg-4 col-sm-6 text-center mb-4">';
                                         fillstring+= '<a href="#">'
-                                        fillstring+= '<img class="rounded-circle img-fluid d-block mx-auto" src="images/resize.png" alt="">';
-                                        fillstring+= '<h3>Fafá de Belém</h3></a>'
+                                        fillstring+= '<img class="rounded-circle img-fluid d-block mx-auto bolitas_plus" style="" alt="">';
+                                        fillstring+= '</a>'
                                         fillstring+= '</div>';
                                         document.getElementById("rowbolinhas").innerHTML = fillstring;
  
