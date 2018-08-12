@@ -1,3 +1,14 @@
+/*****************************************************************************/
+/*                          I M P O R T A N T E                              */
+/*****************************************************************************/
+var IPADDR = '192.168.1.74';
+/*****************************************************************************/
+/*                          I M P O R T A N T E                              */
+/*****************************************************************************/
+
+
+
+
 /*------- Para criar bolinhas ----*/
 
 $(document).ready(function(){
@@ -10,7 +21,7 @@ function Bolinhas(){
     var xhttp = new XMLHttpRequest();
     var email = window.sessionStorage.getItem("email_id");
     
-    xhttp.open("GET", "http://localhost:8080/api/doentes/", true);
+    xhttp.open("GET", "http://"+IPADDR+":8080/api/doentes/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.setRequestHeader('cuidadorid', email);
     
@@ -35,7 +46,7 @@ function Bolinhas(){
                                    /* console.log('Aqui supostamente e o plus');
                                     /* Sinal plus */ 
                                         fillstring+='<div class="col-lg-4 col-sm-6 text-center mb-4">';
-                                        fillstring+= '<a href="#">'
+                                        fillstring+= '<a href="" data-toggle="modal" data-target="#modalpopup">'
                                         fillstring+= '<img class="rounded-circle img-fluid d-block mx-auto bolitas_plus" style="" alt="">';
                                         fillstring+= '</a>'
                                         fillstring+= '</div>';

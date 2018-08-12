@@ -1,3 +1,12 @@
+/*****************************************************************************/
+/*                          I M P O R T A N T E                              */
+/*****************************************************************************/
+var IPADDR = '192.168.1.74';
+/*****************************************************************************/
+/*                          I M P O R T A N T E                              */
+/*****************************************************************************/
+
+
 
 /* Funcao para registar um novo cuidador para o servidor*/
 function RegistaCuidador() {
@@ -15,7 +24,7 @@ function RegistaCuidador() {
     fd.append("profissao", profissao);
     */
     var xhttp = new XMLHttpRequest();
-	    xhttp.open("POST", "http://localhost:8080/api/cuidadores/", true);
+	    xhttp.open("POST", "http://"+IPADDR+":8080/api/cuidadores/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.onreadystatechange  = function () {
                                     if (this.readyState == 4 && this.status == 200) {
@@ -48,7 +57,7 @@ function LoginCuidador() {
 function Login(email, passe){
      
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "http://localhost:8080/api/cuidadores/", true);
+    xhttp.open("GET", "http://"+IPADDR+":8080/api/cuidadores/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.setRequestHeader('cuidadorid', email);
     xhttp.setRequestHeader('password', passe);
@@ -82,7 +91,7 @@ function Login(email, passe){
 function Logout(){
     var xhttp = new XMLHttpRequest();
     var email = window.sessionStorage.getItem("email_id");
-    xhttp.open("GET", "http://localhost:8080/api/cuidadores/", true);
+    xhttp.open("GET", "http://"+IPADDR+":8080/api/cuidadores/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.setRequestHeader('cuidadorid', email);
     

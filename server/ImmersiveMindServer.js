@@ -12,22 +12,30 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 8080; 
 
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    next();
+});
 var router = express.Router();
 app.use('/api', router);
+
+
 
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
-app.get('/', function(req, res){
+app.get('/', function(req, res, next){
 	res.render('cover');
 });
 
-app.get('/frontpage', function(req, res){
+app.get('/frontpage', function(req, res, next){
     res.render('frontpage');
 });
 
-app.get('/patients', function(req, res){
+app.get('/patients', function(req, res, next){
     res.render('managepatients');
 });
 /*	
@@ -39,7 +47,7 @@ app.get('/patients', function(req, res){
 *	caso contrário. 
 */
 router.route('/cuidadores').post(
-		function(req, res)
+		function(req, res, next)
 		{
             
 			var email = req.body.cuidadorID;
@@ -66,11 +74,10 @@ router.route('/cuidadores').post(
 *	tem como função fazer o login 
 */
 router.route('/cuidadores').get(
-		function(req, res)
+		function(req, res, next)
 		{
 			var pwd = req.headers.password;
 			var cuidadorID = req.headers.cuidadorid;
-            console.log(pwd);
             console.log(cuidadorID);
 			if(pwd)
 			{
@@ -93,7 +100,7 @@ router.route('/cuidadores').get(
 *	caso contrário. 
 */
 router.route('/doentes').post(
-		function(req, res)
+		function(req, res, next)
 		{
 			
 			var primeiroNome = req.body.primeiroNome;
@@ -115,7 +122,7 @@ router.route('/doentes').post(
 * 	devolver a informação do doente 
 */
 router.route('/doentes').get(
-		function(req, res)
+		function(req, res, next)
 		{
 			var cuidadorID = req.headers.cuidadorid;
 			var doenteID = req.headers.doenteid;
@@ -144,7 +151,7 @@ router.route('/doentes').get(
 * 	devolver a informação da sessão 
 */
 router.route('/sessoes').get(
-		function(req, res)
+		function(req, res, next)
 		{
 			var doenteID = req.headers.doenteid;
 			var sessaoID = req.headers.sessaoid;
@@ -171,7 +178,7 @@ router.route('/sessoes').get(
 *	caso contrário. 
 */
 router.route('/sessoes').post(
-		function(req, res)
+		function(req, res, next)
 		{
 			var sessaoNome = req.body.nomesessao;
 			var doenteID = req.body.doenteid;
@@ -187,7 +194,7 @@ router.route('/sessoes').post(
 *	criada.
 */
 router.route('/videos').get(
-		function(req, res)
+		function(req, res, next)
 		{
 			var sessaoID = req.header.sessaoid;
 			
@@ -204,7 +211,7 @@ router.route('/videos').get(
 *	caso contrário. 
 */
 router.route('/videos').post(
-		function(req, res)
+		function(req, res, next)
 		{
 			var sessaoID = req.body.sessaoid;
 			var tituloVideo = req.body.titulovideo;
@@ -225,7 +232,7 @@ router.route('/videos').post(
 * 	devolver as observaçoes da sessão 
 */		
 router.route('/observacao').get(
-		function(req, res)
+		function(req, res, next)
 		{
 			var sessaoID = req.header.sessaoid;
 			var doenteID = req.header.doenteid;
@@ -251,7 +258,7 @@ router.route('/observacao').get(
 *	caso contrário. 
 */
 router.route('/observacao').post(
-		function(req, res)
+		function(req, res, next)
 		{
 			var observacao = req.body.observacao;
 			var tituloVideo = req.body.tituloVideo;
