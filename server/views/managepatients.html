@@ -136,65 +136,66 @@
           </div>
 
     </div>
-        
-   <!-- Button to open the modal login form -->
+ 
 
 <!-- Popup do Plus -->
-    <div class="modal fade success-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog modal-sm" role="document">
+    <div class="modal fade popup-plus" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Novo Utente</h4>
+            <div class="modal-header text-center">
+                <h2 class="modal-title w-100 font-weight-bold modal-titulo">Novo Utente</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <!-- Formulário -->
-                <form class="form" id="registernav" role="form">
-                                                <div class="form-group">
-                                                     <label class="sr-only" for="exampleInputEmail2">Email</label>
-                                                     <input type="email" class="form-control" id="emailregistar" placeholder="Endereço Electrónico" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="exampleFirstName">Primeiro Nome</label>
-                                                    <input type="text" class="form-control" id="primeironomecuidador" placeholder="Primeiro nome" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="exampleLastName">Último Nome</label>
-                                                    <input type="text" class="form-control" id="ultimonomecuidador" placeholder="Último Nome" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="exampleProfissao">Profissão</label>
-                                                    <input type="text" class="form-control" id="profissao" placeholder="Profissão">
-                                                </div>
-                                                <div class="form-group">
-                                                     <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                     <input type="password" class="form-control" id="passwordregistar" placeholder="Palavra-passe" required>
-                                                    <!-- Isto pode ser para um futuro -->
-                                                     <!--<div class="help-block text-right"><a href="">Forget the password ?</a></div>-->
-                                                </div>
-                                                <div class="form-group">
-                                                     <button type="button" onclick="RegistaCuidador()" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" id="buttonregistar" disabled="true">Registar!</button>
-                                                </div>
-                                         </form>
-                
-                <!-- Fim do Formulário -->
-              
-               
-            <p></p>
-                <div class="row">
-                    <div class="col-sm-6">
-                       <button data-dismiss="modal" class="btn btn-default btn-lg btn-block button-popup-success">Ficar :)</button> 
-                    </div>
-                    <div class="col-sm-6">
-                        <button data-dismiss="modal" onclick="Logout()" class="btn btn-default btn-lg btn-block button-popup-fail">Sair :(</button>
-                    </div>
+                <div class="form-group">
+                    <label for="inputprinome">Primeiro nome</label>
+                    <input type="text" class="form-control" placeholder="p.e.: Amália">
                 </div>
+                <div class="form-group">
+                    <label for="inputultnome">Último nome</label>
+                    <input type="text" class="form-control" placeholder="p.e.: Rodrigues">
+                </div>
+                <div class="form-group">
+                    <label for="inputidade">Idade</label>
+                    <input type="text" id="form29" class="form-control" placeholder="p.e.: 98">
+                </div>
+                <div class="form-group">
+                    <label for="inputidade">Observações relevantes</label>
+                    <textarea type="text" id="obs" class="form-control" rows="3" placeholder="Tem algum tipo de demência? Problemas de visão/audição? Gostos?"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Escolha uma imagem</label>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-default btn-file">
+                            Procurar...<input type="file" id="imgInp">
+                            </span>
+                        </span>
+                        <input type="text" class="form-control box-img" readonly>
+                    </div>
+                    <p></p>
+                    <img class="rounded-circle img-fluid bolita_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <div class="row">
+                        <div class="col-sm-6">
+                           <button data-dismiss="modal" class="btn btn-default btn-lg btn-block button-popup-success">Adicionar</button> 
+                        </div>
+                        <div class="col-sm-6">
+                            <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-fail">Cancelar</button>
+                        </div>
+                    </div>
             </div>
         </div>
-      </div>
     </div>
+</div>
+
     <!-- /.container -->
 
   </body>
-
 </html>
