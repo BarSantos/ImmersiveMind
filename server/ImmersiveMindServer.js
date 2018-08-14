@@ -6,8 +6,9 @@ var bodyParser 	= require('body-parser');
 var DB			= require('./ImmersiveMindDB.js');
 var http = require('http').Server(app);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '2000mb'}));
+app.use(bodyParser.urlencoded({limit: '2000mb', extended: true}));
 
 var port = process.env.PORT || 8080; 
 
@@ -108,8 +109,18 @@ router.route('/doentes').post(
 			var idade = req.body.idade;
 			var observacao = req.body.observacao;
 			var cuidadorID = req.body.cuidadorID;
+            var imagem = req.body.imagem;
+            var imageName = req.body.imagename;
+            
+            var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
+           
+            
+            console.log(base64Data);
+            fs.writeFile("./public/images/userimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
+                              console.log("file created");
+                            });
 			
-			var createDoentePromise = DB.createDoente(primeiroNome, ultimoNome, idade, observacao, cuidadorID);
+			var createDoentePromise = DB.createDoente(primeiroNome, ultimoNome, idade, observacao, cuidadorID, imageName);
 			promiseResolve(createDoentePromise, res,'Doente criado' , 'Erro a criar doente');
 		});
 

@@ -155,7 +155,7 @@ exports.cuidadorLogout = function (cuidadorID)
 	return defer.promise;
 }
 
-exports.createDoente = function(firstName, lastName, age, obs, cuidadorID)
+exports.createDoente = function(firstName, lastName, age, obs, cuidadorID, imageName)
 {
 	var defer = Q.defer();
 	
@@ -164,7 +164,9 @@ exports.createDoente = function(firstName, lastName, age, obs, cuidadorID)
 					ULTIMO_NOME: lastName,
 					IDADE: parseInt(age),
 					OBSERVACAO: obs,
-					EMAIL_ID: cuidadorID};
+					EMAIL_ID: cuidadorID,
+                    IMAGE: imageName
+                   };
 	
 	return doQueryIfLogged(insertQuery, toInsert, cuidadorID);								  
 }
@@ -173,7 +175,8 @@ exports.getDoentes = function(cuidadorID)
 {
 	var getDoentesQuery = "SELECT DOENTE_ID, "
 						+ "PRIMEIRO_NOME, "
-						+ "ULTIMO_NOME "
+						+ "ULTIMO_NOME, "
+                        + "IMAGE "
 						+ "FROM DOENTES "
 						+ "WHERE EMAIL_ID = ?";
 						

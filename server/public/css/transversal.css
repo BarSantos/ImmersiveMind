@@ -196,24 +196,26 @@ button:focus {outline: none !important;}
 }
 
 .button-popup-success {
-    background: #009b00;
-    border: #009b00; 
-    color: white;
+    font-family: 'Muli';
+    background: white;
+    outline: 2px solid #009b00; 
+    color: #3f3f3f;
 }
 
 .button-popup-success:hover {
-    background: #ccff90;
-    border: #ccff90;
+    background: white;
+    outline: 5px solid #009b00;
     color: #3f3f3f;
 }
 .button-popup-fail {
-    background: #d60000;
-    border: #d60000; 
-    color: white;
+    font-family: 'Muli';
+    background: white;
+    outline: 2px solid #d60000; 
+    color: #3f3f3f;
 }
 
 .button-popup-fail:hover {
-    background: #ff6666;
-    border: #ff6666;
-    color: white;
+    background: white;
+    outline: 5px solid #d60000;
+    color: #3f3f3f;
 }

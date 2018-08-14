@@ -28,7 +28,7 @@
     
 
         <!-- Font Awesome -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
           <!-- Fontes -->
         <style>
@@ -58,7 +58,7 @@
                         <li class="dropdown">
                             <a href="#" id="primeiroultimonome" class="dropdown-toggle textuser" data-toggle="dropdown">Olá, Ana Li <b class="caret"></b></a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#" id="logout" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Logout <i class="fa fa-sign-out"></i></a></li>
+                                    <li><a href="#" id="logout" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Logout <i class="fas fa-sign-out-alt"></i></a></li>
                             </ul>
                         </li>
                 </ul>
@@ -94,7 +94,7 @@
     
             <!-- BREADCRUMB-->
 
-            <div class="btn btn-default btn-arrow-right"><a href="frontpage"><span class="fa fa-home bread"></span></a></div>
+            <div class="btn btn-default btn-arrow-right"><a href="frontpage"><span class="fas fa-home bread"></span></a></div>
             <div class="btn btn-default btn-arrow-right bread">Gerir Utentes</div>
             <!--<div class="btn btn-default btn-arrow-right">Danger</div>-->
         
@@ -151,15 +151,15 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="inputprinome">Primeiro nome</label>
-                    <input type="text" class="form-control" placeholder="p.e.: Amália">
+                    <input type="text" id="prmeiroNome" class="form-control" placeholder="p.e.: Amália">
                 </div>
                 <div class="form-group">
                     <label for="inputultnome">Último nome</label>
-                    <input type="text" class="form-control" placeholder="p.e.: Rodrigues">
+                    <input type="text" id="ultimoNome" class="form-control" placeholder="p.e.: Rodrigues">
                 </div>
                 <div class="form-group">
                     <label for="inputidade">Idade</label>
-                    <input type="text" id="form29" class="form-control" placeholder="p.e.: 98">
+                    <input type="text" id="idade" class="form-control" placeholder="p.e.: 98">
                 </div>
                 <div class="form-group">
                     <label for="inputidade">Observações relevantes</label>
@@ -170,24 +170,24 @@
                     <label>Escolha uma imagem</label>
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <span class="btn btn-default btn-file">
+                            <span class="btn btn-default btn-file"><i class="fas fa-search"></i> 
                             Procurar...<input type="file" id="imgInp">
                             </span>
                         </span>
                         <input type="text" class="form-control box-img" readonly>
                     </div>
                     <p></p>
-                    <img class="rounded-circle img-fluid bolita_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
+                        <img class="rounded-circle img-fluid bolita_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
                 </div>
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <div class="row">
                         <div class="col-sm-6">
-                           <button data-dismiss="modal" class="btn btn-default btn-lg btn-block button-popup-success">Adicionar</button> 
+                           <button data-dismiss="modal" onclick="AddPatient()" class="btn btn-default btn-lg btn-block button-popup-success"><i class="fas fa-plus-circle"></i> Adicionar</button> 
                         </div>
                         <div class="col-sm-6">
-                            <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-fail">Cancelar</button>
+                            <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-fail"><i class="fas fa-times-circle"></i> Cancelar</button>
                         </div>
                     </div>
             </div>
