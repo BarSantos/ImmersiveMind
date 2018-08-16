@@ -46,23 +46,35 @@ function Bolinhas(){
                                                     imageName = "bolinhas_default.png";
                                                 
                                                 fillstring += '<div class="col-lg-4 col-sm-6 text-center mb-4">';
+                                                fillstring+= '<a href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="EditUtente()">'
                                                 fillstring += '<img class="rounded-circle img-fluid d-block mx-auto bolitas" alt=""  style="background-image: url('+imagePath+imageName+')">';
-                                                fillstring+= '<h3>'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+'</h3></div>';
+                                                fillstring+= '<h3>'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+'</h3></a></div>';
                                             }
                                         }
                                     
                                    /* console.log('Aqui supostamente e o plus');
                                     /* Sinal plus */ 
                                         fillstring+='<div class="col-lg-4 col-sm-6 text-center mb-4">';
-                                        fillstring+= '<a href="" data-toggle="modal" data-target="#modalContactForm">'
+                                        fillstring+= '<a href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="AddUtente()">';
                                         fillstring+= '<img class="rounded-circle img-fluid d-block mx-auto bolitas_plus" style="" alt="">';
-                                        fillstring+= '</a>'
+                                        fillstring+= '</a>';
                                         fillstring+= '</div>';
                                         document.getElementById("rowbolinhas").innerHTML = fillstring;
  
                                     }
                                 };
     xhttp.send();
+}
+
+function EditUtente(){
+    document.getElementById('utente-titulo').innerHTML = 'Editar Utente';
+    document.getElementById('addpatient').innerHTML = '<i class="fas fa-save"></i> Guardar';
+    // Aqui é necessário popular as caixas
+}
+
+function AddUtente(){
+    document.getElementById('utente-titulo').innerHTML = 'Novo Utente';
+    document.getElementById('addpatient').innerHTML = '<i class="fas fa-plus-circle"></i> Adicionar';
 }
 
 /*********Para a opção Procurar********/
@@ -151,4 +163,25 @@ function AddPatient(){
     xhttp.send(fd);
     imagem = '';
     imagemNome = '';
+}
+
+/************* Disable do botao quando não esta preenchido *****************/
+
+/*----- Para o Adicionar no botão plus: -----*/
+
+$( document ).ready(function() {
+    document.getElementById('formaddpatient').addEventListener("keyup", validateNewPatient);
+});
+
+
+function validateNewPatient(){
+    if ($('#prmeiroNome').val().length   >=   2   &&
+        $('#ultimoNome').val().length  >=   2   &&
+        $.isNumeric($('#idade').val()) &&
+        $('#obs').val().length > 0) {
+        $('#addpatient').prop("disabled", false);
+    }
+    else {
+        $('#addpatient').prop("disabled", true);
+    }
 }

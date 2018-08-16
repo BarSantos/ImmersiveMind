@@ -119,10 +119,13 @@ $( document ).ready(function() {
 
 
 function validateRegistar(){
-    if ($('#emailregistar').val().length   >   0   &&
-        $('#primeironomecuidador').val().length  >   0   &&
-        $('#ultimonomecuidador').val().length    >   0 &&
-        $('#passwordregistar').val().length > 0) {
+    var emailregex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var passregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    
+    if (emailregex.test($('#emailregistar').val())  &&
+        $('#primeironomecuidador').val().length  >   1   &&
+        $('#ultimonomecuidador').val().length    >   1 &&
+        passregex.test($('#passwordregistar').val())) {
         $('#buttonregistar').prop("disabled", false);
     }
     else {
@@ -138,8 +141,10 @@ $( document ).ready(function() {
 
 
 function validateLogin(){
-    if ($('#emaillogin').val().length   >   0   &&
-        $('#passwordlogin').val().length  >   0 ) {
+    var emailregex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+    if (emailregex.test($('#emaillogin').val())   &&
+        $('#passwordlogin').val().length  >   0) {
         $('#buttonlogin').prop("disabled", false);
     }
     else {
