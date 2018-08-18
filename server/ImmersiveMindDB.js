@@ -157,7 +157,6 @@ exports.cuidadorLogout = function (cuidadorID)
 
 exports.createDoente = function(firstName, lastName, age, obs, cuidadorID, imageName)
 {
-	var defer = Q.defer();
 	
 	var insertQuery = "INSERT INTO DOENTES SET ?";
 	var toInsert = {PRIMEIRO_NOME: firstName,
@@ -194,6 +193,53 @@ exports.getDoente = function(doenteID, cuidadorID)
 	var defer = makeQuery(getDoenteQuery, [doenteID, cuidadorID]);
 		
 	return defer.promise;
+}
+
+exports.updateDoente = function(firstName, lastName, age, obs, cuidadorID, imageName, doenteID)
+{
+   /* var updateDoenteQuery   = "UPDATE DOENTES "
+                            + "SET ? "
+                            + "WHERE DOENTE_ID = ?";
+    
+    var toUpdate = {PRIMEIRO_NOME: firstName,
+					ULTIMO_NOME: lastName,
+					IDADE: parseInt(age),
+					OBSERVACAO: obs,
+					EMAIL_ID: cuidadorID,
+                    IMAGE: imageName,
+                    DOENTE_ID: doenteID
+                   };
+	
+    */
+   var updateDoenteQuery   = "UPDATE doentes "
+                            + "SET "
+                            + "PRIMEIRO_NOME = ?, "
+                            + "ULTIMO_NOME = ?, "
+                            + "IDADE = ?, "
+                            + "OBSERVACAO = ?, "
+                            + "IMAGE = ? "
+                            + "WHERE DOENTE_ID = ?";
+    
+    age = parseInt(age);
+    var toUpdate = [firstName,
+					lastName,
+					age,
+					obs,
+                    imageName,
+                    doenteID
+                   ];
+
+    return doQueryIfLogged(updateDoenteQuery, toUpdate, cuidadorID);
+}
+
+exports.deleteDoente = function(cuidadorID, doenteID)
+{
+    var deleteDoenteQuery   = "DELETE "
+                            + "FROM DOENTES "
+                            + "WHERE DOENTE_ID = ?";
+    
+    return doQueryIfLogged(deleteDoenteQuery, doenteID, cuidadorID);
+    
 }
 
 exports.createSessao = function(nomeSessao, doenteID, cuidadorID)

@@ -33,6 +33,9 @@
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/favicon.ico"/>
 
           <!-- Fontes -->
         <style>
@@ -148,7 +151,7 @@
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h2 class="modal-title w-100 font-weight-bold modal-titulo" id="utente-titulo">Novo Utente</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetModalDoente()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -185,7 +188,7 @@
                             Procurar...<input type="file" id="imgInp">
                             </span>
                         </span>
-                        <input type="text" class="form-control box-img" readonly>
+                        <input type="text" class="form-control box-img" id="imagelabel" readonly>
                     </div>
                     <p></p>
                         <img class="rounded-circle img-fluid bolita_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
@@ -194,11 +197,14 @@
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" id="botaoAdicionar">
                            <button data-dismiss="modal" onclick="AddPatient()" class="btn btn-default btn-lg btn-block button-popup-success" disabled="true" id="addpatient"><i class="fas fa-plus-circle"></i> Adicionar</button> 
                         </div>
-                        <div class="col-sm-6">
-                            <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-fail"><i class="fas fa-times-circle"></i> Cancelar</button>
+                        <div class="col-sm-4" style="display: none;" id="botaoApagar">
+                            <button data-dismiss="modal" onclick="DeleteDoente()" class="btn btn-default btn-lg btn-block button-popup-fail" ><i class="fas fa-trash-alt"></i> Apagar</button>
+                        </div>
+                        <div class="col-sm-6" id="botaoCancelar">
+                            <button data-dismiss="modal" onclick="resetModalDoente()" class="btn btn-default btn-lg btn-block button-popup-fail"><i class="fas fa-times-circle"></i> Cancelar</button>
                         </div>
                     </div>
             </div>

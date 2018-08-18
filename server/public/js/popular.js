@@ -46,7 +46,7 @@ function Bolinhas(){
                                                     imageName = "bolinhas_default.png";
                                                 
                                                 fillstring += '<div class="col-lg-4 col-sm-6 text-center mb-4">';
-                                                fillstring+= '<a href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="EditUtente()">'
+                                                fillstring+= '<a href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="EditUtente(this.id)" id='+jsonResult[i].DOENTE_ID+'>';
                                                 fillstring += '<img class="rounded-circle img-fluid d-block mx-auto bolitas" alt=""  style="background-image: url('+imagePath+imageName+')">';
                                                 fillstring+= '<h3>'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+'</h3></a></div>';
                                             }
@@ -66,12 +66,115 @@ function Bolinhas(){
     xhttp.send();
 }
 
-function EditUtente(){
+/* Além de mudar para Editar Utente,
+Popula também cada caixinha correspondente a cada doente
+com os respectivos dados */
+
+function EditUtente(clicked_id){
+    window.sessionStorage.setItem("doenteID", clicked_id);
+    
+   
     document.getElementById('utente-titulo').innerHTML = 'Editar Utente';
     document.getElementById('addpatient').innerHTML = '<i class="fas fa-save"></i> Guardar';
+    
+    document.getElementById('addpatient').onclick = function()
+                                                    {
+                                                        UpdateDoente();
+                                                    };   
+    
+    //// Mostrar botão do Apagar ////
+    document.getElementById('botaoAdicionar').classList.remove('col-sm-6');
+    document.getElementById('botaoCancelar').classList.remove('col-sm-6');
+    
+    document.getElementById('botaoAdicionar').classList.add('col-sm-4');
+    document.getElementById('botaoCancelar').classList.add('col-sm-4');
+    document.getElementById('botaoApagar').style.display= 'block';
+    /////////////////////////////////
+    
     // Aqui é necessário popular as caixas
+    var xhttp = new XMLHttpRequest();
+    var email = window.sessionStorage.getItem("email_id");
+    var doente_id = clicked_id;
+    
+    xhttp.open("GET", "http://"+IPADDR+":8080/api/doentes/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.setRequestHeader('cuidadorid', email);
+    xhttp.setRequestHeader('doenteid', doente_id);
+    
+    xhttp.onreadystatechange  = function () {
+                                     if (this.readyState == 4 && this.status == 200) {
+                                         var resultJSON = JSON.parse(this.responseText);
+                                        
+                                        if(resultJSON.message != 'Erro a devolver doente'){
+                                            var jsonResult = JSON.parse(resultJSON);
+                                            document.getElementById("prmeiroNome").value = jsonResult[0].PRIMEIRO_NOME;
+                                            document.getElementById("ultimoNome").value = jsonResult[0].ULTIMO_NOME;
+                                            document.getElementById("idade").value = jsonResult[0].IDADE;
+                                            document.getElementById("obs").value = jsonResult[0].OBSERVACAO;
+                                            var imagePath = "images/userimages/";
+                                            var imageName;
+                                            
+                                            /*Se a pessoa não tiver escolhido imagem*/
+                                            if (jsonResult[0].IMAGE)
+                                                    imageName = jsonResult[0].IMAGE;
+                                                else
+                                                    imageName = "bolinhas_default.png";
+                                            
+                                            $('#img-upload').attr('style', "background-image: url('"+imagePath+imageName+"')");
+                                            $('#imagelabel').val(jsonResult[0].IMAGE); 
+                                        }
+                                     }
+    };
+   xhttp.send();
 }
 
+/*Função que actualiza o doente no modal*/
+function UpdateDoente(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("PUT", "http://"+IPADDR+":8080/api/doentes/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    var doenteID = window.sessionStorage.getItem("doenteID");
+    
+    var primeiroNome = document.getElementById("prmeiroNome").value;
+    var ultimoNome = document.getElementById("ultimoNome").value;
+    var idade = document.getElementById("idade").value;
+    var observacao = document.getElementById("obs").value;
+    var email = window.sessionStorage.getItem("email_id");
+    
+    var fd = "primeiroNome=" + primeiroNome + "&ultimoNome=" + ultimoNome + "&idade=" + idade + "&observacao=" + observacao + "&cuidadorID=" + email + "&imagem=" + imagem + "&imagename=" + imagemNome + "&doenteID=" + doenteID;
+    
+    xhttp.onreadystatechange  = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    Bolinhas();  
+                                    }
+                            };
+    xhttp.send(fd);
+    resetModalDoente();
+}
+    
+/*Função que actualiza o doente no modal*/
+function DeleteDoente(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("DELETE", "http://"+IPADDR+":8080/api/doentes/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    var doenteID = window.sessionStorage.getItem("doenteID");
+    
+    var email = window.sessionStorage.getItem("email_id");
+    
+    var fd = "&cuidadorID=" + email + "&doenteID=" + doenteID;
+    
+    xhttp.onreadystatechange  = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    Bolinhas();  
+                                    }
+                            };
+    xhttp.send(fd);
+    resetModalDoente();
+}
+
+/*Muda só o aspecto do modal*/
 function AddUtente(){
     document.getElementById('utente-titulo').innerHTML = 'Novo Utente';
     document.getElementById('addpatient').innerHTML = '<i class="fas fa-plus-circle"></i> Adicionar';
@@ -135,34 +238,44 @@ function AddPatient(){
     
     var fd = "primeiroNome=" + primeiroNome + "&ultimoNome=" + ultimoNome + "&idade=" + idade + "&observacao=" + observacao + "&cuidadorID=" + email + "&imagem=" + imagem + "&imagename=" + imagemNome;
     
-    window.alert("Thi is the image " +imagem);
-    window.alert("Thi is the image name " +imagemNome);
     
     xhttp.onreadystatechange  = function () {
-                                    if (this.readyState == 4 && this.status == 200) {   
-                                        var resultJSON = JSON.parse(this.responseText);
-                                        if(resultJSON.message == 'Error in LogIn')
-                                        {
-                                            // O cuidador provavelmente nao existe na BD
-                                            $("#myModal").modal();
-                                            
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        Bolinhas();  
                                         }
-                                        else{
-                                            
-                                            var jsonResult = JSON.parse(resultJSON);
-                        
-                                            window.sessionStorage.setItem("email_id", jsonResult[0].EMAIL_ID); 
-                                            window.sessionStorage.setItem("primeiro_nome", jsonResult[0].PRIMEIRO_NOME);
-                                            window.sessionStorage.setItem("ultimo_nome", jsonResult[0].ULTIMO_NOME);
-                                            location.href = "frontpage";
-                                        }
-                                    }
                                 };
-    
-    
     xhttp.send(fd);
+    resetModalDoente();
+}
+
+/* Depois de sair da página do modal do doente
+Apaga todas as entradas - não fica em "cache" */
+function resetModalDoente(){
+    document.getElementById("prmeiroNome").value = '';
+    document.getElementById("ultimoNome").value = '';
+    document.getElementById("idade").value = '';
+    document.getElementById("obs").value = '';
     imagem = '';
     imagemNome = '';
+    $('#img-upload').attr('style', "background-image: url('images/userimages/bolinhas_default.png')");
+    $('#imagelabel').val('');
+    document.getElementById("addpatient").setAttribute("disabled", "true");
+    $('#modalContactForm').modal('toggle');
+    
+    //// Esconder (again) botão do Apagar ////
+    document.getElementById('botaoAdicionar').classList.remove('col-sm-4');
+    document.getElementById('botaoCancelar').classList.remove('col-sm-4');
+    
+    document.getElementById('botaoAdicionar').classList.add('col-sm-6');
+    document.getElementById('botaoCancelar').classList.add('col-sm-6');
+    document.getElementById('botaoApagar').style.display= 'none';
+    /////////////////////////////////
+    window.sessionStorage.removeItem("doenteID");
+     document.getElementById('addpatient').onclick = function()
+                                                    {
+                                                       AddPatient();
+                                                    }; 
+    
 }
 
 /************* Disable do botao quando não esta preenchido *****************/

@@ -153,6 +153,45 @@ router.route('/doentes').get(
 			}	
 		});
 		
+
+router.route('/doentes').put(
+        function(req, res, next)
+        {
+            var primeiroNome = req.body.primeiroNome;
+			var ultimoNome = req.body.ultimoNome;
+			var idade = req.body.idade;
+			var observacao = req.body.observacao;
+			var cuidadorID = req.body.cuidadorID;
+            var imagem = req.body.imagem;       //conteúdo base64
+            var imageName = req.body.imagename; //meryl.jpg
+            var doenteID =req.body.doenteID;
+            
+            var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
+           
+            
+            console.log(base64Data);
+            fs.writeFile("./public/images/userimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
+                              console.log("file created");
+                            });
+			
+			var updateDoentePromise = DB.updateDoente(primeiroNome, ultimoNome, idade, observacao, cuidadorID, imageName, doenteID);
+            
+			promiseResolve(updateDoentePromise, res,'Doente actualizado' , 'Erro a actualizar doente');
+        });
+
+router.route('/doentes').delete(
+        function(req, res, next)
+        {
+			var cuidadorID = req.body.cuidadorID;
+            var doenteID =req.body.doenteID;
+            
+			
+			var deleteDoentePromise = DB.deleteDoente(cuidadorID, doenteID);
+            
+			promiseResolve(deleteDoentePromise, res,'Doente apagado' , 'Erro a apagar doente');
+        });
+
+
 /*
 *	O pedido GET tem duas funções
 *	caso só seja feito com o doenteID
