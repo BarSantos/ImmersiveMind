@@ -96,6 +96,8 @@ function EditUtente(clicked_id){
     var email = window.sessionStorage.getItem("email_id");
     var doente_id = clicked_id;
     
+    $('#addpatient').prop("disabled", false);
+    
     xhttp.open("GET", "http://"+IPADDR+":8080/api/doentes/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.setRequestHeader('cuidadorid', email);
@@ -126,6 +128,7 @@ function EditUtente(clicked_id){
                                      }
     };
    xhttp.send();
+  
 }
 
 /*Função que actualiza o doente no modal*/
