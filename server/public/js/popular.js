@@ -123,7 +123,9 @@ function EditUtente(clicked_id){
                                                     imageName = "bolinhas_default.png";
                                             
                                             $('#img-upload').attr('style', "background-image: url('"+imagePath+imageName+"')");
-                                            $('#imagelabel').val(jsonResult[0].IMAGE); 
+                                            $('#imagelabel').val(jsonResult[0].IMAGE);
+                                            
+                                            imagemNome = jsonResult[0].IMAGE;
                                         }
                                      }
     };
