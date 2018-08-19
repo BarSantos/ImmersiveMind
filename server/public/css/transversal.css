@@ -10,6 +10,7 @@ body html{
 }
 
 
+
 /**************************** NAVBAR ********************************/
 .navbar-nav > li > a{
     color: #f5dbcf;
@@ -56,13 +57,14 @@ body html{
     color: #f5dbcf !important;
     text-decoration: none;
 }
-.bread{
+.bread {
     color: #3f3f3f !important;
 }
 .bread:hover{
     text-decoration: none !important;
     color: white !important;
 }
+
 
 @media (min-width: 768px) {
     .navbar-text{
@@ -137,12 +139,10 @@ background-color: transparent !important;
     font-family: 'Muli';
     color: #3f3f3f;
     
+    
 }
 
- .btn-arrow-right:hover
-{
-   text-decoration-line: underline;
-}
+
 
 
 button:focus {outline: none !important;}

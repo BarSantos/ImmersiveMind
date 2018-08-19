@@ -46,7 +46,7 @@ function Bolinhas(){
                                                     imageName = "bolinhas_default.png";
                                                 
                                                 fillstring += '<div class="col-lg-4 col-sm-6 text-center mb-4">';
-                                                fillstring+= '<a href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="EditUtente(this.id)" id='+jsonResult[i].DOENTE_ID+'>';
+                                                fillstring+= '<a class="bolinhas_utentes" href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="EditUtente(this.id)" id='+jsonResult[i].DOENTE_ID+'>';
                                                 fillstring += '<img class="rounded-circle img-fluid d-block mx-auto bolitas" alt=""  style="background-image: url('+imagePath+imageName+')">';
                                                 fillstring+= '<h3>'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+'</h3></a></div>';
                                             }
