@@ -39,6 +39,11 @@ app.get('/frontpage', function(req, res, next){
 app.get('/patients', function(req, res, next){
     res.render('managepatients');
 });
+
+app.get('/sessions', function(req, res, next){
+    res.render('managesessions');
+});
+
 /*	
 * 	O pedido POST faz com que
 *	se crie novos cuidadores
