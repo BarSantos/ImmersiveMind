@@ -18,6 +18,9 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         
+         <link rel="stylesheet" type="text/css" href="/node_modules/primeicons/primeicons.css" />
+<link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/nova-light/theme.css" />
+<link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />
         
         
         <!-- Bootstrap core CSS -->
@@ -33,6 +36,8 @@
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        
+        
         
         <!-- Favicon -->
         <link rel="shortcut icon" href="images/favicon.ico"/>
@@ -167,28 +172,63 @@
                 <div class="tab-content">
                     <div id="dados-sessao" class="tab-pane fade show active">
                 <div class="form-group">
-                    <label for="inputprinome">Primeiro nome</label>
-                    <input type="text" id="prmeiroNome" class="form-control" placeholder="p.e.: Amália">
+                    <label for="inputsessaonome">Nome da Sessão (opcional)</label>
+                    <input type="text" id="sessaoNome" class="form-control" placeholder="p.e.: Música Portuguesa">
                 </div>
-                <script>bootstrapValidate('#prmeiroNome', 'min:2:Escreva um nome válido!');</script>
+                <script>bootstrapValidate('#sessaoNome', 'min:2:Escreva um título válido!');</script>
                 
                 <div class="form-group">
-                    <label for="inputultnome">Último nome</label>
-                    <input type="text" id="ultimoNome" class="form-control" placeholder="p.e.: Rodrigues">
+                    <label for="inputdata">Data de realização (opcional)</label>
+                    <input type="date" id="idade" class="form-control">
                 </div>
-                <script>bootstrapValidate('#ultimoNome', 'min:2:Escreva um nome válido!');</script>
                 
                 <div class="form-group">
-                    <label for="inputidade">Idade</label>
-                    <input type="number" id="idade" class="form-control" placeholder="p.e.: 98">
+                    <label for="inpututente">Escolha o utente</label>
+                    <select class="form-control" id="utenteid">
+                        <option>- Nenhum -</option>
+                        <option>Zé Maria</option>
+                        <option>Maria Josefina</option>
+                        <option>Carlos Pinto</option>
+                        <option>Ana Neves</option>
+                        <option>Luísa Esteves</option>
+    </select>
                 </div>
-                <script>bootstrapValidate('#idade', 'integer:Introduza uma idade válida!');</script>
+                <script>bootstrapValidate('#utenteid', 'required:Escolha um utente!');</script>
                 
                 <div class="form-group">
-                    <label for="inputidade">Observações relevantes</label>
-                    <textarea type="text" id="obs" class="form-control" rows="3" placeholder="Tem algum tipo de demência? Problemas de visão/audição? Gostos?"></textarea>
+                    <label for="inpututente">Temas dos vídeos</label>
+                    <div class="row">
+                    <div class="col-lg-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value=""> Animais/Natureza
+                    </label>
+                    </div>
+                    <div class="col-lg-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value=""> Locais/Pontos de interesse
+                    </label>
+                    </div>
+                        </div>
+                    <div class="row">
+                    <div class="col-lg-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value=""> Música
+                    </label>
+                        </div>
+                    <div class="col-lg-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value=""> Desporto
+                    </label>
+                    </div>
+                        
+                    </div>
                 </div>
                 <script>bootstrapValidate('#obs', 'required:Preencha este campo!');</script>
+                        
+                    <div class="form-group">
+                    <label for="input360link">Procurar vídeos 360º (opcional)</label>
+                    <input type="text" id="360link" class="form-control">
+                </div>
                 
                 <div class="form-group">
                     <label>Escolha uma imagem</label>
@@ -201,7 +241,7 @@
                         <input type="text" class="form-control box-img" id="imagelabel" readonly>
                     </div>
                     <p></p>
-                        <img class="rounded-circle img-fluid bolita_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
+                        <img class="img-fluid bolita_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
                 </div>
 
             </div>
