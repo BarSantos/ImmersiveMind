@@ -256,7 +256,7 @@ exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem)
 
 exports.getSessoesDoente = function(doenteID)
 {
-	var getSessoesQuery = "SELECT SESSAO_NOME, IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
+	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
 						+ "FROM SESSOES, DOENTES "
 						+ "WHERE SESSOES.DOENTE_ID = ? "
 						+ "AND DOENTES.DOENTE_ID = ?"; //Não sei se é irrelevante, experimentar
@@ -270,7 +270,7 @@ exports.getSessoesDoente = function(doenteID)
 
 exports.getSessoesCuidador = function(cuidadorID)
 {
-	var getSessoesQuery = "SELECT SESSAO_NOME, IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
+	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
 						+ "FROM SESSOES "
 						+ "INNER JOIN DOENTES ON "
 						+ "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
