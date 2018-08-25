@@ -242,23 +242,41 @@ exports.deleteDoente = function(cuidadorID, doenteID)
     
 }
 
-exports.createSessao = function(nomeSessao, doenteID, cuidadorID)
+exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem)
 {
 	var insertQuery = "INSERT INTO SESSAO SET ?";
 	var toInsert = {SESSAO_NOME: nomeSessao,
 					DOENTE_ID: doenteID,
-					EMAIL_ID: cuidadorID};
+					EMAIL_ID: cuidadorID,
+					DIA: dia,
+					IMAGEM: imagem};
 					
 	return doQueryIfLogged(insertQuery, toInsert, cuidadorID);						
 }
 
-exports.getSessoes = function(doenteID)
+exports.getSessoesDoente = function(doenteID)
 {
-	var getSessoesQuery = "SELECT * "
-						+ "FROM SESSAO "
-						+ "WHERE DOENTE_ID = ? ";
+	var getSessoesQuery = "SELECT SESSAO_NOME, IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
+						+ "FROM SESSOES, DOENTES "
+						+ "WHERE SESSOES.DOENTE_ID = ? "
+						+ "AND DOENTES.DOENTE_ID = ?"; //Não sei se é irrelevante, experimentar
 	
-	var defer = makeQuery(getSessoesQuery, doenteID);
+	var defer = makeQuery(getSessoesQuery, [doenteID, doenteID]);
+	
+	return defer.promise;
+
+
+}
+
+exports.getSessoesCuidador = function(cuidadorID)
+{
+	var getSessoesQuery = "SELECT SESSAO_NOME, IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
+						+ "FROM SESSOES "
+						+ "INNER JOIN DOENTES ON "
+						+ "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
+						+ "WHERE SESSOES.EMAIL_ID = ?";
+	
+	var defer = makeQuery(getSessoesQuery, cuidadorID);
 	
 	return defer.promise;
 }
@@ -266,7 +284,7 @@ exports.getSessoes = function(doenteID)
 exports.getSessao = function(sessaoID)
 {
 	var getSessaoQuery = "SELECT * "
-						+ "FROM SESSAO "
+						+ "FROM SESSOES "
 						+ "WHERE SESSAO_ID = ? ";
 						
 	var defer = makeQuery(getSessoesQuery, sessaoID);

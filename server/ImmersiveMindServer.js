@@ -122,7 +122,7 @@ router.route('/doentes').post(
             
             console.log(base64Data);
             fs.writeFile("./public/images/userimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
-                              console.log("file created");
+                              console.log("Imagem Doente Criada");
                             });
 			
 			var createDoentePromise = DB.createDoente(primeiroNome, ultimoNome, idade, observacao, cuidadorID, imageName);
@@ -176,7 +176,7 @@ router.route('/doentes').put(
             
             console.log(base64Data);
             fs.writeFile("./public/images/userimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
-                              console.log("file created");
+                              console.log("Imagem Doente Criada");
                             });
 			
 			var updateDoentePromise = DB.updateDoente(primeiroNome, ultimoNome, idade, observacao, cuidadorID, imageName, doenteID);
@@ -208,8 +208,10 @@ router.route('/doentes').delete(
 router.route('/sessoes').get(
 		function(req, res, next)
 		{
+			var cuidadorID = req.headers.cuidadorid;
 			var doenteID = req.headers.doenteid;
 			var sessaoID = req.headers.sessaoid;
+			
 			
 			if(sessaoID)
 			{
@@ -218,8 +220,16 @@ router.route('/sessoes').get(
 			}
 			else
 			{
-				var getSessoesPromise = DB.getSessoes(doenteID)
-				promiseWithResults(getSessaoPromise, res, 'Foram devolvidas Sessoes', 'Error a devolver Sessoes');
+				if(doenteID)
+				{
+					var getSessoesPromise = DB.getSessoesDoente(doenteID);
+					promiseWithResults(getSessaoPromise, res, 'Foram devolvidas Sessoes do Doente', 'Error a devolver Sessoes');
+				}
+				else
+				{
+					var getSessoesPromise = DB.getSessoesCuidador(cuidadorID);
+					promiseWithResults(getSessaoPromise, res, 'Foram devolvidas Sessoes do Cuidador', 'Error a devolver Sessoes');
+				}
 			}
 			
 		});
@@ -238,6 +248,14 @@ router.route('/sessoes').post(
 			var sessaoNome = req.body.nomesessao;
 			var doenteID = req.body.doenteid;
 			var cuidadorId = req.body.cuidadorid;
+			var dia = req.body.dia;
+			var imagem = req.body.imagem;       //conteúdo base64
+            var imageName = req.body.imagename; //meryl.jpg
+            
+            console.log(base64Data);
+            fs.writeFile("./public/images/sessionimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
+                              console.log("Imagem da Sessão Criada");
+                            });
 			
 			var createSessaoPromise = DB.createSessao(sessaoNome, doenteID, cuidadorID);
 			promiseResolve(createSessaoPromise, res, 'Sessao criada', 'Error a criar Sessao');
