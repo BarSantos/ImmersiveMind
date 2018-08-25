@@ -76,4 +76,42 @@ CREATE TABLE IF NOT EXISTS VIDEOS_OBSERVACAO
 	FOREIGN KEY (SESSAO_ID) REFERENCES SESSAO(SESSAO_ID)
 );
 
+/*** DELETE DOS VALORES DAS TABELAS ***/
+DELETE FROM 'CUIDADORES';
+DELETE FROM 'DOENTES';
+DELETE FROM 'SESSOES';
+DELETE FROM 'CATEGORIAS';
+DELETE FROM 'SESSAO_CONTEM_CATEGORIAS';
+DELETE FROM 'VIDEOS';
+DELETE FROM 'VIDEOS_OBSERVACAO';
 
+/*** INSERE OS VALORES NAS TABELAS ***/
+INSERT INTO CUIDADORES (EMAIL_ID, PRIMEIRO_NOME, ULTIMO_NOME, PROFISSAO, PASSWORD)
+VALUES ('pastel@gmail.com', 'Pastel', 'De Belém', 'Pasteleira', 'pastel');
+
+INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IMAGEM)
+VALUES ('Sardinha', 'Assada', 68, 'Bem assadinhas', 'pastel@gmail.com', 'sardinha.jpg');
+INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IMAGEM)
+VALUES ('Ovos', 'Moles', 79, 'Não gosta de ovos duros', 'pastel@gmail.com', 'ovos-moles-aveiro.jpg');
+INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IMAGEM)
+VALUES ('Travesseiro', 'de Sintra', 78, 'Vive na Piriquita', 'pastel@gmail.com', 'travesseiro-sintra.jpg');
+INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IMAGEM)
+VALUES ('Bola', 'de Berlim', 72, 'Inspirada no doce Berliner', 'pastel@gmail.com', 'berlim.jpg');
+INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IMAGEM)
+VALUES ('Pão', 'de Ló', 60, 'Fofinho e delicioso', 'pastel@gmail.com', 'pão-de-ló.jpg');
+INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IMAGEM)
+VALUES ('Arroz', 'Doce', 55, 'Malandrinho', 'pastel@gmail.com', 'arroz-doce.jpg');
+
+
+INSERT INTO SESSOES (SESSAO_NOME, EMAIL_ID, DOENTE_ID, DIA, IMAGEM)
+VALUES ('Vídeos NatGeo', 'pastel@gmail.com', 3, STR_TO_DATE('25-12-2018', '%d-%m-%Y'), 'nat-geo.png');
+
+INSERT INTO SESSAO_CONTEM_CATEGORIAS (SESSAO_ID, CATEGORIA)
+VALUES (1, 'Animais/Natureza');
+
+INSERT INTO CATEGORIAS (CATEGORIA)
+VALUES  ('Animais/Natureza'),
+        ('Desporto'),
+        ('Locais/Pontos de Interesse'),
+        ('Música');
+        
