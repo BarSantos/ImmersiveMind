@@ -89,7 +89,7 @@ DELETE FROM CUIDADORES;
 
 /*** INSERE OS VALORES NAS TABELAS ***/
 INSERT INTO CUIDADORES (EMAIL_ID, PRIMEIRO_NOME, ULTIMO_NOME, PROFISSAO, PASSWORD, LOGGED_IN)
-VALUES ('pastel@gmail.com', 'Pastel', _utf8'De Belém', 'Pasteleira', 'pastel', 0);
+VALUES ('pastel@gmail.com', 'Pastel', _utf8'De Belém', 'Pasteleira', SHA2('pastel', 256), 0);
 
 INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IMAGEM)
 VALUES ('Sardinha', 'Assada', 68, 'Bem assadinhas', 'pastel@gmail.com', 'sardinha.jpg');
@@ -106,7 +106,7 @@ VALUES ('Arroz', 'Doce', 55, 'Malandrinho', 'pastel@gmail.com', 'arroz-doce.jpg'
 
 
 INSERT INTO SESSOES (SESSAO_NOME, EMAIL_ID, DOENTE_ID, DIA, IMAGEM)
-VALUES (_utf8'Vídeos NatGeo', 'pastel@gmail.com', 3, STR_TO_DATE('25-12-2018', '%d-%m-%Y'), 'nat-geo.png');
+VALUES (_utf8'Vídeos NatGeo', 'pastel@gmail.com', 3, STR_TO_DATE('25-12-2018', '%d/%m/%Y'), 'nat-geo.png');
 
 INSERT INTO CATEGORIAS (CATEGORIA)
 VALUES  ('Animais/Natureza'),

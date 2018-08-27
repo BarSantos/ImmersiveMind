@@ -39,6 +39,10 @@ function makeQuery(query, arguments)
 	return defer;
 }
 
+/****************************************************************************/
+/*                                  CUIDADORES                              */  
+/****************************************************************************/
+
 /*
 *	Esta função verifica se o cuidador 
 * 	está logged in, caso esteja devolve
@@ -155,6 +159,10 @@ exports.cuidadorLogout = function (cuidadorID)
 	return defer.promise;
 }
 
+/****************************************************************************/
+/*                                  DOENTES                                 */  
+/****************************************************************************/
+
 exports.createDoente = function(firstName, lastName, age, obs, cuidadorID, imageName)
 {
 	
@@ -164,7 +172,7 @@ exports.createDoente = function(firstName, lastName, age, obs, cuidadorID, image
 					IDADE: parseInt(age),
 					OBSERVACAO: obs,
 					EMAIL_ID: cuidadorID,
-                    IMAGE: imageName
+                    IMAGEM: imageName
                    };
 	
 	return doQueryIfLogged(insertQuery, toInsert, cuidadorID);								  
@@ -175,9 +183,10 @@ exports.getDoentes = function(cuidadorID)
 	var getDoentesQuery = "SELECT DOENTE_ID, "
 						+ "PRIMEIRO_NOME, "
 						+ "ULTIMO_NOME, "
-                        + "IMAGE "
+                        + "IMAGEM "
 						+ "FROM DOENTES "
-						+ "WHERE EMAIL_ID = ?";
+						+ "WHERE EMAIL_ID = ? "
+                        +"ORDER BY PRIMEIRO_NOME ASC, ULTIMO_NOME ASC";
 						
 	var defer = makeQuery(getDoentesQuery, cuidadorID);
 	return defer.promise;	  
@@ -217,7 +226,7 @@ exports.updateDoente = function(firstName, lastName, age, obs, cuidadorID, image
                             + "ULTIMO_NOME = ?, "
                             + "IDADE = ?, "
                             + "OBSERVACAO = ?, "
-                            + "IMAGE = ? "
+                            + "IMAGEM = ? "
                             + "WHERE DOENTE_ID = ?";
     
     age = parseInt(age);
@@ -242,6 +251,9 @@ exports.deleteDoente = function(cuidadorID, doenteID)
     
 }
 
+/****************************************************************************/
+/*                                  SESSÕES                                 */  
+/****************************************************************************/
 exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem)
 {
 	var insertQuery = "INSERT INTO SESSAO SET ?";
@@ -256,7 +268,7 @@ exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem)
 
 exports.getSessoesDoente = function(doenteID)
 {
-	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
+	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, ' ', ULTIMO_NOME) AS NOME "
 						+ "FROM SESSOES, DOENTES "
 						+ "WHERE SESSOES.DOENTE_ID = ? "
 						+ "AND DOENTES.DOENTE_ID = ?"; //Não sei se é irrelevante, experimentar
@@ -270,7 +282,7 @@ exports.getSessoesDoente = function(doenteID)
 
 exports.getSessoesCuidador = function(cuidadorID)
 {
-	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, " ", ULTIMO_NOME) AS NOME "
+	var getSessoesQuery = "SELECT SESSAO_ID, SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, ' ', ULTIMO_NOME) AS NOME "
 						+ "FROM SESSOES "
 						+ "INNER JOIN DOENTES ON "
 						+ "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
@@ -283,14 +295,70 @@ exports.getSessoesCuidador = function(cuidadorID)
 
 exports.getSessao = function(sessaoID)
 {
-	var getSessaoQuery = "SELECT * "
+	var getSessaoQuery = "SELECT SESSOES.*, CONCAT(PRIMEIRO_NOME, ' ', ULTIMO_NOME) AS NOME "
 						+ "FROM SESSOES "
+                        + "INNER JOIN DOENTES ON "
+                        + "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
 						+ "WHERE SESSAO_ID = ? ";
 						
-	var defer = makeQuery(getSessoesQuery, sessaoID);
+	var defer = makeQuery(getSessaoQuery, sessaoID);
 	
 	return defer.promise;
 }
+
+/* AQUI SERVE PARA EDITAR UMA SESSÃO EXISTENTE */
+exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia, imageName)
+{
+
+   var updateSessaoQuery   = "UPDATE sessoes "
+                            + "SET "
+                            + "SESSAO_NOME = ?, "
+                            + "DOENTE_ID = ?, "
+                            + "DIA = ?, "
+                            + "IMAGEM = ? "
+                            + "WHERE SESSAO_ID = ?";
+    
+
+    var toUpdate = [sessaoNome,
+					doenteID,
+					dia,
+                    imageName,
+                    sessaoID
+                   ];
+
+    return doQueryIfLogged(updateSessaoQuery, toUpdate, cuidadorID);
+}
+
+exports.deleteSessao = function(cuidadorID, sessaoID)
+{
+    var deleteSessaoQuery   = "DELETE "
+                            + "FROM SESSOES "
+                            + "WHERE SESSAO_ID = ?";
+    
+    return doQueryIfLogged(deleteSessaoQuery, sessaoID, cuidadorID);
+    
+}
+
+/****************************************************************************/
+/*                                  CATEGORIAS                              */  
+/****************************************************************************/
+
+exports.getCategorias = function()
+{
+    
+	var getCategoriasQuery      = "SELECT * "
+                                + "FROM CATEGORIAS "
+                                + "ORDER BY CATEGORIA";
+						
+	var defer = makeQuery(getCategoriasQuery, 0);
+	
+	return defer.promise;
+}
+
+/****************************************************************************/
+/*                                  VÍDEOS                                  */  
+/****************************************************************************/
+
 
 /*
 *	Tens que ver ou aqui passas o URL do Youtube
@@ -323,6 +391,10 @@ exports.getVideosDaSessao = function(sessaoID)
 	
 	return defer.promise;
 }
+
+/****************************************************************************/
+/*                                  OBSERVAÇÕES                             */  
+/****************************************************************************/
 
 exports.createObservacao = function(observacao, tituloVideo, doenteID, cuidadorID, sessaoID)
 {
@@ -359,7 +431,12 @@ exports.getObservacaoDoenteID = function(doenteID)
 	
 	return defer.promise;
 }
- 
+
+
+/****************************************************************************/
+/*                                  SE LOGGED                               */  
+/****************************************************************************/
+
 function doQueryIfLogged(query, params, cuidadorID)
 {
 	var defer = Q.defer();

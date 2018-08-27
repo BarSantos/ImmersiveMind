@@ -197,6 +197,9 @@ router.route('/doentes').delete(
         });
 
 
+
+
+
 /*
 *	O pedido GET tem duas funções
 *	caso só seja feito com o doenteID
@@ -215,24 +218,50 @@ router.route('/sessoes').get(
 			
 			if(sessaoID)
 			{
+                console.log("sessao id - GET: "+ sessaoID);
 				var getSessaoPromise = DB.getSessao(sessaoID);
-				promiseWithResults(getSessaoPromise, res, 'Foi devolvida uma Sessao', 'Error a devolver Sessao');
+				promiseWithResult(getSessaoPromise, res, 'Foi devolvida uma Sessao', 'Error a devolver Sessao');
 			}
 			else
 			{
 				if(doenteID)
 				{
 					var getSessoesPromise = DB.getSessoesDoente(doenteID);
-					promiseWithResults(getSessaoPromise, res, 'Foram devolvidas Sessoes do Doente', 'Error a devolver Sessoes');
+					promiseWithResult(getSessoesPromise, res, 'Foram devolvidas Sessoes do Doente', 'Error a devolver Sessoes');
 				}
 				else
 				{
 					var getSessoesPromise = DB.getSessoesCuidador(cuidadorID);
-					promiseWithResults(getSessaoPromise, res, 'Foram devolvidas Sessoes do Cuidador', 'Error a devolver Sessoes');
+					promiseWithResult(getSessoesPromise, res, 'Foram devolvidas Sessoes do Cuidador', 'Error a devolver Sessoes');
 				}
 			}
 			
 		});
+
+router.route('/sessoes').put(
+        function(req, res, next)
+        {
+            var sessaoID = req.body.sessaoID;
+			var sessaoNome = req.body.nomesessao;
+			var doenteID = req.body.doenteid;
+			var cuidadorId = req.body.cuidadorid;
+			var dia = req.body.dia;
+			var imagem = req.body.imagem;       //conteúdo base64
+            var imageName = req.body.imagename; //meryl.jpg
+            
+            var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
+           
+            
+            console.log(base64Data);
+            fs.writeFile("./public/images/sessionimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
+                              console.log("Imagem Sessão Criada");
+                            });
+			
+			var updateSessaoPromise = DB.updateSessao(sessaoID, sessaoNome, cuidadorId, doenteID, dia, imageName);
+            sessaoID, sessaoNome, cuidadorID, doenteID, dia, imageName
+            
+			promiseResolve(updateSessaoPromise, res,'Sessão actualizado' , 'Erro a actualizar sessão');
+        });
 
 /*
 * 	O pedido POST faz com que
@@ -251,6 +280,8 @@ router.route('/sessoes').post(
 			var dia = req.body.dia;
 			var imagem = req.body.imagem;       //conteúdo base64
             var imageName = req.body.imagename; //meryl.jpg
+            
+            var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
             
             console.log(base64Data);
             fs.writeFile("./public/images/sessionimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
@@ -344,7 +375,18 @@ router.route('/observacao').post(
 		});
 
 		
+/****************************************************************************/
+/*                                  CATEGORIAS                              */  
+/****************************************************************************/
 
+router.route('/categorias').get(
+		function(req, res, next)
+		{
+			
+            var getCategoriasPromise =  DB.getCategorias();
+            promiseWithResult(getCategoriasPromise, res, 'Foram devolvidas Categorias', 'Error a devolver Categorias');
+			
+		});
 
 
 function promiseWithResult(promise, res, consoleMensage, errorMensage)

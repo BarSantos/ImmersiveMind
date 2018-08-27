@@ -1,13 +1,16 @@
 /*****************************************************************************/
 /*                          I M P O R T A N T E                              */
 /*****************************************************************************/
-var IPADDR = '192.168.1.74';
+var IPADDR = '192.168.1.14';
 /*****************************************************************************/
 /*                          I M P O R T A N T E                              */
 /*****************************************************************************/
 
 
-
+/*************VARIÁVEIS GLOBAIS ***********/
+var imagem = '';
+var imagemNome = '';
+/******************************************/
 
 /*------- Para criar bolinhas ----*/
 
@@ -40,8 +43,8 @@ function Bolinhas(){
                                             
                                             /* Popular com doentes */
                                             for(var i=0; i<jsonResult.length; i++){
-                                                if (jsonResult[i].IMAGE)
-                                                    imageName = jsonResult[i].IMAGE;
+                                                if (jsonResult[i].IMAGEM)
+                                                    imageName = jsonResult[i].IMAGEM;
                                                 else
                                                     imageName = "bolinhas_default.png";
                                                 
@@ -117,15 +120,15 @@ function EditUtente(clicked_id){
                                             var imageName;
                                             
                                             /*Se a pessoa não tiver escolhido imagem*/
-                                            if (jsonResult[0].IMAGE)
-                                                    imageName = jsonResult[0].IMAGE;
+                                            if (jsonResult[0].IMAGEM)
+                                                    imageName = jsonResult[0].IMAGEM;
                                                 else
                                                     imageName = "bolinhas_default.png";
                                             
                                             $('#img-upload').attr('style', "background-image: url('"+imagePath+imageName+"')");
-                                            $('#imagelabel').val(jsonResult[0].IMAGE);
+                                            $('#imagelabel').val(jsonResult[0].IMAGEM);
                                             
-                                            imagemNome = jsonResult[0].IMAGE;
+                                            imagemNome = jsonResult[0].IMAGEM;
                                         }
                                      }
     };
@@ -186,8 +189,7 @@ function AddUtente(){
 }
 
 /*********Para a opção Procurar********/
-var imagem = '';
-var imagemNome = '';
+
 $(document).ready( function() {
     	$(document).on('change', '.btn-file :file', function() {
 		var input = $(this),

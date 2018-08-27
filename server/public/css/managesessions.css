@@ -7,11 +7,11 @@ h3 {
 h3:hover{
     color: #f9ebe4;
 }
-.bolinhas_utentes:hover{
+.rect_utentes:hover{
     text-decoration: none !important;
 }
 
-.bolitas{
+.rect{
     width:300px; 
     height:200px;
     background-position:50% 50%;
@@ -24,12 +24,12 @@ h3:hover{
 }
 
 
-.bolitas:hover{
+.rect:hover{
     text-decoration: none !important;
     -webkit-filter: brightness(110%);
 }
 
-.bolitas_plus{
+.rect_plus{
     background-image:url(../images/plus_sign_cool.png);
     width:300px; 
     height:200px;
@@ -43,7 +43,7 @@ h3:hover{
 }
 
 
-.bolitas_plus:hover{
+.rect_plus:hover{
     /*background-image:url('../images/plus_sign_cool_pressed.png');*/
     -webkit-filter: brightness(110%);
 }
@@ -108,7 +108,7 @@ h3:hover{
 }
 
 /**** Preview da imagem no novo utente *****/
-.bolita_preview{
+.rect_preview{
     width:300px !important; 
     height:200px !important;
     background-repeat:no-repeat !important;

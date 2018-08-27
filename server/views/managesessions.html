@@ -150,7 +150,7 @@
     </div>
  <!-- /.container -->
 
-<!------------------------- Popup do Plus --------------------------->
+<!------------------------- Popup dAS sessoes --------------------------->
     <div class="modal fade popup-plus" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -164,28 +164,27 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#obs-sessao">Observações</a></li>
                 </ul>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetModalDoente()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetModalSessao()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="formaddpatient">
+            <div class="modal-body" id="formaddsession">
                 <div class="tab-content">
                     <div id="dados-sessao" class="tab-pane fade show active">
                 <div class="form-group">
                     <label for="inputsessaonome">Nome da Sessão (opcional)</label>
                     <input type="text" id="sessaoNome" class="form-control" placeholder="p.e.: Música Portuguesa">
                 </div>
-                <script>bootstrapValidate('#sessaoNome', 'min:2:Escreva um título válido!');</script>
                 
                 <div class="form-group">
                     <label for="inputdata">Data de realização (opcional)</label>
-                    <input type="date" id="idade" class="form-control">
+                    <input type="date" id="diaid" class="form-control">
                 </div>
                 
                 <div class="form-group">
                     <label for="inpututente">Escolha o utente</label>
                     <select class="form-control" id="utenteid">
-                        <option>- Nenhum -</option>
+                        <option selected>- Nenhum -</option>
                         <option>Zé Maria</option>
                         <option>Maria Josefina</option>
                         <option>Carlos Pinto</option>
@@ -195,33 +194,8 @@
                 </div>
                 <script>bootstrapValidate('#utenteid', 'required:Escolha um utente!');</script>
                 
-                <div class="form-group">
-                    <label for="inpututente">Temas dos vídeos</label>
-                    <div class="row">
-                    <div class="col-lg-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value=""> Animais/Natureza
-                    </label>
-                    </div>
-                    <div class="col-lg-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value=""> Locais/Pontos de interesse
-                    </label>
-                    </div>
-                        </div>
-                    <div class="row">
-                    <div class="col-lg-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value=""> Música
-                    </label>
-                        </div>
-                    <div class="col-lg-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value=""> Desporto
-                    </label>
-                    </div>
-                        
-                    </div>
+                <div class="form-group" id="popularcategorias">
+                    <!-- FEITO NO POPULAR SESSOES NA FUNÇÃO ChamarCategorias() -->
                 </div>
                 <script>bootstrapValidate('#obs', 'required:Preencha este campo!');</script>
                         
@@ -241,7 +215,7 @@
                         <input type="text" class="form-control box-img" id="imagelabel" readonly>
                     </div>
                     <p></p>
-                        <img class="img-fluid bolita_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
+                        <img class="img-fluid rect_preview d-block mx-auto" id='img-upload' style="background-image: url(images/bolinhas_default.png)"/>
                 </div>
 
             </div>
@@ -253,13 +227,13 @@
             <div class="modal-footer d-flex justify-content-center">
                 <div class="row">
                         <div class="col-sm-6" id="botaoAdicionar">
-                           <button data-dismiss="modal" onclick="AddPatient()" class="btn btn-default btn-lg btn-block button-popup-success" disabled="true" id="addpatient"><i class="fas fa-plus-circle"></i> Adicionar</button> 
+                           <button data-dismiss="modal" onclick="AddSession()" class="btn btn-default btn-lg btn-block button-popup-success" disabled="true" id="addsession"><i class="fas fa-plus-circle"></i> Adicionar</button> 
                         </div>
                         <div class="col-sm-4" style="display: none;" id="botaoApagar">
                             <button data-dismiss="modal" onclick="DeleteDoente()" class="btn btn-default btn-lg btn-block button-popup-fail" ><i class="fas fa-trash-alt"></i> Apagar</button>
                         </div>
                         <div class="col-sm-6" id="botaoCancelar">
-                            <button data-dismiss="modal" onclick="resetModalDoente()" class="btn btn-default btn-lg btn-block button-popup-fail"><i class="fas fa-times-circle"></i> Cancelar</button>
+                            <button data-dismiss="modal" onclick="resetModalSession()" class="btn btn-default btn-lg btn-block button-popup-fail"><i class="fas fa-times-circle"></i> Cancelar</button>
                         </div>
                     </div>
             </div>
