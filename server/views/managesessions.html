@@ -192,12 +192,12 @@
                         <option>Luísa Esteves</option>
     </select>
                 </div>
-                <script>bootstrapValidate('#utenteid', 'required:Escolha um utente!');</script>
+    
                 
                 <div class="form-group" id="popularcategorias">
                     <!-- FEITO NO POPULAR SESSOES NA FUNÇÃO ChamarCategorias() -->
                 </div>
-                <script>bootstrapValidate('#obs', 'required:Preencha este campo!');</script>
+                
                         
                     <div class="form-group">
                     <label for="input360link">Procurar vídeos 360º (opcional)</label>
@@ -205,7 +205,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Escolha uma imagem</label>
+                    <label>Escolha uma imagem (opcional)</label>
                     <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file"><i class="fas fa-search"></i> 
@@ -225,15 +225,20 @@
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
+                
+                <!-- Botões Adicionar/Guardar - Apagar - Terminar - Cancelar -->
                 <div class="row">
                         <div class="col-sm-6" id="botaoAdicionar">
-                           <button data-dismiss="modal" onclick="AddSession()" class="btn btn-default btn-lg btn-block button-popup-success" disabled="true" id="addsession"><i class="fas fa-plus-circle"></i> Adicionar</button> 
+                           <button data-dismiss="modal" onclick="AddSession()" class="btn btn-default btn-lg btn-block button-popup-success" id="addsession"><i class="fas fa-plus-circle"></i> Adicionar</button> 
                         </div>
-                        <div class="col-sm-4" style="display: none;" id="botaoApagar">
-                            <button data-dismiss="modal" onclick="DeleteDoente()" class="btn btn-default btn-lg btn-block button-popup-fail" ><i class="fas fa-trash-alt"></i> Apagar</button>
+                        <div class="col-sm-3" style="display: none;" id="botaoApagar">
+                            <button data-dismiss="modal" onclick="DeleteSessao()" class="btn btn-default btn-lg btn-block button-popup-fail btn-size" ><i class="fas fa-trash-alt"></i> Apagar</button>
+                        </div>
+                        <div class="col-sm-3" style="display: none;" id="botaoTerminar">
+                            <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-fail btn-size-terminar-cancelar" ><i class="fas fa-stop-circle"></i> Terminar</button>
                         </div>
                         <div class="col-sm-6" id="botaoCancelar">
-                            <button data-dismiss="modal" onclick="resetModalSession()" class="btn btn-default btn-lg btn-block button-popup-fail"><i class="fas fa-times-circle"></i> Cancelar</button>
+                            <button data-dismiss="modal" onclick="resetModalSessao()" class="btn btn-default btn-lg btn-block button-popup-fail" id="cancelsession"><i class="fas fa-times-circle"></i> Cancelar</button>
                         </div>
                     </div>
             </div>

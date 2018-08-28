@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS SESSOES
 	SESSAO_NOME VARCHAR(20),
 	EMAIL_ID VARCHAR(20) NOT NULL,
 	DOENTE_ID INT,
-    DIA DATE NOT NULL,
+    DIA DATE ,
     IMAGEM VARCHAR(60),
 	PRIMARY KEY (SESSAO_ID),
 	FOREIGN KEY (DOENTE_ID) REFERENCES DOENTES(DOENTE_ID), 
@@ -106,7 +106,7 @@ VALUES ('Arroz', 'Doce', 55, 'Malandrinho', 'pastel@gmail.com', 'arroz-doce.jpg'
 
 
 INSERT INTO SESSOES (SESSAO_NOME, EMAIL_ID, DOENTE_ID, DIA, IMAGEM)
-VALUES (_utf8'Vídeos NatGeo', 'pastel@gmail.com', 3, STR_TO_DATE('25-12-2018', '%d/%m/%Y'), 'nat-geo.png');
+VALUES (_utf8'Vídeos NatGeo', 'pastel@gmail.com', 3, STR_TO_DATE('25-12-2018', '%d-%m-%Y'), 'nat-geo.png');
 
 INSERT INTO CATEGORIAS (CATEGORIA)
 VALUES  ('Animais/Natureza'),

@@ -1,5 +1,5 @@
-const mysql = require('mysql');
-const crypto = require('crypto');
+var mysql = require('mysql');
+var crypto = require('crypto');
 var Q = require("q");
 
 
@@ -254,21 +254,24 @@ exports.deleteDoente = function(cuidadorID, doenteID)
 /****************************************************************************/
 /*                                  SESSÕES                                 */  
 /****************************************************************************/
-exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem)
+exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem, categorias)
 {
-	var insertQuery = "INSERT INTO SESSAO SET ?";
+	var insertQuery = "INSERT INTO SESSOES SET ?";
+    
 	var toInsert = {SESSAO_NOME: nomeSessao,
 					DOENTE_ID: doenteID,
 					EMAIL_ID: cuidadorID,
 					DIA: dia,
 					IMAGEM: imagem};
-					
-	return doQueryIfLogged(insertQuery, toInsert, cuidadorID);						
+    
+	var promise = categoriasIfLogged(insertQuery, toInsert, cuidadorID, categorias, false, null);
+        
+	return promise;						
 }
 
 exports.getSessoesDoente = function(doenteID)
 {
-	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, ' ', ULTIMO_NOME) AS NOME "
+	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID "
 						+ "FROM SESSOES, DOENTES "
 						+ "WHERE SESSOES.DOENTE_ID = ? "
 						+ "AND DOENTES.DOENTE_ID = ?"; //Não sei se é irrelevante, experimentar
@@ -282,9 +285,9 @@ exports.getSessoesDoente = function(doenteID)
 
 exports.getSessoesCuidador = function(cuidadorID)
 {
-	var getSessoesQuery = "SELECT SESSAO_ID, SESSAO_NOME, SESSOES.IMAGEM, CONCAT(PRIMEIRO_NOME, ' ', ULTIMO_NOME) AS NOME "
+	var getSessoesQuery = "SELECT SESSAO_ID, SESSAO_NOME, SESSOES.IMAGEM, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID "
 						+ "FROM SESSOES "
-						+ "INNER JOIN DOENTES ON "
+						+ "LEFT JOIN DOENTES ON "
 						+ "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
 						+ "WHERE SESSOES.EMAIL_ID = ?";
 	
@@ -295,9 +298,9 @@ exports.getSessoesCuidador = function(cuidadorID)
 
 exports.getSessao = function(sessaoID)
 {
-	var getSessaoQuery = "SELECT SESSOES.*, CONCAT(PRIMEIRO_NOME, ' ', ULTIMO_NOME) AS NOME "
+	var getSessaoQuery = "SELECT SESSOES.*, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID "
 						+ "FROM SESSOES "
-                        + "INNER JOIN DOENTES ON "
+                        + "LEFT JOIN DOENTES ON "
                         + "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
 						+ "WHERE SESSAO_ID = ? ";
 						
@@ -307,7 +310,7 @@ exports.getSessao = function(sessaoID)
 }
 
 /* AQUI SERVE PARA EDITAR UMA SESSÃO EXISTENTE */
-exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia, imageName)
+exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia, imageName, categorias, notCAtegorias)
 {
 
    var updateSessaoQuery   = "UPDATE sessoes "
@@ -325,18 +328,22 @@ exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia,
                     imageName,
                     sessaoID
                    ];
+    
+    console.log("TO UPDATE: " + toUpdate);
 
-    return doQueryIfLogged(updateSessaoQuery, toUpdate, cuidadorID);
+    return categoriasIfLogged(updateSessaoQuery, toUpdate, cuidadorID, categorias, sessaoID, notCAtegorias);
 }
 
 exports.deleteSessao = function(cuidadorID, sessaoID)
 {
+    deleteSessaoContemCategorias(sessaoID);
+
     var deleteSessaoQuery   = "DELETE "
                             + "FROM SESSOES "
                             + "WHERE SESSAO_ID = ?";
     
-    return doQueryIfLogged(deleteSessaoQuery, sessaoID, cuidadorID);
-    
+     connection.query(deleteSessaoQuery, sessaoID);
+	//return doQueryIfLogged(deleteSessaoQuery, sessaoID, cuidadorID);  
 }
 
 /****************************************************************************/
@@ -353,6 +360,61 @@ exports.getCategorias = function()
 	var defer = makeQuery(getCategoriasQuery, 0);
 	
 	return defer.promise;
+}
+/****************************************************************************/
+/*                            SESSAO_CONTEM_CATEGORIAS                      */  
+/****************************************************************************/
+
+function associateCategoriesToSessions(categoria)
+{
+    var associateQuery  = "INSERT INTO SESSAO_CONTEM_CATEGORIAS "
+                        + "VALUES (LAST_INSERT_ID(), ?)";
+    
+    makeQuery(associateQuery, categoria);
+}
+
+function updateCategoriesToSessions(categoria, sessaoID)
+{
+    var associateQuery  = "INSERT INTO SESSAO_CONTEM_CATEGORIAS "
+                        + "VALUES (?, ?)";
+    
+    makeQuery(associateQuery, [sessaoID, categoria]);
+}
+
+
+function removeCategoriesToSessions(categoria, sessaoID)
+{
+    var associateQuery  = "DELETE "
+                        + "FROM SESSAO_CONTEM_CATEGORIAS "
+                        + "WHERE SESSAO_ID = ? "
+                        + "AND CATEGORIA = ? ";
+    
+    console.log("DELETE ID: " + sessaoID + " CATEGORIA: " + categoria);
+    makeQuery(associateQuery, [sessaoID, categoria]);
+}
+
+
+
+
+exports.getCategoriasFromSession = function(sessaoID){
+    
+    var getCategoriasFromSessionQuery   = "SELECT CATEGORIA "
+                                        + "FROM SESSAO_CONTEM_CATEGORIAS "
+                                        + "WHERE SESSAO_ID = ? ";
+    
+    var defer = makeQuery(getCategoriasFromSessionQuery, sessaoID);
+    
+    return defer.promise;
+}
+
+function deleteSessaoContemCategorias (sessaoID)
+{
+    var deleteSessaoQuery   = "DELETE "
+                            + "FROM SESSAO_CONTEM_CATEGORIAS "
+                            + "WHERE SESSAO_ID = ?";
+    
+    connection.query(deleteSessaoQuery, sessaoID);
+    
 }
 
 /****************************************************************************/
@@ -457,6 +519,36 @@ function doQueryIfLogged(query, params, cuidadorID)
 
 
 
+function categoriasIfLogged(query, params, cuidadorID, categorias, sessaoID, notCategorias)
+{
+	var defer = Q.defer();
+	var checkLoggedInPromise = checkIfCuidadorIsLogged(cuidadorID);
+	checkLoggedInPromise.done(function()
+								{
+                                
+									connection.query(query, params);
+        
+                                    if(sessaoID)
+                                    {
+                                        for(var i = 0; notCategorias[i]; i++)
+                                            removeCategoriesToSessions(notCategorias[i], sessaoID);
+                                         for(var i = 0; categorias[i]; i++)
+                                            updateCategoriesToSessions(categorias[i], sessaoID);
+                                    }
+                                    else
+                                    {
+                                        for(var i = 0; categorias[i]; i++)
+                                            associateCategoriesToSessions(categorias[i]);
+                                    }
+									defer.resolve();
+								},
+							  function()
+							  	{
+							  		console.log("Não Está logged");
+					  				defer.reject();
+							  	});
+	return defer.promise;	
+}
 
 
 

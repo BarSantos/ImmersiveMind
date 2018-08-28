@@ -1,7 +1,7 @@
 /*****************************************************************************/
 /*                          I M P O R T A N T E                              */
 /*****************************************************************************/
-var IPADDR = '192.168.1.14';
+var IPADDR = '192.168.1.74';
 /*****************************************************************************/
 /*                          I M P O R T A N T E                              */
 /*****************************************************************************/
@@ -99,7 +99,7 @@ function ChamarDoentes(){
                                             
                                             /* Popular com doentes nas opções do modal das sessões */
                                             for(var i=0; i<jsonResult.length; i++){
-                                                fillstring+='<option id="D-'+jsonResult[i].DOENTE_ID+'">';
+                                                fillstring+='<option value='+jsonResult[i].DOENTE_ID+'>';
                                                 fillstring+=jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME;
                                                 fillstring+='</option>';
                                             }
@@ -142,7 +142,7 @@ function ChamarCategorias(){
                                                 
                                                     fillstring+='<div class="col-lg-6">';
                                                     fillstring+='<label class="checkbox-inline">';
-                                                    fillstring+='<input type="checkbox" value=""> '+jsonResult[i].CATEGORIA;
+                                                    fillstring+='<input type="checkbox" class="messageCheckbox" value="'+jsonResult[i].CATEGORIA+'"> '+jsonResult[i].CATEGORIA;
                                                     fillstring+='</label>';
                                                     fillstring+='</div>';
                                                 
@@ -179,9 +179,14 @@ function EditSession(clicked_id){
     document.getElementById('botaoAdicionar').classList.remove('col-sm-6');
     document.getElementById('botaoCancelar').classList.remove('col-sm-6');
     
-    document.getElementById('botaoAdicionar').classList.add('col-sm-4');
-    document.getElementById('botaoCancelar').classList.add('col-sm-4');
+    /*redefine o tamanho do botão*/
+    document.getElementById('addsession').classList.add('btn-size');
+    document.getElementById('cancelsession').classList.add('btn-size-terminar-cancelar');
+    
+    document.getElementById('botaoAdicionar').classList.add('col-sm-3');
+    document.getElementById('botaoCancelar').classList.add('col-sm-3');
     document.getElementById('botaoApagar').style.display= 'block';
+    document.getElementById('botaoTerminar').style.display= 'block';
     /////////////////////////////////
     
     // Aqui é necessário popular as caixas
@@ -202,14 +207,25 @@ function EditSession(clicked_id){
                                         if(resultJSON.message != 'Error a devolver Sessao'){
                                             var jsonResult = JSON.parse(resultJSON);
                                             document.getElementById("sessaoNome").value = jsonResult[0].SESSAO_NOME;
-                                            document.getElementById('diaid').value = jsonResult[0].DIA.split('T').shift();
                                             
-                                            var nomeUtente = '- Nenhum -';
+                                            var dia =  jsonResult[0].DIA;
+                                            if(dia)
+                                                document.getElementById('diaid').value = dia.split('T').shift();
                                             
-                                            if(jsonResult[0].NOME) //Se tiver algum nome associado (tipo travesseiro)
-                                                nomeUtente = jsonResult[0].NOME; 
                                             
-                                            document.getElementById("utenteid").value = nomeUtente;
+                                            getCategoriasDaSessao(sessaoID);
+                                            var idUtente = jsonResult[0].SESSOES_DOENTE_ID; //'- Nenhum -'
+
+                                            if(idUtente){ //Se tiver algum nome associado (tipo travesseiro)
+                                                document.getElementById("utenteid").value = idUtente;
+                                            }
+                                                //nomeUtente = jsonResult[0].NOME;
+                                            else
+                                                document.getElementById("utenteid").value = '- Nenhum -';
+                                            
+                                           
+                                            window.alert('getElement: '+document.getElementById("utenteid").value);
+                                            
                                             var imagePath = "images/sessionimages/";
                                             var imageName;
                                             
@@ -227,8 +243,47 @@ function EditSession(clicked_id){
                                      }
     };
    xhttp.send();
-  
 }
+
+function getCategoriasDaSessao(sessao_id){
+    var xhttp = new XMLHttpRequest();
+    
+    xhttp.open("GET", "http://"+IPADDR+":8080/api/categorias/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.setRequestHeader('sessaoid', sessao_id);
+    xhttp.onreadystatechange  = function () {
+                    
+                                    if (this.readyState == 4 && this.status == 200) {
+                                       
+                                        var resultJSON = JSON.parse(this.responseText);
+                                        
+                                        
+                                        if(resultJSON.message != 'Error a devolver Categorias'){
+                                            var jsonResult = JSON.parse(resultJSON);
+                                            
+                                            var inputElements = document.getElementsByClassName('messageCheckbox');
+    
+                                            
+                                            /* Popular com doentes nas opções do modal das sessões */
+                                            for(var i=0; i<jsonResult.length; i++){
+                                                for(var j=0; inputElements[j]; ++j){
+                                                    if(inputElements[j].value == jsonResult[i].CATEGORIA){
+                                                        inputElements[j].checked = true;
+                                                        break;
+                                                    }
+                                                }
+                                                
+                                            }
+                                        }
+                                    
+ 
+                                    }
+                                };
+    xhttp.send();
+}
+
+
+
 
 /*Função que actualiza o doente no modal*/
 function UpdateSession(){
@@ -236,22 +291,34 @@ function UpdateSession(){
     xhttp.open("PUT", "http://"+IPADDR+":8080/api/sessoes/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
-    var sessionID = window.sessionStorage.getItem("sessaoID");
     var cuidadorID = window.sessionStorage.getItem("email_id");
-    
-    
+    var sessaoID = window.sessionStorage.getItem("sessaoID");
     var sessaoNome = document.getElementById("sessaoNome").value;
     var doenteID = document.getElementById("utenteid").value;
     var dia = document.getElementById("diaid").value;
     
+    /* Apanha os valores das Categorias */
+    var checkedValue = '';
+    var uncheckedValue = ''; 
+    var inputElements = document.getElementsByClassName('messageCheckbox');
+    for(var i=0; inputElements[i]; ++i){
+      if(inputElements[i].checked){
+           checkedValue+= inputElements[i].value + '-';
+      }
+      if(!inputElements[i].checked){
+           uncheckedValue+= inputElements[i].value + '-';
+      }
+    }
+    
     /* O que está entre aspas são os nomes do server: var sessaoID = req.body.-----> sessaoID <---- este;*/
-    var fd = "sessaoID=" + sessionID + "&nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorid + "&dia=" + dia + "&imagem=" + imagem + "&imagename=" + imagemNome;
+    var fd = "nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorID + "&dia=" + dia +"&categorias=" + checkedValue + "&notcategorias=" + uncheckedValue + "&imagem=" + imagem + "&imagename=" + imagemNome + "&sessaoid=" + sessaoID;
+    
     
     xhttp.onreadystatechange  = function () {
-                                if (this.readyState == 4 && this.status == 200) {
-                                    Sessoes();  
-                                    }
-                            };
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        Sessoes();  
+                                        }
+                                };
     xhttp.send(fd);
     resetModalSessao();
 }
@@ -266,11 +333,12 @@ function DeleteSessao(){
     
     var email = window.sessionStorage.getItem("email_id");
     
-    var fd = "sessaoID=" + sessionID + "&cuidadorid=" + email;
+    var fd =  "cuidadorID=" + email + "&sessaoID=" + sessionID;
     
     xhttp.onreadystatechange  = function () {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    Sessoes();  
+                                    var resultJSON = JSON.parse(this.responseText);
+                                            Sessoes();
                                     }
                             };
     xhttp.send(fd);
@@ -337,8 +405,17 @@ function AddSession(){
     var doenteID = document.getElementById("utenteid").value;
     var dia = document.getElementById("diaid").value;
     
+    /* Apanha os valores das Categorias */
+    var checkedValue = ''; 
+    var inputElements = document.getElementsByClassName('messageCheckbox');
+    for(var i=0; inputElements[i]; ++i){
+      if(inputElements[i].checked){
+           checkedValue+= inputElements[i].value + '-';
+      }
+    }
+    
     /* O que está entre aspas são os nomes do server: var sessaoID = req.body.-----> sessaoID <---- este;*/
-    var fd = "nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorid + "&dia=" + dia + "&imagem=" + imagem + "&imagename=" + imagemNome;
+    var fd = "nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorID + "&dia=" + dia +"&categorias=" + checkedValue + "&imagem=" + imagem + "&imagename=" + imagemNome;
     
     
     xhttp.onreadystatechange  = function () {
@@ -356,21 +433,31 @@ function resetModalSessao(){
     document.getElementById("sessaoNome").value = '';
     document.getElementById("diaid").value = '';
     document.getElementById("utenteid").value = '- Nenhum -';
+    /* Reset das categorias */
+    var inputElements = document.getElementsByClassName('messageCheckbox');
+    for(var i=0; inputElements[i]; ++i){
+      inputElements[i].checked = false;
+      }
+    
     document.getElementById("360link").value = '';
     imagem = '';
     imagemNome = '';
     $('#img-upload').attr('style', "background-image: url('images/userimages/bolinhas_default.png')");
     $('#imagelabel').val('');
-    document.getElementById("addsession").setAttribute("disabled", "true");
     $('#modalContactForm').modal('toggle');
     
     //// Esconder (again) botão do Apagar ////
-    document.getElementById('botaoAdicionar').classList.remove('col-sm-4');
-    document.getElementById('botaoCancelar').classList.remove('col-sm-4');
+    document.getElementById('botaoAdicionar').classList.remove('col-sm-3');
+    document.getElementById('botaoCancelar').classList.remove('col-sm-3');
+    
+    /*redefine o tamanho do botão*/
+    document.getElementById('addsession').classList.remove('btn-size');
+    document.getElementById('cancelsession').classList.remove('btn-size-terminar-cancelar');
     
     document.getElementById('botaoAdicionar').classList.add('col-sm-6');
     document.getElementById('botaoCancelar').classList.add('col-sm-6');
     document.getElementById('botaoApagar').style.display= 'none';
+    document.getElementById('botaoTerminar').style.display = 'none';
     /////////////////////////////////
     window.sessionStorage.removeItem("sessaoID");
      document.getElementById('addsession').onclick = function()
@@ -381,6 +468,9 @@ function resetModalSessao(){
 }
 
 /************* Disable do botao quando não esta preenchido *****************/
+/*          COMO NADA É OBRIGATÓRIO ENTÃO NÃO É NECESSÁRIO                 */
+/*                                                                         */
+/***************************************************************************/
 
 /*----- Para o Adicionar no botão plus: -----*/
 /*

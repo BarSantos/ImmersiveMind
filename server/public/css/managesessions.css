@@ -226,3 +226,15 @@ input[type="date"]
 {
     font-family: 'Muli';
 }
+
+/*Tamanho dos botões da sessao (no editar porque são 4)*/
+.btn-size-terminar-cancelar{
+    font-size: 14px;
+    text-align: center;
+    padding-left: 10px !important;
+    
+}
+.btn-size{
+    font-size: 14px;
+    text-align: center;
+}
