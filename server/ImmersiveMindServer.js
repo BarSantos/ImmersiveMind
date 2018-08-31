@@ -171,14 +171,16 @@ router.route('/doentes').put(
             var imageName = req.body.imagename; //meryl.jpg
             var doenteID =req.body.doenteID;
             
-            var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
-           
-            
-            console.log(base64Data);
-            fs.writeFile("./public/images/userimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
-                              console.log("Imagem Doente Criada");
-                            });
-			
+            if(imagem)
+            {
+                var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
+
+
+                console.log(base64Data);
+                fs.writeFile("./public/images/userimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
+                                  console.log("Imagem Doente Criada");
+                                });
+            }
 			var updateDoentePromise = DB.updateDoente(primeiroNome, ultimoNome, idade, observacao, cuidadorID, imageName, doenteID);
             
 			promiseResolve(updateDoentePromise, res,'Doente actualizado' , 'Erro a actualizar doente');
@@ -250,24 +252,34 @@ router.route('/sessoes').put(
             var categorias = req.body.categorias;
             var sessaoId = req.body.sessaoid;
             var notcategorias = req.body.notcategorias;
+            var terminado = req.body.terminado;
             
-            var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
-            
-           
-            fs.writeFile("./public/images/sessionimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
-                              console.log("Imagem da Sessão Criada");
-                            });
-			var splitCategorias = categorias.split('-');
-            var splitNotCAtegorias = notcategorias.split('-');
-            
-            if(doenteID == '- Nenhum -')
-                doenteID = null;
-            if(!dia)
-                dia = null;
-            
-            console.log("THIS ARE THE NOT CATEGORIES: " + splitCategorias);
-			var updateSessaoPromise = DB.updateSessao(sessaoId, sessaoNome, cuidadorId, doenteID, dia, imageName, splitCategorias, splitNotCAtegorias);
-			promiseResolve(updateSessaoPromise, res, 'Sessao actualizada', 'Error a actulizar Sessao');
+            if(terminado){
+                var updateTerminarSessaoPromise = DB.terminaSessao(cuidadorId, sessaoId);
+                promiseResolve(updateTerminarSessaoPromise, res, 'Sessao terminada', 'Error a terminar sessão');
+            }
+            else {
+                if(imagem)
+                {
+                    var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
+
+
+                    fs.writeFile("./public/images/sessionimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
+                                      console.log("Imagem da Sessão Criada");
+                                    });
+                }
+                var splitCategorias = categorias.split('-');
+                var splitNotCAtegorias = notcategorias.split('-');
+
+                if(doenteID == '- Nenhum -')
+                    doenteID = null;
+                if(!dia)
+                    dia = null;
+
+                console.log("THIS ARE THE NOT CATEGORIES: " + splitCategorias);
+                var updateSessaoPromise = DB.updateSessao(sessaoId, sessaoNome, cuidadorId, doenteID, dia, imageName, splitCategorias, splitNotCAtegorias);
+                promiseResolve(updateSessaoPromise, res, 'Sessao actualizada', 'Error a actulizar Sessao');
+            }
         });
 
 /*
@@ -291,12 +303,15 @@ router.route('/sessoes').post(
             
             console.log('Categorias sem split: '+categorias);
             
-            var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
-            
-           
-            fs.writeFile("./public/images/sessionimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
-                              console.log("Imagem da Sessão Criada");
-                            });
+            if(imagem)
+            {
+                var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
+
+
+                fs.writeFile("./public/images/sessionimages/" + imageName, base64Data, {encoding: 'base64'}, function(err) {
+                                  console.log("Imagem da Sessão Criada");
+                                });
+            }
 			var splitCategorias = categorias.split('-');
             
             if(doenteID == '- Nenhum -')

@@ -20,6 +20,7 @@ $(document).ready(function(){
     Sessoes();
     ChamarDoentes();
     ChamarCategorias();
+    CheckDate();
 })
 
 /*** Funcao criar bolinhas ***/
@@ -55,9 +56,18 @@ function Sessoes(){
                                                 fillstring+= '<a class="rect_utentes" href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="EditSession(this.id)" id='+jsonResult[i].SESSAO_ID+'>';
                                                 fillstring += '<img class="img-fluid d-block mx-auto rect" alt=""  style="background-image: url('+imagePath+imageName+')">';
                                                 if(jsonResult[i].SESSAO_NOME)
-                                                    fillstring+= '<h3>'+jsonResult[i].SESSAO_NOME+'</h3></a></div>';
-                                                else
-                                                    fillstring+= '<h3>'+jsonResult[i].NOME+' '+i+'</h3></a></div>';
+                                                    fillstring+= '<h3>'+jsonResult[i].SESSAO_NOME;
+                                                else{
+                                                    a = i+1;
+                                                    if(jsonResult[i].PRIMEIRO_NOME)
+                                                        fillstring+= '<h3>'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+' '+'#'+a;
+                                                    else
+                                                         fillstring+= '<h3> Sessão '+'#'+a;
+                                                }
+                                                //Info de terminado depois de sessão expirada
+                                                if(jsonResult[i].TERMINADO == 1)
+                                                    fillstring+= ' (Terminada)';
+                                                fillstring += '</h3></a></div>';
                                             }
                                         }
                                     
@@ -73,6 +83,90 @@ function Sessoes(){
                                     }
                                 };
     xhttp.send();
+}
+
+
+function CheckDate(){
+    var xhttp = new XMLHttpRequest();
+    var email = window.sessionStorage.getItem("email_id");
+    
+    xhttp.open("GET", "http://"+IPADDR+":8080/api/sessoes/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.setRequestHeader('cuidadorid', email);
+     xhttp.onreadystatechange  = function () {
+                                   
+
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var fillstring = '';
+                                        
+                                       
+                                        var resultJSON = JSON.parse(this.responseText);
+                                        
+                                        if(resultJSON.message != 'Error a devolver Sessoes'){
+                                            var jsonResult = JSON.parse(resultJSON);
+    
+//var GivenDate = '2018-02-22';             
+                                        
+                                            var TomorrowDate = new Date();
+                                            var TodayDate = new Date();
+                                            TomorrowDate.setDate(TomorrowDate.getDate()+1);
+                                            var fillstring='';
+                                            var fillstringexp='';
+                                           
+                                            for(i=0; i<jsonResult.length; i++){
+                                                
+                                                if(jsonResult[i].TERMINADO == 0 && jsonResult[i].DIA){
+                                                    var DBDate = jsonResult[i].DIA;
+                                                    var DBDateTypeDate = new Date(DBDate.split('T').shift());
+                                                    //24h antes
+                                                    DBDateTypeDate.setDate(DBDateTypeDate.getDate()+1);
+                                                    DBDateTypeDate.setMonth(DBDateTypeDate.getMonth()+1);
+
+                                                    var x = i+1;
+
+                                                    var sessaoNome = jsonResult[i].SESSAO_NOME;
+                                                        if(!sessaoNome)
+                                                            sessaoNome = jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+' #'+x;
+
+                                                    // Quase a expirar
+                                                    if(DBDateTypeDate.getTime() < TomorrowDate.getTime() && DBDateTypeDate.getTime() >= TodayDate.getTime()){
+                                                       //window.alert('A data de '+jsonResult[i].PRIMEIRO_NOME+' ainda está dentro do tempo');
+
+                                                        fillstring+='<p>'+sessaoNome+'</p>';
+                                                        //window.alert('A data de '+jsonResult[i].PRIMEIRO_NOME+' foi ultrapassada');
+                                                    }
+                                                    //Expirado
+                                                    if(DBDateTypeDate.getTime() < TodayDate.getTime()){
+                                                        fillstringexp = '<p>'+sessaoNome+'</p>';
+                                                        TerminarSessao(jsonResult[i].SESSAO_ID);
+                                                    }
+                                                }
+                                            }
+                                            if(fillstringexp)
+                                                document.getElementById('infodatasexpiradas').innerHTML = fillstringexp;
+                                            if(fillstring)
+                                                document.getElementById('infodatas').innerHTML = fillstring;
+                                            
+                                            $('#ModalTime').modal('toggle');
+                                        }
+                                    }
+     };
+    xhttp.send();
+}
+
+function TerminarSessao(sessaoID){
+    var xhttp = new XMLHttpRequest();
+    var email = window.sessionStorage.getItem("email_id");
+    
+    xhttp.open("PUT", "http://"+IPADDR+":8080/api/sessoes/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+   
+    
+     var fd = "cuidadorid=" + email + "&sessaoid=" + sessaoID+ "&terminado=1";
+
+    xhttp.send(fd);
+    
+    
 }
 
 function ChamarDoentes(){
@@ -186,7 +280,9 @@ function EditSession(clicked_id){
     document.getElementById('botaoAdicionar').classList.add('col-sm-3');
     document.getElementById('botaoCancelar').classList.add('col-sm-3');
     document.getElementById('botaoApagar').style.display= 'block';
-    document.getElementById('botaoTerminar').style.display= 'block';
+    document.getElementById('botaoIniciar').style.display= 'block';
+    
+    
     /////////////////////////////////
     
     // Aqui é necessário popular as caixas
@@ -206,11 +302,55 @@ function EditSession(clicked_id){
                                         
                                         if(resultJSON.message != 'Error a devolver Sessao'){
                                             var jsonResult = JSON.parse(resultJSON);
+                                            if(jsonResult[0].TERMINADO == 1){
+                                                $('#sessaoNome').prop("disabled", true);
+                                                $('#diaid').prop("disabled", true);
+                                                $('#utenteid').prop("disabled", true);
+                                                $('#imgInp').prop("disabled", true);
+                                                var disableCategorias = document.getElementsByClassName('messageCheckbox');
+                                                for(var k=0; disableCategorias[k]; k++){
+                                                    disableCategorias[k].disabled = true;
+                                                }
+                                                
+                                                 document.getElementById('botaoMesmoIniciar').disabled = true;
+                                                
+                                            }
+                                            console.log('Terminado: '+jsonResult[0].TERMINADO);
                                             document.getElementById("sessaoNome").value = jsonResult[0].SESSAO_NOME;
                                             
-                                            var dia =  jsonResult[0].DIA;
-                                            if(dia)
-                                                document.getElementById('diaid').value = dia.split('T').shift();
+                                            var dia =  jsonResult[0].DIA.split('T').shift();
+                                            
+                                            if(dia){
+                                                var d = new Date(dia);
+                                                //dia.split('T').shift()
+                                                
+                                                if(d.getDate() < 29 && d.getMonth() < 9 && d.getFullYear() < 2018)
+                                                    d.setDate(d.getDate()+1);
+                                                var diadata = d.getDate();
+                                                var mes = d.getMonth()+1;
+                                                
+                                                console.log('d com set e get: '+d);
+                                                window.alert('var d.month: '+mes+ 'e o d.dia: '+diadata);
+                                                if(diadata < 10 && mes < 10){
+                                                    document.getElementById('diaid').value = d.getFullYear()+'-0'+mes+'-0'+diadata;
+                                                }
+                                                else{
+                                                    if(mes < 10)
+                                                        document.getElementById('diaid').value = d.getFullYear()+'-0'+mes+'-'+diadata;
+                                                    else{
+                                                        if(diadata < 10)
+                                                            document.getElementById('diaid').value = d.getFullYear()+'-'+mes+'-0'+diadata;
+                                                        else{
+                                                            document.getElementById('diaid').value = d.getFullYear()+'-'+mes+'-'+diadata;
+                                                        }
+                                                    }
+                                                }
+                                
+                                                
+                                                console.log(d.getFullYear()+'-'+mes+'-'+diadata);
+                                            }
+                                            
+                                            //dia.setHours(d.getHours() - 10)
                                             
                                             
                                             getCategoriasDaSessao(sessaoID);
@@ -457,13 +597,23 @@ function resetModalSessao(){
     document.getElementById('botaoAdicionar').classList.add('col-sm-6');
     document.getElementById('botaoCancelar').classList.add('col-sm-6');
     document.getElementById('botaoApagar').style.display= 'none';
-    document.getElementById('botaoTerminar').style.display = 'none';
+    document.getElementById('botaoIniciar').style.display = 'none';
     /////////////////////////////////
     window.sessionStorage.removeItem("sessaoID");
      document.getElementById('addsession').onclick = function()
                                                     {
                                                        AddSession();
                                                     }; 
+    
+    $('#sessaoNome').prop("disabled", false);
+    $('#diaid').prop("disabled", false);
+    $('#utenteid').prop("disabled", false);
+    $('#imgInp').prop("disabled", false);
+    var disableCategorias = document.getElementsByClassName('messageCheckbox');
+    for(var k=0; disableCategorias[k]; k++){
+        disableCategorias[k].disabled = false;
+    }
+    document.getElementById('botaoMesmoIniciar').disabled = false;
     
 }
 

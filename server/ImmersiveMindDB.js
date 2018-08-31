@@ -262,7 +262,8 @@ exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem, c
 					DOENTE_ID: doenteID,
 					EMAIL_ID: cuidadorID,
 					DIA: dia,
-					IMAGEM: imagem};
+					IMAGEM: imagem,
+                    TERMINADO: 0};
     
 	var promise = categoriasIfLogged(insertQuery, toInsert, cuidadorID, categorias, false, null);
         
@@ -271,7 +272,7 @@ exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem, c
 
 exports.getSessoesDoente = function(doenteID)
 {
-	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID "
+	var getSessoesQuery = "SELECT SESSAO_NOME, SESSOES.IMAGEM, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID, TERMINADO "
 						+ "FROM SESSOES, DOENTES "
 						+ "WHERE SESSOES.DOENTE_ID = ? "
 						+ "AND DOENTES.DOENTE_ID = ?"; //Não sei se é irrelevante, experimentar
@@ -285,7 +286,7 @@ exports.getSessoesDoente = function(doenteID)
 
 exports.getSessoesCuidador = function(cuidadorID)
 {
-	var getSessoesQuery = "SELECT SESSAO_ID, SESSAO_NOME, SESSOES.IMAGEM, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID "
+	var getSessoesQuery = "SELECT SESSAO_ID, SESSAO_NOME, SESSOES.IMAGEM, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID, PRIMEIRO_NOME, ULTIMO_NOME, DIA, TERMINADO "
 						+ "FROM SESSOES "
 						+ "LEFT JOIN DOENTES ON "
 						+ "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
@@ -296,9 +297,19 @@ exports.getSessoesCuidador = function(cuidadorID)
 	return defer.promise;
 }
 
+exports.terminaSessao = function(cuidadorID, sessaoID)
+{
+    var updateTerminarSessaoQuery   = "UPDATE sessoes "
+                                    + "SET "
+                                    + "TERMINADO = 1 "
+                                    + "WHERE SESSAO_ID = ?";
+    
+    return doQueryIfLogged(updateTerminarSessaoQuery, sessaoID, cuidadorID); 
+}
+
 exports.getSessao = function(sessaoID)
 {
-	var getSessaoQuery = "SELECT SESSOES.*, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID "
+	var getSessaoQuery = "SELECT SESSOES.*, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID, TERMINADO "
 						+ "FROM SESSOES "
                         + "LEFT JOIN DOENTES ON "
                         + "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
@@ -328,8 +339,7 @@ exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia,
                     imageName,
                     sessaoID
                    ];
-    
-    console.log("TO UPDATE: " + toUpdate);
+
 
     return categoriasIfLogged(updateSessaoQuery, toUpdate, cuidadorID, categorias, sessaoID, notCAtegorias);
 }
@@ -345,6 +355,8 @@ exports.deleteSessao = function(cuidadorID, sessaoID)
      connection.query(deleteSessaoQuery, sessaoID);
 	//return doQueryIfLogged(deleteSessaoQuery, sessaoID, cuidadorID);  
 }
+
+
 
 /****************************************************************************/
 /*                                  CATEGORIAS                              */  

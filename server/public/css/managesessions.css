@@ -125,7 +125,7 @@ h3:hover{
  }
 
 .modal-title{
-    text-align: center;
+    text-align: center !important;
 }
  .modal-header .close{
     position: inherit;
@@ -237,4 +237,18 @@ input[type="date"]
 .btn-size{
     font-size: 14px;
     text-align: center;
+}
+
+/***** Botão iniciar no modal das sessões ******/
+.button-popup-success-iniciar {
+    font-family: 'Muli';
+    background-color: #009b00;
+    outline: 2px solid #009b00; 
+    color: white;
+    border-radius: 0 !important;
+}
+
+.button-popup-success-iniciar:hover {
+    background-color: #66c366;
+    outline: 5px solid #66c366;
 }

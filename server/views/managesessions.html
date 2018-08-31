@@ -170,6 +170,7 @@
             </div>
             <div class="modal-body" id="formaddsession">
                 <div class="tab-content">
+                    
                     <div id="dados-sessao" class="tab-pane fade show active">
                 <div class="form-group">
                     <label for="inputsessaonome">Nome da Sessão (opcional)</label>
@@ -231,12 +232,15 @@
                         <div class="col-sm-6" id="botaoAdicionar">
                            <button data-dismiss="modal" onclick="AddSession()" class="btn btn-default btn-lg btn-block button-popup-success" id="addsession"><i class="fas fa-plus-circle"></i> Adicionar</button> 
                         </div>
+                        
+                        <div class="col-sm-3" style="display: none;" id="botaoIniciar">
+                            <button data-dismiss="modal" href="" class="btn btn-default btn-lg btn-block button-popup-success-iniciar btn-size" id='botaoMesmoIniciar'><i class="fas fa-play-circle"></i> Iniciar</button>
+                        </div>
+                    
                         <div class="col-sm-3" style="display: none;" id="botaoApagar">
                             <button data-dismiss="modal" onclick="DeleteSessao()" class="btn btn-default btn-lg btn-block button-popup-fail btn-size" ><i class="fas fa-trash-alt"></i> Apagar</button>
                         </div>
-                        <div class="col-sm-3" style="display: none;" id="botaoTerminar">
-                            <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-fail btn-size-terminar-cancelar" ><i class="fas fa-stop-circle"></i> Terminar</button>
-                        </div>
+                    
                         <div class="col-sm-6" id="botaoCancelar">
                             <button data-dismiss="modal" onclick="resetModalSessao()" class="btn btn-default btn-lg btn-block button-popup-fail" id="cancelsession"><i class="fas fa-times-circle"></i> Cancelar</button>
                         </div>
@@ -248,5 +252,39 @@
 </div>
 
  
+        
+        <!-- Popup do tempo -->
+        <div class="modal fade success-popup" id="ModalTime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="col-12 modal-title text-center" id="myModalLabel">Aviso!</h4>
+                </div>
+                <div class="modal-body text-center">
+
+                    
+                    <img class="img-responsive center" width="100px" height="" src="images/warning-img-yellow.png">
+                    <p></p>
+                    <h5 style="font-weight: bold">Estas sessões estão prestes a expirar (menos de 24h):</h5>
+                    <div class="row">
+                        
+                        <div class="col-12" style="text-align: left" id="infodatas">
+                           <p>Nenhuma</p> 
+                        </div>
+                    </div>
+                    <h5 style="font-weight: bold">Estas sessões já expiraram:</h5>
+                    <div class="row">
+                        
+                        <div class="col-12" style="text-align: left" id="infodatasexpiradas">
+                           <p>Nenhuma</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button data-dismiss="modal" class="btn btn-default btn-lg btn-block button-popup-success"><i class="fas fa-check-circle"></i> Compreendi</button>
+                </div>
+            </div>
+          </div>
+        </div>
   </body>
 </html>
