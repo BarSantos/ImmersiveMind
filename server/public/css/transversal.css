@@ -130,10 +130,10 @@ background-color: transparent !important;
     position: relative;
     padding-left: 18px;
     padding-right: 18px;
-    margin-top: 13px;
+    margin-top: 8px;
     margin-bottom: 8px;
     padding-bottom: 0px;
-    padding-top: 5px;
+    padding-top: 2px;
     height: 32px; /* button_outer_height / sqrt(2) */
     background: #f5dbcf;
     font-family: 'Muli';

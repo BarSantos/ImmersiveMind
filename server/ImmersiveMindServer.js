@@ -44,6 +44,10 @@ app.get('/sessions', function(req, res, next){
     res.render('managesessions');
 });
 
+app.get('/activity', function(req, res, next){
+    res.render('startactivity');
+});
+
 /*	
 * 	O pedido POST faz com que
 *	se crie novos cuidadores

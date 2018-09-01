@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>ImmersiveMind</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/js/server.js"></script>
+        <!--<script src="/js/popularSessoes.js"></script>-->
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        
+        
+        <!-- Bootstrap core CSS -->
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <!-- Bootstrap Validator -->
+        <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.1.3/dist/bootstrap-validate.js" ></script>
+    
+        <!-- Custom styles for this template -->
+        <link href="/css/startactivity.css" rel="stylesheet">
+        <link href="/css/transversal.css" rel="stylesheet">
+    
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        
+        
+        
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="images/favicon.ico"/>
+
+          <!-- Fontes -->
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Chonburi');
+            @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
+            @import url('https://fonts.googleapis.com/css?family=Passion+One');
+            @import url('https://fonts.googleapis.com/css?family=Muli');
+        </style>
+    </head>
+  <body>
+ <!-- ***********************************************NAVBAR E TRALHA*************************************************** -->
+    <!-- Navigation -->
+
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a class="navbar-brand py-0" href="/">  <img class="img-responsive" width="50px" height="" src="images/brain-logo-off.png"></a>
+            <p class="navbar-text text-uppercase">ImmersiveMind</p>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" style="z-index: 1" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span> </button>
+    
+              <!-- Aqui começam as opções do menu -->    
+
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                        <li class="dropdown">
+                            <a href="#" id="primeiroultimonome" class="dropdown-toggle textuser" data-toggle="dropdown">Olá, Ana Li <b class="caret"></b></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#" id="logout" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+                            </ul>
+                        </li>
+                </ul>
+            </div>
+        </nav>
+ 
+        <!-- Popup do LOGOUT -->
+        <div class="modal fade success-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Sair de ImmersiveMind?</h4>
+                </div>
+                <div class="modal-body text-center">
+
+
+                    <img class="img-responsive center" width="100px" height="" src="images/brain-logo-off-inverted.png">
+                <p></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                           <button data-dismiss="modal" class="btn btn-default btn-lg btn-block button-popup-success">Ficar :)</button> 
+                        </div>
+                        <div class="col-sm-6">
+                            <button data-dismiss="modal" onclick="Logout()" class="btn btn-default btn-lg btn-block button-popup-fail">Sair :(</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!--page Content --> 
+        <div class="container-fluid">
+    
+            <!-- BREADCRUMB-->
+
+            <div class="btn btn-default btn-arrow-right"><a href="frontpage"><i class="fas fa-home bread"></i></a></div>
+            <div class="btn btn-default btn-arrow-right"><a href="sessions" class="bread">Gerir Sessões</a></div>
+            <div class="btn btn-default btn-arrow-right"><a href="" class="bread">Actividade</a></div>
+            <!--<div class="btn btn-default btn-arrow-right">Danger</div>-->
+
+     <!-- Call to Action Well -->
+      <div class="text-white bg-secondary avisos">
+        
+          <img class="img-responsive" width="50px" height="" src="images/warning-img-yellow.png" style="padding-bottom: 1px; padding-top: 1px;">
+          
+          <marquee behavior="scroll" scrollamount="8" direction="left">Verifique, no máximo intervalo de 15 minutos, se o utilizador do óculos sente algum incómodo! &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Ajuste os óculos de acordo com a sua preferência</marquee>
+          
+        
+      </div>
+
+      <!-- Heading Row -->
+      <div class="row my-4 row-eq-height">
+        <div class="col-lg-6 col-sm-12">
+            <div class = "resp-container">
+            <iframe class="resp-iframe" src="https://www.youtube.com/embed/3kgx2snn30M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        
+        </div>
+        
+        <!-- /.col-lg-8 -->
+    <div class="col-lg-6 col-sm-12">
+        <div style="padding-top: 10px">
+            <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#Categoria1">Animais/ Natureza</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#Categoria2">Desporto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#Categoria3">Locais/ Pontos de Interesse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#Categoria4">Música</a>
+                    </li>
+                </ul>
+        </div>
+            
+            <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="Categoria1" class="tab-pane fade show active">
+                <h3>Business Name or Tagline</h3>
+            </div>
+            <div id="Categoria2" class="tab-pane fade show">
+                <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+            </div>
+            <div id="Categoria3" class="tab-pane fade show">
+                <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
+            </div>
+            <div id="Categoria4" class="tab-pane fade show">
+                <h2>Quarto Tab</h2>
+            </div>
+            <div id="Categoria5" class="tab-pane fade show">
+                <h2>Quinto tab</h2>
+            </div>
+        </div>
+    </div>
+        <!-- /.col-md-4 -->
+      </div>
+      <!-- /.row -->
+
+ 
+      <!-- Content Row -->
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Card One</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Card Two</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Card Three</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-md-4 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+   
+  </body>
+
+</html>
