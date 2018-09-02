@@ -88,6 +88,7 @@ marquee{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 /********** iFrame ***************/
@@ -119,6 +120,17 @@ marquee{
     }
 }
 
+@media (max-width: 375px) {
+    .bread{
+        font-size: 13px;
+    }
+    .btn-arrow-right {
+        padding-left: 22px !important;
+        padding-right: 15px !important;
+    }
+}
+
+
 @media (max-width: 360px) {
     .nav-tabs{
         font-size: 10px;
@@ -134,7 +146,7 @@ marquee{
 
 @media (max-width: 320px) {
     .bread{
-        font-size: 13px;
+        font-size: 10px;
     }
     .btn-arrow-right {
         padding-left: 22px !important;
@@ -143,4 +155,111 @@ marquee{
 }
 
 
+/*********** Sessão e Utente *************/
+.sessaoUtente{
+    color: #f5dbcf;
+    font-family: 'Muli';
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 15px !important;
+}
 
+.UtenteLinha{
+    display: inline-block !important;
+}
+
+.SessaoLinha{
+    display: inline-block !important;
+    margin-bottom: 0px;
+}
+
+.SessaoUtenteX{
+    color: white;
+    font-size: 15px;
+    width: 70px !important;
+}
+
+@media (max-width: 792px) {
+    .UtenteLinha{
+        font-size: 12px !important;
+    }
+
+    .SessaoLinha{
+        font-size: 12px !important;
+    }
+    .SessaoUtenteX.SessaoLinha{
+        font-size: 12px !important;
+    }
+    .SessaoUtenteX.UtenteLinha{
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 700px) {
+    
+    
+}
+
+
+@media (max-width: 1024px) {
+    .sessaoUtente{
+        font-size: 15px !important;
+    }
+    
+    .SessaoUtenteX{
+        font-size: 15px !important;
+    }
+}
+
+
+/********** Barra de Search **************/
+/* hide the blue outline */
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
+.searchs{
+    font-family: 'Muli';
+}
+.input-group-text{
+    background-color: #f5dbcf;
+}
+
+/************ Butões Guardar/Sair Terminar *******/
+
+#btnGuardarTerminar,
+#btnSairTerminar{
+    font-family: 'Muli';
+    display: inline-block;
+    vertical-align: top;
+    border-color: transparent;
+}
+
+#btnGuardarTerminar{
+    background-color: #009b00;
+}
+#btnSairTerminar{
+    background-color: #d60000;
+}
+
+#btnGuardarTerminar:hover{
+    background-color: #006c00;
+}
+#btnSairTerminar:hover{
+    background-color: #950000;
+}
+
+@media (max-width: 1024px) {
+   #btnGuardarTerminar,
+#btnSairTerminar{
+    font-size: 10px;
+    } 
+}
+
+@media (max-width: 768px) {
+   #btnGuardarTerminar,
+#btnSairTerminar{
+    font-size: 15px;
+    } 
+}

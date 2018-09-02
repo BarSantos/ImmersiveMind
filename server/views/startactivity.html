@@ -98,25 +98,40 @@
         <div class="container-fluid">
     
             <!-- BREADCRUMB-->
-
-            <div class="btn btn-default btn-arrow-right"><a href="frontpage"><i class="fas fa-home bread"></i></a></div>
-            <div class="btn btn-default btn-arrow-right"><a href="sessions" class="bread">Gerir Sessões</a></div>
-            <div class="btn btn-default btn-arrow-right"><a href="" class="bread">Actividade</a></div>
-            <!--<div class="btn btn-default btn-arrow-right">Danger</div>-->
+            <div class="row" style="height: 50px; position:relative" >
+            
+                <div class="col-lg-7" style="padding-left: 0px;">
+                    <div class="btn btn-default btn-arrow-right"><a href="frontpage"><i class="fas fa-home bread"></i></a></div>
+                    <div class="btn btn-default btn-arrow-right"><a href="sessions" class="bread">Gerir Sessões</a></div>
+                    <div class="btn btn-default btn-arrow-right"><a href="" class="bread">Actividade</a></div>
+                </div>
+    
+            <!-- Sessão X e Nome Utente -->
+                <div class="col-lg-5 sessaoUtente" align="right" style="position:relative">
+                    <div class="row">
+                        <div class="col-12">
+                    <p id="sessaoX" class="SessaoLinha" align="right">Bananas com chocolatinho</p><p align="right" class="SessaoUtenteX SessaoLinha">Sessão</p>
+                        </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-12">
+                    <p id="utenteX" align="right" class="UtenteLinha">Travesseiro de Sintra</p><p align="right" class="SessaoUtenteX UtenteLinha">Utente</p>
+                            </div>
+                        </div>
+                </div>
+            </div>
 
      <!-- Call to Action Well -->
+        <!--
       <div class="text-white bg-secondary avisos">
-        
           <img class="img-responsive" width="50px" height="" src="images/warning-img-yellow.png" style="padding-bottom: 1px; padding-top: 1px;">
           
-          <marquee behavior="scroll" scrollamount="8" direction="left">Verifique, no máximo intervalo de 15 minutos, se o utilizador do óculos sente algum incómodo! &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Ajuste os óculos de acordo com a sua preferência</marquee>
-          
-        
+          <marquee behavior="scroll" scrollamount="8" direction="left">Verifique, no máximo intervalo de 15 minutos, se o utilizador do óculos sente algum incómodo! &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Ajuste os óculos de acordo com a sua preferência.</marquee>
       </div>
-
+   -->
       <!-- Heading Row -->
-      <div class="row my-4 row-eq-height">
-        <div class="col-lg-6 col-sm-12">
+      <div class="row my-4 row-eq-height" style="position:relative">
+        <div class="col-lg-6 col-sm-12" style="position:relative">
             <div class = "resp-container">
             <iframe class="resp-iframe" src="https://www.youtube.com/embed/3kgx2snn30M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
@@ -168,42 +183,25 @@
  
       <!-- Content Row -->
       <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h2 class="card-title">Card One</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+        <div class="col-lg-8">
+            <div class="input-group">
+                <input class="form-control py-2 border-right-0 border searchs" type="search" value="" id="example-search-input" placeholder="Procure vídeos aqui...">
+                <span class="input-group-append">
+                    <div class="input-group-text"><i class="fa fa-search"></i></div>
+                </span>
             </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">More Info</a>
+        </div>
+          <div class="col-lg-4 text-center">
+              <div class="row">
+                <div class="col-lg-6">
+                    <button id="btnGuardarTerminar" class="btn btn-block btn-primary btn-default">Guardar e Terminar</button>
+                </div>
+                <div class="col-lg-6">
+                    <button id="btnSairTerminar" class="btn btn-block btn-primary btn-default">Sair sem Terminar</button>
+                </div>
             </div>
           </div>
-        </div>
-        <!-- /.col-md-4 -->
-        <div class="col-md-4 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h2 class="card-title">Card Two</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">More Info</a>
-            </div>
-          </div>
-        </div>
-        <!-- /.col-md-4 -->
-        <div class="col-md-4 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h2 class="card-title">Card Three</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">More Info</a>
-            </div>
-          </div>
-        </div>
-        <!-- /.col-md-4 -->
+           
 
       </div>
       <!-- /.row -->
