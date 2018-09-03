@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS SESSOES
 	DOENTE_ID INT,
     DIA DATE ,
     IMAGEM VARCHAR(60),
+    TERMINADO BOOL NOT NULL,
 	PRIMARY KEY (SESSAO_ID),
 	FOREIGN KEY (DOENTE_ID) REFERENCES DOENTES(DOENTE_ID), 
 	FOREIGN KEY (EMAIL_ID) REFERENCES CUIDADORES(EMAIL_ID)
@@ -58,7 +59,7 @@ CREATE TABLE IF NOT EXISTS VIDEOS
 (
 	VIDEO_TITLE VARCHAR(100) NOT NULL, -- O titulo do video no Youtube
 	CATEGORIA VARCHAR(40) NOT NULL,
-    SESSAO_ID INT NOT NULL,
+    SESSAO_ID INT,
 	URL_THUMBNAIL VARCHAR(100) NOT NULL, -- URL onde está localizado o thumbnail
 	URL_FILE TEXT NOT NULL, -- URL onde está localizado o ficheiro
     FOREIGN KEY (SESSAO_ID) REFERENCES SESSOES(SESSAO_ID),
@@ -105,8 +106,8 @@ INSERT INTO DOENTES (PRIMEIRO_NOME, ULTIMO_NOME, IDADE, OBSERVACAO, EMAIL_ID, IM
 VALUES ('Arroz', 'Doce', 55, 'Malandrinho', 'pastel@gmail.com', 'arroz-doce.jpg');
 
 
-INSERT INTO SESSOES (SESSAO_NOME, EMAIL_ID, DOENTE_ID, DIA, IMAGEM)
-VALUES (_utf8'Vídeos NatGeo', 'pastel@gmail.com', 3, STR_TO_DATE('25-12-2018', '%d-%m-%Y'), 'nat-geo.png');
+INSERT INTO SESSOES (SESSAO_NOME, EMAIL_ID, DOENTE_ID, DIA, IMAGEM, TERMINADO)
+VALUES (_utf8'Vídeos NatGeo', 'pastel@gmail.com', 3, STR_TO_DATE('25-12-2018', '%d-%m-%Y'), 'nat-geo.png', 0);
 
 INSERT INTO CATEGORIAS (CATEGORIA)
 VALUES  ('Animais/Natureza'),
@@ -116,3 +117,63 @@ VALUES  ('Animais/Natureza'),
         
 INSERT INTO SESSAO_CONTEM_CATEGORIAS (SESSAO_ID, CATEGORIA)
 VALUES (1, 'Animais/Natureza');
+
+/************************* ANIMAIS ********************/
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES (_utf8'Lions 360° | National Geographic', 'Animais/Natureza', 'https://i.ytimg.com/vi/sPyAQQklc1s/maxresdefault.jpg', 'https://www.youtube.com/watch?v=sPyAQQklc1s');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES (_utf8'Wild Dolphins VR / 360° Video Experience', 'Animais/Natureza', 'https://i.ytimg.com/vi/BbT_e8lWWdo/maxresdefault.jpg', 'https://www.youtube.com/watch?v=BbT_e8lWWdo');
+
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('Funny meerkats playing in the desert 360 video | Animals with Cameras | Earth Unplugged', 'Animais/Natureza', 'https://i.ytimg.com/vi/VUMu8EQ1Ang/maxresdefault.jpg', 'https://www.youtube.com/watch?v=VUMu8EQ1Ang');
+
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES (_utf8'ADORABLE Puppy Guide Dogs In 360° | Earth Unplugged', 'Animais/Natureza', 'https://i.ytimg.com/vi/5qmmms4VP2k/maxresdefault.jpg', 'https://www.youtube.com/watch?v=5qmmms4VP2k');
+
+/************************* DESPORTO ********************/
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('Real Madrid vs. Juventus | 2017 Champions League Final | 360 VIdeo | FOX SOCCER', 'Desporto', 'https://i.ytimg.com/vi/JTWdUBIvOFY/maxresdefault.jpg', 'https://www.youtube.com/watch?v=JTWdUBIvOFY');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('NBA 360 | Kobe Bryant\'s Last Game', 'Desporto', 'https://i.ytimg.com/vi/ydBKIXWXxsk/maxresdefault.jpg', 'https://www.youtube.com/watch?v=ydBKIXWXxsk');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('F1 Live London In 360 | Sebastian Vettel And Ferrari', 'Desporto', 'https://i.ytimg.com/vi/fQoVFraBOnc/maxresdefault.jpg', 'https://www.youtube.com/watch?v=fQoVFraBOnc');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES (_utf8'Extreme Sports VR / 360° Video Experience', 'Desporto', 'https://i.ytimg.com/vi/m9pbCzUPmY8/maxresdefault.jpg', 'https://www.youtube.com/watch?v=m9pbCzUPmY8');
+
+/************************* MÚSICA ********************/
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('Big Music in Small Rooms: Fado | The Daily 360 | The New York Times', _utf8'Música', 'https://i.ytimg.com/vi/W94dS-QxpaQ/maxresdefault.jpg', 'https://www.youtube.com/watch?v=W94dS-QxpaQ');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('BBC Concert Orchestra - Theme from Jaws introduced by Mark Kermode', _utf8'Música', 'https://i.ytimg.com/vi/psuEn5HQUOA/maxresdefault.jpg', 'https://www.youtube.com/watch?v=psuEn5HQUOA');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('Carnegie Hall 360 Video featuring The Philadelphia Orchestra', _utf8'Música', 'https://i.ytimg.com/vi/YERHP5wp_zw/maxresdefault.jpg', 'https://www.youtube.com/watch?v=YERHP5wp_zw');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('(360 VIDEO) Brazilian street music, live from the metro', _utf8'Música', 'https://i.ytimg.com/vi/be5R6N7rIBs/maxresdefault.jpg', 'https://www.youtube.com/watch?v=be5R6N7rIBs');
+
+
+/************************* LOCAIS/PONTOS DE INTERESSE ********************/
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES (_utf8'360°, Lisbon, Portugal, 5K aerial video', 'Locais/Pontos de Interesse', 'https://i.ytimg.com/vi/YCEypD3gOkM/maxresdefault.jpg', 'https://www.youtube.com/watch?v=YCEypD3gOkM');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES ('Lisbon in 360', 'Locais/Pontos de Interesse', 'https://i.ytimg.com/vi/G353z19p2dM/maxresdefault.jpg', 'https://www.youtube.com/watch?v=G353z19p2dM');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES (_utf8'360°, Porto, Portugal. 5,6K aerial video', 'Locais/Pontos de Interesse', 'https://i.ytimg.com/vi/2KaD5Wf9Kro/maxresdefault.jpg', 'https://www.youtube.com/watch?v=2KaD5Wf9Kro');
+
+INSERT INTO VIDEOS (VIDEO_TITLE, CATEGORIA, URL_THUMBNAIL, URL_FILE) 
+VALUES (_utf8'ALGARVE 360º - GENÉRICO', 'Locais/Pontos de Interesse', 'https://i.ytimg.com/vi/pooEMj3gYFo/maxresdefault.jpg', 'https://www.youtube.com/watch?v=pooEMj3gYFo');
+

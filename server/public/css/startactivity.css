@@ -162,6 +162,7 @@ marquee{
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 15px !important;
+    text-align: right;
 }
 
 .UtenteLinha{
@@ -179,36 +180,77 @@ marquee{
     width: 70px !important;
 }
 
-@media (max-width: 792px) {
+@media (max-width: 991px) {
+    
+    .SessaoUtenteX.SessaoLinha{
+        text-align: right !important;
+    }
     .UtenteLinha{
         font-size: 12px !important;
     }
-
     .SessaoLinha{
         font-size: 12px !important;
     }
+    
     .SessaoUtenteX.SessaoLinha{
         font-size: 12px !important;
     }
     .SessaoUtenteX.UtenteLinha{
         font-size: 12px !important;
     }
+    
+    .bread{
+        font-size: 13px;
+    }
 }
 
-@media (max-width: 700px) {
+
+
+@media (max-width: 702px) {
+     .UtenteLinha{
+        font-size: 9px !important;
+    }
+    .SessaoLinha{
+        font-size: 9px !important;
+    }
     
+    .SessaoUtenteX.SessaoLinha{
+        font-size: 9px !important;
+        width: 40px !important;
+    }
+    .SessaoUtenteX.UtenteLinha{
+        font-size: 9px !important;
+        width: 40px !important;
+    }
+    
+    .bread{
+        font-size: 10px;
+    }
     
 }
 
-
-@media (max-width: 1024px) {
+@media(max-width: 575px) {
+    .subcontainer{
+        padding-top: 50px;
+    }
     .sessaoUtente{
-        font-size: 15px !important;
+        text-align: left;
+        padding-left: 0px;
+        height: 15px !important;
+        margin-top: 0px;
     }
-    
-    .SessaoUtenteX{
-        font-size: 15px !important;
+     .SessaoUtenteX.SessaoLinha{
+        text-align: left !important;
     }
+    .avisos{
+        font-size: 10px;
+        height: 35px;
+    }
+    .imgaviso{
+        height: 30px;
+        width: 33.1px;
+    }
+  
 }
 
 
