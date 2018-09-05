@@ -9,10 +9,14 @@
         <meta name="author" content="">
 
         <title>ImmersiveMind</title>
+        
+        <script src="/js/search.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://apis.google.com/js/client.js?onload=init"></script>
         <script src="/js/server.js"></script>
         <script src="/js/popularActividade.js"></script>
-
+       
+        
 
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -125,6 +129,7 @@
 
      <!-- Call to Action Well -->
     <div class="subcontainer">
+        <!------------------------- AVISOS --------------------->
       <div class="text-white bg-secondary avisos">
           <img class="img-responsive imgaviso" width="50px" height="" src="images/warning-img-yellow.png" style="padding-bottom: 1px; padding-top: 1px;">
           
@@ -132,15 +137,24 @@
       </div>
 
       <!-- Heading Row -->
+        
+        <!------------------------- VIDEO PLAY --------------------->
       <div class="row my-4 row-eq-height" style="position:relative">
         <div class="col-lg-6 col-sm-12" style="position:relative">
+            
             <div class = "resp-container">
-            <iframe class="resp-iframe" src="https://www.youtube.com/embed/3kgx2snn30M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <iframe class="resp-iframe" id="iframes" src="https://www.youtube.com/embed/0XrH2WO1Mzs" frameborder="0" allow="autoplay; encrypted-media"></iframe>
             </div>
         
         </div>
+          <script>
+            document.getElementById("iframes").addEventListener("click",function(){window.alert("Olá")});
+          </script>
+        
         
         <!-- /.col-lg-8 -->
+          
+          <!------------------------- CATEGORIAS --------------------->
     <div class="col-lg-6 col-sm-12">
         <div style="padding-top: 10px">
             <ul class="nav nav-tabs" role="tablist" id="tabsCategorias">
@@ -175,14 +189,22 @@
       <!-- Content Row -->
       <div class="row">
         <div class="col-lg-8">
+            <!------------------------- SEARCH BAR --------------------->
             <div class="input-group">
-                <input class="form-control py-2 border-right-0 border searchs" type="search" value="" id="example-search-input" placeholder="Procure vídeos aqui...">
+                <input class="form-control py-2 border-right-0 border searchs" type="search" value="" id="search-input" placeholder="Procure vídeos aqui...">
                 <span class="input-group-append">
-                    <div class="input-group-text"><i class="fa fa-search"></i></div>
+                    <div class="input-group-text"><a onclick="search_list()"><i class="fa fa-search"></i></a></div>
                 </span>
             </div>
+                    <!-- Para resultados da pesquisa -->
+        <div class="row">
+            <div class="col-lg-12 resultzinhos">
+                <div id="results"></div>
+            </div>
         </div>
-          <div class="col-lg-4 text-center">
+        </div>
+          <div class="col-lg-4 text-center botoezinhos">
+              <!------------------------ BOTÕES FINAIS ------------------->
               <div class="row">
                 <div class="col-lg-6">
                     <button id="btnGuardarTerminar" class="btn btn-block btn-primary btn-default">Guardar e Terminar</button>
@@ -196,6 +218,7 @@
 
       </div>
       <!-- /.row -->
+
 </div>
     </div>
     <!-- /.container -->

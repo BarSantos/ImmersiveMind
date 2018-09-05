@@ -144,7 +144,7 @@ function getVideosDaCategoria(categoria, index){
                                                     }
                                                     fill_item += '<div class = "row">';
                                                     fill_item += '<div class = "col-lg-6">';
-                                                    fill_item += '<a>';
+                                                     fill_item += '<a onclick="playVideo(\''+ jsonResult[i].URL_FILE +'\')">';
                                                     fill_item += '<div class = "row">'; //row imagem
                                                     fill_item += '<div class = "col-lg-12">';
                                                     fill_item += '<img class="thumbnail_image" src="'+jsonResult[i].URL_THUMBNAIL+'">';
@@ -160,7 +160,7 @@ function getVideosDaCategoria(categoria, index){
                                                     fill_item += '<div class = "col-lg-6">';
                                                     if (jsonResult[i+1]){
                                                         
-                                                        fill_item += '<a>';
+                                                        fill_item += '<a onclick="playVideo(\''+ jsonResult[i+1].URL_FILE +'\')">';
                                                         fill_item += '<div class = "row">'; //row imagem
                                                         fill_item += '<div class = "col-lg-12">';
                                                         fill_item += '<img class="thumbnail_image" src="'+jsonResult[i+1].URL_THUMBNAIL+'">';
@@ -200,3 +200,17 @@ function getVideosDaCategoria(categoria, index){
     };
    xhttp.send();                                         
 }
+
+function playVideo(urlToPlay)
+{
+    var toBeReplaced = 'https://www.youtube.com/watch?v=';
+    var correctFormat = 'https://www.youtube.com/embed/';
+    
+    if(urlToPlay.indexOf(toBeReplaced) !== -1)
+       urlToPlay = urlToPlay.replace(toBeReplaced,correctFormat);
+    else
+       urlToPlay = correctFormat + urlToPlay;
+    
+    document.getElementById("iframes").src = urlToPlay;
+}
+

@@ -341,3 +341,46 @@ li.slidecolor.active{
     /*max-height: 285px;*/
     text-align: center;
 }
+
+/************ Coisas do Search ************/
+#results{
+    background-color: #7e7e7e;
+    margin-bottom:10px;
+    width: 154.5%;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item{
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 12px;
+    margin-left: 12px;
+    text-align: center;
+}
+
+.thumbnail_search{
+    width: 200px;
+    height: 144px;
+    max-height: 360px;
+    max-width: 480px;
+}
+
+.botoezinhos{
+    padding-right: 0px;
+}
+
+.resultzinhos{
+    padding-left: 0px;
+}
+
+.titlesearch{
+    color: white;
+    padding:5px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Muli';
+    max-width: 200px;
+}
