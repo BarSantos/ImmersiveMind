@@ -56,13 +56,13 @@ function Sessoes(){
                                                 fillstring+= '<a class="rect_utentes" href="" data-toggle="modal" data-target="#modalContactForm" data-backdrop="static" data-keyboard="false" onclick="EditSession(this.id)" id='+jsonResult[i].SESSAO_ID+'>';
                                                 fillstring += '<img class="img-fluid d-block mx-auto rect" alt=""  style="background-image: url('+imagePath+imageName+')">';
                                                 if(jsonResult[i].SESSAO_NOME)
-                                                    fillstring+= '<h3>'+jsonResult[i].SESSAO_NOME;
+                                                    fillstring+= '<h3 id="h3'+jsonResult[i].SESSAO_ID+'">'+jsonResult[i].SESSAO_NOME;
                                                 else{
                                                     a = i+1;
                                                     if(jsonResult[i].PRIMEIRO_NOME)
-                                                        fillstring+= '<h3>'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+' '+'#'+a;
+                                                        fillstring+= '<h3 id="h3'+jsonResult[i].SESSAO_ID+'">'+jsonResult[i].PRIMEIRO_NOME+' '+jsonResult[i].ULTIMO_NOME+' '+'#'+a;
                                                     else
-                                                         fillstring+= '<h3> Sessão '+'#'+a;
+                                                         fillstring+= '<h3 id="h3'+jsonResult[i].SESSAO_ID+'">Sessão '+'#'+a;
                                                 }
                                                 //Info de terminado depois de sessão expirada
                                                 if(jsonResult[i].TERMINADO == 1)
@@ -259,6 +259,9 @@ com os respectivos dados */
 
 function EditSession(clicked_id){
     window.sessionStorage.setItem("sessaoID", clicked_id);
+    
+    var sessaoNome = document.getElementById('h3'+clicked_id).innerHTML;
+    window.sessionStorage.setItem("sessaoNome", sessaoNome);
     
    
     //document.getElementById('utente-titulo').innerHTML = 'Editar Sessão';
@@ -614,6 +617,9 @@ function resetModalSessao(){
         disableCategorias[k].disabled = false;
     }
     document.getElementById('botaoMesmoIniciar').disabled = false;
+    
+    window.sessionStorage.removeItem("sessaoID");
+    window.sessionStorage.removeItem("sessaoNome");
     
 }
 

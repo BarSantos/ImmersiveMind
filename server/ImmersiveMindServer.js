@@ -349,10 +349,18 @@ router.route('/sessoes').delete(
 router.route('/videos').get(
 		function(req, res, next)
 		{
-			var sessaoID = req.header.sessaoid;
-			
-			var getVideoSessaoPromise = DB.getVideosDaSessao(sessaoID);
-			promiseWithResults(getVideoSessaoPromise, res, 'Foram devolvidos Videos', 'Error a devolver Videos');
+			var sessaoID = req.headers.sessaoid;
+            var categoria = req.headers.categoria;
+            
+            console.log("Estou no videos.get if categoria: "+categoria);
+			if(categoria){
+                var getVideosDaCategoriaPromise = DB.getVideosDaCategoria(categoria);
+                promiseWithResult(getVideosDaCategoriaPromise, res, 'Foram devolvidos Videos', 'Error a devolver Videos');
+            }
+            else{
+			     var getVideoSessaoPromise = DB.getVideosDaSessao(sessaoID);
+			     promiseWithResult(getVideoSessaoPromise, res, 'Foram devolvidos Videos', 'Error a devolver Videos');
+            }
 		});
 
 /*

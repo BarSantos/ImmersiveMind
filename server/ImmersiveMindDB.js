@@ -309,7 +309,7 @@ exports.terminaSessao = function(cuidadorID, sessaoID)
 
 exports.getSessao = function(sessaoID)
 {
-	var getSessaoQuery = "SELECT SESSOES.*, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID, TERMINADO "
+	var getSessaoQuery = "SELECT SESSOES.*, SESSOES.DOENTE_ID AS SESSOES_DOENTE_ID, TERMINADO, PRIMEIRO_NOME, ULTIMO_NOME "
 						+ "FROM SESSOES "
                         + "LEFT JOIN DOENTES ON "
                         + "DOENTES.DOENTE_ID = SESSOES.DOENTE_ID "
@@ -410,7 +410,7 @@ function removeCategoriesToSessions(categoria, sessaoID)
 
 exports.getCategoriasFromSession = function(sessaoID){
     
-    var getCategoriasFromSessionQuery   = "SELECT CATEGORIA "
+    var getCategoriasFromSessionQuery   = "SELECT DISTINCT CATEGORIA "
                                         + "FROM SESSAO_CONTEM_CATEGORIAS "
                                         + "WHERE SESSAO_ID = ? ";
     
@@ -457,11 +457,22 @@ exports.createVideo = function(sessaoID, tituloVideo, videoUrlThumbnail, videoUr
 
 exports.getVideosDaSessao = function(sessaoID)
 {
-	var getSessaoQuery = "SELECT * "
+	var getVideosDaSessaoQuery = "SELECT * "
 					+ "FROM VIDEOS "
 					+ "WHERE SESSAO_ID = ? ";
 						
-	var defer = makeQuery(getSessoesQuery, sessaoID);
+	var defer = makeQuery(getVideosDaSessaoQuery, sessaoID);
+	
+	return defer.promise;
+}
+
+exports.getVideosDaCategoria = function(categoria)
+{
+	var getVideosDaCategoriaQuery  = "SELECT * "
+					               + "FROM VIDEOS "
+					               + "WHERE CATEGORIA = ? ";
+						
+	var defer = makeQuery(getVideosDaCategoriaQuery, categoria);
 	
 	return defer.promise;
 }

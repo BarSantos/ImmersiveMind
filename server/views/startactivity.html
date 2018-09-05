@@ -11,7 +11,7 @@
         <title>ImmersiveMind</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="/js/server.js"></script>
-        <!--<script src="/js/popularSessoes.js"></script>-->
+        <script src="/js/popularActividade.js"></script>
 
 
         <!-- Bootstrap core JavaScript -->
@@ -111,13 +111,13 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="SessaoUtenteX SessaoLinha">Sessão</p>
-                            <p id="sessaoX" class="SessaoLinha">Bananas com chocolatinho</p>
+                            <p id="sessaoX" class="SessaoLinha">- Nenhuma -</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <p class="SessaoUtenteX UtenteLinha">Utente</p>
-                            <p id="utenteX" class="UtenteLinha">Travesseiro de Sintra</p>
+                            <p id="utenteX" class="UtenteLinha">- Nenhum -</p>
                         </div>
                         </div>
                 </div>
@@ -143,12 +143,12 @@
         <!-- /.col-lg-8 -->
     <div class="col-lg-6 col-sm-12">
         <div style="padding-top: 10px">
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" role="tablist" id="tabsCategorias">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#Categoria1">Animais/ Natureza</a>
+                        <a class="nav-link active" data-toggle="tab" href="#Categoria1">Uau</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#Categoria2">Desporto</a>
+                        <a class="nav-link" data-toggle="tab" href="#Categoria2">mehmeh</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#Categoria3">Locais/ Pontos de Interesse</a>
@@ -160,22 +160,11 @@
         </div>
             
             <!-- Tab panes -->
-        <div class="tab-content">
-            <div id="Categoria1" class="tab-pane fade show active">
-                <h3>Business Name or Tagline</h3>
-            </div>
-            <div id="Categoria2" class="tab-pane fade show">
-                <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-            </div>
-            <div id="Categoria3" class="tab-pane fade show">
-                <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
-            </div>
-            <div id="Categoria4" class="tab-pane fade show">
-                <h2>Quarto Tab</h2>
-            </div>
-            <div id="Categoria5" class="tab-pane fade show">
-                <h2>Quinto tab</h2>
-            </div>
+        <div class="tab-content" id="tab-content">
+                <!------------------------------- CAROUSEL ----------------------------->
+                <!-- Desenhado no popularActividade.js                                  -->
+                <!------------------------------- !CAROUSEL ----------------------------->
+
         </div>
     </div>
         <!-- /.col-md-4 -->
