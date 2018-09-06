@@ -15,7 +15,13 @@ $(document).ready(function(){
     
 })
 
-/*** Funcao criar bolinhas ***/
+/** Activa a página depois de loaded **/
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("allPageActivity").style.display = "block";
+}
+
+/*** Funcao popular actividade ***/
 function Actividade(){
     var xhttp = new XMLHttpRequest();
     var sessaoID = window.sessionStorage.getItem("sessaoID");
@@ -36,7 +42,7 @@ function Actividade(){
                                         var fillstring = '';
                                        
                                         var resultJSON = JSON.parse(this.responseText);
-                                        
+            
                                         if(resultJSON.message != 'Error a devolver Sessao'){
                                             var jsonResult = JSON.parse(resultJSON);
                                             var nomeUtente = jsonResult[0].PRIMEIRO_NOME+' '+jsonResult[0].ULTIMO_NOME;
@@ -57,14 +63,16 @@ function getCategoriasDaSessao(sessao_id){
     
     xhttp.open("GET", "http://"+IPADDR+":8080/api/categorias/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    if(!sessao_id)
+        sessao_id = '';
     xhttp.setRequestHeader('sessaoid', sessao_id);
     xhttp.onreadystatechange  = function () {
                     
                                     if (this.readyState == 4 && this.status == 200) {
                                        
                                         var resultJSON = JSON.parse(this.responseText);
-                                        
-                                        
+                                        var i = 0;
+                                        console.log("Result: "+resultJSON.message);
                                         if(resultJSON.message != 'Error a devolver Categorias'){
                                             var jsonResult = JSON.parse(resultJSON);
                                             
@@ -72,7 +80,7 @@ function getCategoriasDaSessao(sessao_id){
                                             var fillstring = '';
                                             
                                             /* Popular tabs com categorias */
-                                            for(var i=0; i<jsonResult.length; i++){
+                                            for(i=0; i<jsonResult.length; i++){
                                                 var categoria = jsonResult[i].CATEGORIA;
                                                 categoria = categoria.replace('/','');
                                                 categoria = categoria.replace(/ /g, '');
@@ -86,24 +94,33 @@ function getCategoriasDaSessao(sessao_id){
                                                 fillstring += '</a>';
                                                 fillstring += '</li>';
                                                 
-                                                getVideosDaCategoria(jsonResult[i].CATEGORIA, i);
-                                            
+                                                getVideosDaCategoria(jsonResult[i].CATEGORIA, i, '');
+                                                window.alert("Categorias: "+jsonResult[i].CATEGORIA);
                                             }
                                             document.getElementById("tabsCategorias").innerHTML = fillstring;
+                                            
                                         }
-                                    
+                                        getVideosDaCategoria('sessao'+sessao_id, i, sessao_id);
+                                    showPage();
  
                                     }
                                 };
     xhttp.send();
 }
 
-function getVideosDaCategoria(categoria, index){
+
+function getVideosDaCategoria(categoria, index, sessaoID){
     var xhttp = new XMLHttpRequest();
-    
     xhttp.open("GET", "http://"+IPADDR+":8080/api/videos/", true);
+    
+    if(categoria == 'sessao'+sessaoID)
+            xhttp.setRequestHeader('categoria', '');
+    else
+            xhttp.setRequestHeader('categoria', categoria);
+    
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.setRequestHeader('categoria', categoria);
+
+    xhttp.setRequestHeader('sessaoid', sessaoID);
     
     categoria = categoria.replace('/', '');
     categoria = categoria.replace(/ /g, '');
@@ -194,6 +211,21 @@ function getVideosDaCategoria(categoria, index){
                                             fillstring += '<span class="carousel-control-next-icon"></span>';
                                             fillstring += '</a>';
                                             fillstring += '</div>';
+                                            
+                                            
+                                           var usercontent = document.getElementById("tabsCategorias").innerHTML;
+                                            console.log("usercontent: "+usercontent);
+                                            if (sessaoID){
+                                                usercontent += '<li class="nav-item">';
+                                                if(usercontent == '<li class="nav-item">')
+                                                    usercontent += '<a class="nav-link active" data-toggle="tab" href="#'+categoria+'">';
+                                                else
+                                                    usercontent += '<a class="nav-link" data-toggle="tab" href="#'+categoria+'">';
+                                                usercontent += '<i class="fas fa-heart"></i>';
+                                                usercontent += '</a>';
+                                                usercontent += '</li>' 
+                                            }
+                                            document.getElementById("tabsCategorias").innerHTML = usercontent;
                                         }
                                         document.getElementById("tab-content").innerHTML = fillstring;
                                     }

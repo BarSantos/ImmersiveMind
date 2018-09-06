@@ -304,9 +304,9 @@ router.route('/sessoes').post(
 			var imagem = req.body.imagem;       //conteúdo base64
             var imageName = req.body.imagename; //meryl.jpg
             var categorias = req.body.categorias;
+            var videos = req.body.videos;
             
-            console.log('Categorias sem split: '+categorias);
-            
+            console.log("videos: "+videos);
             if(imagem)
             {
                 var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
@@ -323,7 +323,7 @@ router.route('/sessoes').post(
             if(!dia)
                 dia = null;
             
-			var createSessaoPromise = DB.createSessao(sessaoNome, doenteID, cuidadorId, dia, imageName, splitCategorias);
+			var createSessaoPromise = DB.createSessao(sessaoNome, doenteID, cuidadorId, dia, imageName, splitCategorias, JSON.parse(videos));
 			promiseResolve(createSessaoPromise, res, 'Sessao criada', 'Error a criar Sessao');
             
             
@@ -395,8 +395,8 @@ router.route('/videos').post(
 router.route('/observacao').get(
 		function(req, res, next)
 		{
-			var sessaoID = req.header.sessaoid;
-			var doenteID = req.header.doenteid;
+			var sessaoID = req.headers.sessaoid;
+			var doenteID = req.headers.doenteid;
 			
 			if(sessaoID)
 			{
@@ -440,12 +440,13 @@ router.route('/categorias').get(
 		function(req, res, next)
 		{ 
             var sessao_id = req.headers.sessaoid;
+            console.log("getCategorias (sessao_id): "+sessao_id);
             if(sessao_id){
                 var getCategoriasPromise =  DB.getCategoriasFromSession(sessao_id);
                 promiseWithResult(getCategoriasPromise, res, 'Foram devolvidas Categorias', 'Error a devolver Categorias');
             }
             else{
-			
+			     
                 var getCategoriasPromise =  DB.getCategorias();
                 promiseWithResult(getCategoriasPromise, res, 'Foram devolvidas Categorias', 'Error a devolver Categorias');
             }

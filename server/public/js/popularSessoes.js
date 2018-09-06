@@ -10,6 +10,7 @@ var IPADDR = '192.168.1.74';
 /*************VARIÁVEIS GLOBAIS ***********/
 var imagem = '';
 var imagemNome = '';
+var savedVideosArray = new Array();
 /******************************************/
 
 
@@ -547,6 +548,7 @@ function AddSession(){
     var sessaoNome = document.getElementById("sessaoNome").value;
     var doenteID = document.getElementById("utenteid").value;
     var dia = document.getElementById("diaid").value;
+    var JSONvideos = JSON.stringify(savedVideosArray);
     
     /* Apanha os valores das Categorias */
     var checkedValue = ''; 
@@ -558,7 +560,7 @@ function AddSession(){
     }
     
     /* O que está entre aspas são os nomes do server: var sessaoID = req.body.-----> sessaoID <---- este;*/
-    var fd = "nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorID + "&dia=" + dia +"&categorias=" + checkedValue + "&imagem=" + imagem + "&imagename=" + imagemNome;
+    var fd = "nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorID + "&dia=" + dia +"&categorias=" + checkedValue + "&imagem=" + imagem + "&imagename=" + imagemNome + "&videos=" + JSONvideos;
     
     
     xhttp.onreadystatechange  = function () {
@@ -582,7 +584,7 @@ function resetModalSessao(){
       inputElements[i].checked = false;
       }
     
-    document.getElementById("360link").value = '';
+    document.getElementById("search-input").value = '';
     imagem = '';
     imagemNome = '';
     $('#img-upload').attr('style', "background-image: url('images/userimages/bolinhas_default.png')");
@@ -620,7 +622,8 @@ function resetModalSessao(){
     
     window.sessionStorage.removeItem("sessaoID");
     window.sessionStorage.removeItem("sessaoNome");
-    
+    savedVideosArray = new Array();
+    document.getElementById("results").innerHTML = '';
 }
 
 /************* Disable do botao quando não esta preenchido *****************/
@@ -647,3 +650,25 @@ function validateNewPatient(){
     }
 }
 */
+
+/***************************************************************************/
+/*          PREENCHIMENTO DOS VÍDEOS ESCOLHIDOS NA SESSAO                  */
+/*                                                                         */
+/***************************************************************************/
+
+
+function saveVideo(checkbox, videoid, titulo){
+    
+    var video = new Object();
+    video.videoid = videoid;
+    video.title = titulo;
+    
+    console.log(video);
+    console.log(checkbox);
+    
+    if(checkbox.checked){
+       savedVideosArray.push(video);
+    }
+    else
+        savedVideosArray.splice(savedVideosArray.indexOf(video), 1);
+}

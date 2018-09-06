@@ -254,7 +254,7 @@ exports.deleteDoente = function(cuidadorID, doenteID)
 /****************************************************************************/
 /*                                  SESSÕES                                 */  
 /****************************************************************************/
-exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem, categorias)
+exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem, categorias, videos)
 {
 	var insertQuery = "INSERT INTO SESSOES SET ?";
     
@@ -265,7 +265,7 @@ exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem, c
 					IMAGEM: imagem,
                     TERMINADO: 0};
     
-	var promise = categoriasIfLogged(insertQuery, toInsert, cuidadorID, categorias, false, null);
+	var promise = categoriasIfLogged(insertQuery, toInsert, cuidadorID, categorias, false, null, videos);
         
 	return promise;						
 }
@@ -347,6 +347,7 @@ exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia,
 exports.deleteSessao = function(cuidadorID, sessaoID)
 {
     deleteSessaoContemCategorias(sessaoID);
+    deleteVideosDaSessao(sessaoID);
 
     var deleteSessaoQuery   = "DELETE "
                             + "FROM SESSOES "
@@ -477,6 +478,29 @@ exports.getVideosDaCategoria = function(categoria)
 	return defer.promise;
 }
 
+function insertVideoToSession(video_title, thumbnail, video_url)
+{
+    var insertVideoToSessionQuery   = "INSERT INTO VIDEOS "
+                                    + "VALUES (?, NULL, LAST_INSERT_ID(), ?, ?)";
+    
+    
+    var insertParams = [video_title,
+                        thumbnail,
+                       video_url];
+    
+    makeQuery(insertVideoToSessionQuery, insertParams);
+}
+
+function deleteVideosDaSessao (sessaoID)
+{
+    var deleteVideosQuery   = "DELETE "
+                            + "FROM VIDEOS "
+                            + "WHERE SESSAO_ID = ?";
+    
+    connection.query(deleteVideosQuery, sessaoID);
+    
+}
+
 /****************************************************************************/
 /*                                  OBSERVAÇÕES                             */  
 /****************************************************************************/
@@ -542,7 +566,7 @@ function doQueryIfLogged(query, params, cuidadorID)
 
 
 
-function categoriasIfLogged(query, params, cuidadorID, categorias, sessaoID, notCategorias)
+function categoriasIfLogged(query, params, cuidadorID, categorias, sessaoID, notCategorias, videos)
 {
 	var defer = Q.defer();
 	var checkLoggedInPromise = checkIfCuidadorIsLogged(cuidadorID);
@@ -562,6 +586,12 @@ function categoriasIfLogged(query, params, cuidadorID, categorias, sessaoID, not
                                     {
                                         for(var i = 0; categorias[i]; i++)
                                             associateCategoriesToSessions(categorias[i]);
+                                        for(var j = 0; videos[j]; j++){
+                                            var thumbnail = "https://i.ytimg.com/vi/"+videos[j].videoid+"/hqdefault.jpg";
+                                            var url = videos[j].videoid;
+                                            
+                                            insertVideoToSession(videos[j].title, thumbnail, url);
+                                        }
                                     }
 									defer.resolve();
 								},

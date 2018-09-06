@@ -51,6 +51,10 @@
         </style>
     </head>
   <body>
+      <!-- Loading da página -->
+      
+        <div id="loader"></div>
+      <div style="display:none;" id="allPageActivity">
  <!-- ***********************************************NAVBAR E TRALHA*************************************************** -->
     <!-- Navigation -->
 
@@ -157,29 +161,14 @@
           <!------------------------- CATEGORIAS --------------------->
     <div class="col-lg-6 col-sm-12">
         <div style="padding-top: 10px">
-            <ul class="nav nav-tabs" role="tablist" id="tabsCategorias">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#Categoria1">Uau</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#Categoria2">mehmeh</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#Categoria3">Locais/ Pontos de Interesse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#Categoria4">Música</a>
-                    </li>
-                </ul>
+            <ul class="nav nav-tabs" role="tablist" id="tabsCategorias"></ul>
         </div>
             
             <!-- Tab panes -->
-        <div class="tab-content" id="tab-content">
-                <!------------------------------- CAROUSEL ----------------------------->
-                <!-- Desenhado no popularActividade.js                                  -->
-                <!------------------------------- !CAROUSEL ----------------------------->
-
-        </div>
+        <!------------------------------- CAROUSEL ----------------------------->
+        <!-- Desenhado no popularActividade.js                                -->
+        <!------------------------------- !CAROUSEL ---------------------------->
+        <div class="tab-content" id="tab-content"></div>
     </div>
         <!-- /.col-md-4 -->
       </div>
@@ -223,7 +212,8 @@
     </div>
     <!-- /.container -->
 
-   
+ </div>
+      <!-- /.Loading page -->
   </body>
 
 </html>
