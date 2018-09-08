@@ -341,12 +341,28 @@ input[type="date"]
     max-width: 480px;
 }
 
+
+.thumbnail_my_videos{
+    width: 150px !important;
+    height: 100px;
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.col6_thumbnail_my_videos{
+    width: 150px !important;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .col12_thumbnail{
+    width: 210px !important;
     padding-left: 0px;
     padding-right: 0px;
 }
 
 .col12_text{
+    width: 200px !important;
     padding-left: 3px;
     padding-right: 0px;
 }

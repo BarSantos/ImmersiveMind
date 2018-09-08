@@ -20,7 +20,7 @@ function search_list(){
     //executa o request
     request.execute(function(response) {
         var results = response.result;
-        $("#results").html("");
+       resetSearch();
         console.log(results);
         $.each(results.items, function(index, item){
             $.get("/template/templatevideo.html", function(data){
@@ -55,10 +55,15 @@ function search_list_sessao(){
         console.log(results);
         $.each(results.items, function(index, item){
             $.get("/template/templatevideosessao.html", function(data){
-                $('#results').append(tplawesome(data, [{"title":item.snippet.title, "videoId":item.id.videoId}]));
+                var title = item.snippet.title;
+                $('#results').append(tplawesome(data, [{"title": title, "titleEscaped":escape(title), "videoId":item.id.videoId}]));
             });
             
         });
+        var closeButton = '<button type="button" class="close" aria-label="Close" onclick="resetSearch()">';
+            closeButton    += '<span aria-hidden="true">&times;</span>';
+            closeButton    +=  '</button>';
+        $('#results').append(closeButton);
     });
 }
 
@@ -71,5 +76,10 @@ function init() {
     gapi.client.load("youtube", "v3", function(){
         //nothing
     });
+}
+
+function resetSearch()
+{
+     $("#results").html("");
 }
 

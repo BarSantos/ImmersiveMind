@@ -321,7 +321,7 @@ exports.getSessao = function(sessaoID)
 }
 
 /* AQUI SERVE PARA EDITAR UMA SESSÃO EXISTENTE */
-exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia, imageName, categorias, notCAtegorias)
+exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia, imageName, categorias, notCAtegorias, videos)
 {
 
    var updateSessaoQuery   = "UPDATE sessoes "
@@ -341,7 +341,7 @@ exports.updateSessao = function(sessaoID, sessaoNome, cuidadorID, doenteID, dia,
                    ];
 
 
-    return categoriasIfLogged(updateSessaoQuery, toUpdate, cuidadorID, categorias, sessaoID, notCAtegorias);
+    return categoriasIfLogged(updateSessaoQuery, toUpdate, cuidadorID, categorias, sessaoID, notCAtegorias, videos);
 }
 
 exports.deleteSessao = function(cuidadorID, sessaoID)
@@ -458,7 +458,7 @@ exports.createVideo = function(sessaoID, tituloVideo, videoUrlThumbnail, videoUr
 
 exports.getVideosDaSessao = function(sessaoID)
 {
-	var getVideosDaSessaoQuery = "SELECT * "
+	var getVideosDaSessaoQuery = "SELECT DISTINCT VIDEO_TITLE, URL_FILE, URL_THUMBNAIL "
 					+ "FROM VIDEOS "
 					+ "WHERE SESSAO_ID = ? ";
 						
@@ -491,11 +491,52 @@ function insertVideoToSession(video_title, thumbnail, video_url)
     makeQuery(insertVideoToSessionQuery, insertParams);
 }
 
+function addVideoToSession(video_title, thumbnail, video_url, sessaoID)
+{
+    var insertVideoToSessionQuery   = "INSERT INTO VIDEOS "
+                                    + "VALUES (?, NULL, ?, ?, ?)";
+    
+    
+    var insertParams = [video_title,
+                        sessaoID,
+                        thumbnail,
+                       video_url];
+    
+    makeQuery(insertVideoToSessionQuery, insertParams);
+}
+
+exports.insertVideoDaSessao  = function(video_title, videoid, sessaoID, cuidadorID)
+{
+    var insertVideoToSessionQuery   = "INSERT INTO VIDEOS "
+                                    + "VALUES (?, NULL, ?, ?, ?)";
+    
+    var thumbnail = "https://i.ytimg.com/vi/"+videoid+"/hqdefault.jpg";
+    
+    var insertParams = [video_title,
+                        sessaoID,
+                        thumbnail,
+                       videoid];
+    
+   return doQueryIfLogged(insertVideoToSessionQuery, insertParams, cuidadorID);
+}
+
+exports.deleteVideoDaSessao = function(videoID, sessaoID, cuidadorID)
+{
+    var deleteVideosQuery   = "DELETE "
+                            + "FROM VIDEOS "
+                            + "WHERE SESSAO_ID = ? "
+                            + "AND URL_FILE = ?";
+    
+    var params = [sessaoID,videoID];
+    
+   return doQueryIfLogged(deleteVideosQuery, params, cuidadorID); 
+}
+
 function deleteVideosDaSessao (sessaoID)
 {
     var deleteVideosQuery   = "DELETE "
                             + "FROM VIDEOS "
-                            + "WHERE SESSAO_ID = ?";
+                            + "WHERE SESSAO_ID = ? ";
     
     connection.query(deleteVideosQuery, sessaoID);
     
@@ -581,6 +622,13 @@ function categoriasIfLogged(query, params, cuidadorID, categorias, sessaoID, not
                                             removeCategoriesToSessions(notCategorias[i], sessaoID);
                                          for(var i = 0; categorias[i]; i++)
                                             updateCategoriesToSessions(categorias[i], sessaoID);
+                                        
+                                        for(var j = 0; videos[j]; j++){
+                                            var thumbnail = "https://i.ytimg.com/vi/"+videos[j].videoid+"/hqdefault.jpg";
+                                            var url = videos[j].videoid;
+                                            console.log("inserted");
+                                            addVideoToSession(videos[j].title, thumbnail, url, sessaoID);
+                                        }
                                     }
                                     else
                                     {

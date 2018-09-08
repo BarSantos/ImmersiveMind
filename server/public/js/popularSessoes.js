@@ -358,6 +358,8 @@ function EditSession(clicked_id){
                                             
                                             
                                             getCategoriasDaSessao(sessaoID);
+                                            getVideosDaSessao(sessaoID);
+                                            
                                             var idUtente = jsonResult[0].SESSOES_DOENTE_ID; //'- Nenhum -'
 
                                             if(idUtente){ //Se tiver algum nome associado (tipo travesseiro)
@@ -407,7 +409,6 @@ function getCategoriasDaSessao(sessao_id){
                                             
                                             var inputElements = document.getElementsByClassName('messageCheckbox');
     
-                                            
                                             /* Popular com doentes nas opções do modal das sessões */
                                             for(var i=0; i<jsonResult.length; i++){
                                                 for(var j=0; inputElements[j]; ++j){
@@ -427,7 +428,50 @@ function getCategoriasDaSessao(sessao_id){
 }
 
 
+function getVideosDaSessao(sessao_id)
+{
+     var xhttp = new XMLHttpRequest();
+    
+    xhttp.open("GET", "http://"+IPADDR+":8080/api/videos/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.setRequestHeader('sessaoid', sessao_id);
+    
+    xhttp.onreadystatechange  = function () {
+                    
+                                    if (this.readyState == 4 && this.status == 200) {
+                                       
+                                        var resultJSON = JSON.parse(this.responseText);
+                                        
+                                        
+                                        if(resultJSON.message != 'Error a devolver Videos'){
+                                            var jsonResult = JSON.parse(resultJSON);
+                                            
+                                            console.log(jsonResult);
+                                            for(var j=0; jsonResult[j]; ++j){
+                                                 saveVideo( jsonResult[j].URL_FILE, jsonResult[j].VIDEO_TITLE);   
+                                            }
+                                            displaySavedVideos();  
+                                        }
+                                    }
+    };
+    
+    xhttp.send();
+}
 
+function deleteVideosDaSessao(videoId)
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("DELETE", "http://"+IPADDR+":8080/api/videos/", true);
+	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    var sessionID = window.sessionStorage.getItem("sessaoID");
+    var cuidadorID = window.sessionStorage.getItem("email_id");
+    
+    var fd = "videoid=" + videoId + "&sessaoid=" + sessionID +"&cuidadorid=" + cuidadorID;
+    
+     xhttp.send(fd);
+     
+}
 
 /*Função que actualiza o doente no modal*/
 function UpdateSession(){
@@ -440,6 +484,8 @@ function UpdateSession(){
     var sessaoNome = document.getElementById("sessaoNome").value;
     var doenteID = document.getElementById("utenteid").value;
     var dia = document.getElementById("diaid").value;
+    
+    var JSONvideos = JSON.stringify(savedVideosArray);
     
     /* Apanha os valores das Categorias */
     var checkedValue = '';
@@ -455,7 +501,7 @@ function UpdateSession(){
     }
     
     /* O que está entre aspas são os nomes do server: var sessaoID = req.body.-----> sessaoID <---- este;*/
-    var fd = "nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorID + "&dia=" + dia +"&categorias=" + checkedValue + "&notcategorias=" + uncheckedValue + "&imagem=" + imagem + "&imagename=" + imagemNome + "&sessaoid=" + sessaoID;
+    var fd = "nomesessao=" + sessaoNome + "&doenteid=" + doenteID + "&cuidadorid=" + cuidadorID + "&dia=" + dia +"&categorias=" + checkedValue + "&notcategorias=" + uncheckedValue + "&imagem=" + imagem + "&imagename=" + imagemNome + "&sessaoid=" + sessaoID + "&videos=" + JSONvideos;
     
     
     xhttp.onreadystatechange  = function () {
@@ -657,18 +703,58 @@ function validateNewPatient(){
 /***************************************************************************/
 
 
-function saveVideo(checkbox, videoid, titulo){
+function saveVideoIfChecked(checkbox, videoid, titulo){
     
+   
+    if(checkbox.checked)
+        saveVideo(videoid, titulo);
+    else
+       deleteFromArray(titulo, videoid);
+    
+    displaySavedVideos();
+    
+}
+
+
+function saveVideo( videoid, titulo)
+{
     var video = new Object();
     video.videoid = videoid;
     video.title = titulo;
     
-    console.log(video);
-    console.log(checkbox);
-    
-    if(checkbox.checked){
-       savedVideosArray.push(video);
+    savedVideosArray.push(video);
+}
+
+function displaySavedVideos()
+{
+     
+    $("#videosSelecionados").html("");
+    if(savedVideosArray.length == 0)
+    {
+        $('#meusVideos').hide();
     }
     else
-        savedVideosArray.splice(savedVideosArray.indexOf(video), 1);
+    {
+        $.each(savedVideosArray, function(index, item){
+            $.get("/template/templatemeusvideos.html", function(data){
+                var title = unescape(item.title);
+                $('#videosSelecionados').append(tplawesome(data, [{"title":title, "videoId":item.videoid}]));
+            });
+            
+        });
+        $('#meusVideos').show();
+    }
+}
+
+function deleteFromArray(titulo, videoid)
+{
+    var video = new Object();
+    video.videoid = videoid;
+    video.title = titulo;
+    
+    deleteVideosDaSessao(videoid);
+    
+    savedVideosArray.splice(savedVideosArray.indexOf(video), 1);
+    
+    displaySavedVideos();
 }

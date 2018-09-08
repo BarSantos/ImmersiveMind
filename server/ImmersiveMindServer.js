@@ -257,6 +257,8 @@ router.route('/sessoes').put(
             var sessaoId = req.body.sessaoid;
             var notcategorias = req.body.notcategorias;
             var terminado = req.body.terminado;
+            var videos = req.body.videos;
+            
             
             if(terminado){
                 var updateTerminarSessaoPromise = DB.terminaSessao(cuidadorId, sessaoId);
@@ -281,7 +283,7 @@ router.route('/sessoes').put(
                     dia = null;
 
                 console.log("THIS ARE THE NOT CATEGORIES: " + splitCategorias);
-                var updateSessaoPromise = DB.updateSessao(sessaoId, sessaoNome, cuidadorId, doenteID, dia, imageName, splitCategorias, splitNotCAtegorias);
+                var updateSessaoPromise = DB.updateSessao(sessaoId, sessaoNome, cuidadorId, doenteID, dia, imageName, splitCategorias, splitNotCAtegorias, JSON.parse(videos));
                 promiseResolve(updateSessaoPromise, res, 'Sessao actualizada', 'Error a actulizar Sessao');
             }
         });
@@ -376,13 +378,25 @@ router.route('/videos').post(
 		{
 			var sessaoID = req.body.sessaoid;
 			var tituloVideo = req.body.titulovideo;
-			var videoUrlThumbnail = req.body.thumbnailVideo;
-			var videoUrlFicheiro = req.body.urlFicheiro;
+			var videoUrlFicheiro = req.body.videoId;
 			var cuidadorID = req.body.cuidadorId;
 			
-			var createVideoPromise = DB.createVideo(sessaoID, tituloVideo, videoUrlThumbnail, videoUrlFicheiro, cuidadorID);
+			var createVideoPromise = DB.insertVideoDaSessao(video_title, videoid, sessaoID, cuidadorID);
 			promiseResolve(createVideoPromise, res, 'Video criado', 'Error a criar Video');
 		});
+
+
+router.route('/videos').delete(
+        function(req, res, next)
+        {
+			var sessaoID = req.body.sessaoid;
+            var videoID =req.body.videoid;
+            var cuidadorId = req.body.cuidadorid;
+            
+            var deleteVideoPromise = DB.deleteVideoDaSessao(videoID, sessaoID, cuidadorId);
+            promiseResolve(deleteVideoPromise, res,'Video apagado' , 'Erro a apagar video');  
+
+        });
 
 /*
 *	O pedido GET tem duas funções
