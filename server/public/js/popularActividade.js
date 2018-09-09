@@ -12,8 +12,33 @@ var IPADDR = '192.168.1.74';
 $(document).ready(function(){
     
     Actividade();
-    
+    initPlayer();
 })
+
+function initPlayer()
+{
+    YT.Player('iframes', {
+       events: {
+            onStateChange: playerStateChange
+       } 
+    });
+}
+
+function playerStateChange(event)
+{
+    switch(event.data)
+    {
+        case YT.PlayerState.ENDED:
+            console.log("Ended");
+            break;
+        case YT.PlayerState.PLAYING:
+            console.log("Play");
+            break;
+        case YT.PlayerState.PAUSED:
+            console.log("Pause");
+            break;
+    }
+}
 
 /** Activa a página depois de loaded **/
 function showPage() {
