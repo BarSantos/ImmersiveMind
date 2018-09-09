@@ -317,6 +317,7 @@ function EditSession(clicked_id){
                                                 }
                                                 
                                                  document.getElementById('botaoMesmoIniciar').disabled = true;
+                                                document.getElementById('tabBalancoFinal').classList.remove('disabled');
                                                 
                                             }
                                             console.log('Terminado: '+jsonResult[0].TERMINADO);
@@ -670,6 +671,7 @@ function resetModalSessao(){
     window.sessionStorage.removeItem("sessaoNome");
     savedVideosArray = new Array();
     document.getElementById("results").innerHTML = '';
+     document.getElementById('tabBalancoFinal').classList.add('disabled');
 }
 
 /************* Disable do botao quando não esta preenchido *****************/

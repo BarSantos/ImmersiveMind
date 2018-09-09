@@ -14,6 +14,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="/js/server.js"></script>
         <script src="/js/popularSessoes.js"></script>
+        <script src= "/js/observacoes.js"></script>
         
 
 
@@ -57,7 +58,7 @@
     <!-- Navigation -->
 
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-            <a class="navbar-brand py-0" href="/">  <img class="img-responsive" width="50px" height="" src="images/brain-logo-off.png"></a>
+            <a class="navbar-brand py-0" href="frontpage">  <img class="img-responsive" width="50px" height="" src="images/brain-logo-off.png"></a>
             <p class="navbar-text text-uppercase">ImmersiveMind</p>
             <button class="navbar-toggler" type="button" data-toggle="collapse" style="z-index: 1" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span> </button>
@@ -160,8 +161,8 @@
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#dados-sessao">Dados da Sessão</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#obs-sessao">Observações</a></li>
+                    <li class="nav-item disabled" id="tabBalancoFinal">
+                        <a class="nav-link" data-toggle="tab" href="#obs-sessao" onclick="Observacoes()">Balanço Final</a></li>
                 </ul>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetModalSessao()">
                     <span aria-hidden="true">&times;</span>
@@ -243,9 +244,117 @@
                 </div>
 
             </div>
+                    <!------------------------------------------------------------------>
+                    <!--                        OBSERVACOES                           -->
+                    <!------------------------------------------------------------------>
                     <div id="obs-sessao" class="tab-pane fade">
-                        <p> Segundo Tab</p>
+                        <div class= "form-group">
+                            <label for="" id="tempoid"><h4>Duração da Sessão: 00:00:00</h4></label>
+                        </div>
+                    
+                        <div class="form-group">
+                            <h4 id="estimulacao_cognitiva">Estimulação Cognitiva</h4>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Reconhecimento dos objectos visualizados:</label>
+                            <p class="small"></p>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="1reconhecimento" value="1">1 <p>Nenhum objecto</p></label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="2reconhecimento" value="2">2</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="3reconhecimento" value="3">3</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="4reconhecimento" value="4">4</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="5reconhecimento" value="5">5 <p>Todos os objectos</p></label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Alterações de humor:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="1humor" value="1">1 <p>Muitas alterações</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="2humor" value="2">2</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="3humor" value="3">3</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="4humor" value="4">4</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="5humor" value="5">5 <p>Sem alterações</p></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Interesse durante a sessão:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="1interesse" value="1">1 <p>Sem interesse</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="2interesse" value="2">2</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="3interesse" value="3">3</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="4interesse" value="4">4</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="5interesse" value="5">5 <p>Muito interessado(a)</p></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Interacção entre o cuidador e o utente:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="1interesse" value="1">1<p>Nenhuma interacção</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="2interesse" value="2">2</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="3interesse" value="3">3</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="4interesse" value="4">4</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="5interesse" value="5">5<p>Muita interacção</p></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h4 id="estimulacao_cognitiva">Alterações Fisiológicas</h4>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Náuseas:</label>
+                            <p class="small"></p>
+                            <div class="row" style="text-align: center">
+                                <div class="col-lg-6">
+                                    <label class="radio-inline"><input type="radio" name="nauseasradio" id="SimNauseas" value="1">Sim</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="radio-inline"><input type="radio" name="nauseasradio" id="NaoNauseas" value="0">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Desequilíbrios:</label>
+                            <p class="small"></p>
+                            <div class="row" style="text-align: center">
+                                <div class="col-lg-6">
+                                    <label class="radio-inline"><input type="radio" name="desequilibriosradio" id="SimDesequilibrios" value="1">Sim</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="radio-inline"><input type="radio" name="desequilibriosradio" id="NaoDesequilibrios" value="0">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Perturbações visuais:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosChorosos" id="OlhosChorosos" name="Olhos">Olhos chorosos</label>
+                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosSecos" id="OlhosSecos" name="Olhos">Olhos secos</label>
+                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos doridos</label>
+                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos cansados</label>
+                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="Nada" id="OlhosNada" name="Olhos">Nada</label>
+                            </div>
+                        </div>
+                            
+                      <div class="form-group">
+                          <label style="font-weight: bold">Outras observações relevantes:</label>
+                            <textarea class="form-control" rows="3" id="ObservacoesRelevantes" placeholder="p.e.: O que gostou mais/menos"></textarea>
+                        </div>
+                </div>
+                        
+                        
+                        
                     </div>
+                
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">

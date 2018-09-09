@@ -378,3 +378,63 @@ input[type="date"]
     max-width: 200px;
     text-align: left;
 }
+
+/*********************** OBSERVAÇÕES *************************/
+
+input[type=radio] {
+    display: block;
+    margin: 0 auto; 
+}
+
+label {
+    display: inline-block;
+}
+                        
+.radio-inline{
+    text-align: center;
+    font-size: 15px;
+}
+.checkbox-inline{
+    text-align: center;
+    font-size: 15px;
+}
+                        
+                        
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+.col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+/***** Tab Balanço final *****/
+.disabled {
+    pointer-events:none; //This makes it not clickable
+    opacity:0.6;         //This grays it out to look disabled
+}

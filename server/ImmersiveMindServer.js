@@ -398,6 +398,10 @@ router.route('/videos').delete(
 
         });
 
+
+/****************************************************************************/
+/*                                  OBSERVAÇÕES                             */  
+/****************************************************************************/
 /*
 *	O pedido GET tem duas funções
 *	caso só seja feito com o doenteID
@@ -410,18 +414,9 @@ router.route('/observacao').get(
 		function(req, res, next)
 		{
 			var sessaoID = req.headers.sessaoid;
-			var doenteID = req.headers.doenteid;
-			
-			if(sessaoID)
-			{
-				var getObservacaoSessaoIDPromise =  getObservacaoSessaoID(sessaoID);
-				promiseWithResult(getObservacaoSessaoIDPromise, res, 'Foram devolvidos Videos', 'Error a devolver Videos');
-			}
-			else
-			{
-				var getObservacaoDoenteIDPromise =  getObservacaoDoenteID(doenteID);
-				promiseWithResult(getObservacaoDoenteIDPromise, res, 'Foram devolvidos Videos', 'Error a devolver Videos');			
-			}
+
+				var getObservacoesSessaoPromise =  DB.getObservacaoSessaoID(sessaoID);
+				promiseWithResult(getObservacoesSessaoPromise, res, 'Foram devolvidas Observações', 'Error a devolver Observações');
 		});
 
 /*
@@ -435,17 +430,49 @@ router.route('/observacao').get(
 router.route('/observacao').post(
 		function(req, res, next)
 		{
-			var observacao = req.body.observacao;
-			var tituloVideo = req.body.tituloVideo;
-			var doenteID = req.body.doenteID;
-			var cuidadorID = req.body.cuidadoID;
 			var sessaoID = req.body.sessaoID;
+            var tempo = req.body.tempo;
+            var reconhecimento = req.body.reconhecimento;
+            var humor = req.body.humor;
+            var interesse = req.body.interesse;
+            var interaccao = req.body.interaccao;
+            var nauseas = req.body.nauseas;
+            var desequilibrios = req.body.desequilibrios;
+            var perturbacoes_visuais = req.body.perturbacoes_visuais;
+            var observacoes = req.body.observacoes;
 			
-			var createObservacaoPromise = DB.createObservacao(observacao, tituloVideo, doenteID, cuidadorID, sessaoID);
+			var createObservacaoPromise = DB.createObservacao(sessaoID, tempo, reconhecimento, humor, interesse, interaccao, nauseas, desequilibrios, perturbacoes_visuais, observacoes);
+            
 			promiseResolve(createObservacaoPromise, res, 'Observacao Criada', 'Error a criar Observacao'); 
 		});
 
-		
+
+router.route('/observacao').put(
+		function(req, res, next)
+		{
+			var sessaoID = req.body.sessaoID;
+            var reconhecimento = req.body.reconhecimento;
+            var humor = req.body.humor;
+            var interesse = req.body.interesse;
+            var interaccao = req.body.interaccao;
+            var nauseas = req.body.nauseas;
+            var desequilibrios = req.body.desequilibrios;
+            var perturbacoes_visuais = req.body.perturbacoes_visuais;
+            var observacoes = req.body.observacoes;
+            var cuidadorID = req.body.cuidadorID;
+			
+            console.log("sessaoID" + sessaoID);
+            console.log("reconhecimento" + reconhecimento);
+            console.log("interaccao" + interaccao);
+            console.log("observacoes" + observacoes);
+            console.log("cuidadorID" + cuidadorID);
+            
+			var updateObservacaoPromise = DB.updateObservacao(sessaoID, reconhecimento, humor, interesse, interaccao, nauseas, desequilibrios, perturbacoes_visuais, observacoes, cuidadorID);
+            
+			promiseResolve(updateObservacaoPromise, res, 'Observacao actualizada', 'Error a actualizar Observacao'); 
+		});
+
+
 /****************************************************************************/
 /*                                  CATEGORIAS                              */  
 /****************************************************************************/

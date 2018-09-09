@@ -348,6 +348,7 @@ exports.deleteSessao = function(cuidadorID, sessaoID)
 {
     deleteSessaoContemCategorias(sessaoID);
     deleteVideosDaSessao(sessaoID);
+    deleteObservacaoDaSessao(sessaoID);
 
     var deleteSessaoQuery   = "DELETE "
                             + "FROM SESSOES "
@@ -546,43 +547,78 @@ function deleteVideosDaSessao (sessaoID)
 /*                                  OBSERVAÇÕES                             */  
 /****************************************************************************/
 
-exports.createObservacao = function(observacao, tituloVideo, doenteID, cuidadorID, sessaoID)
+exports.createObservacao = function(sessaoID, elapseTime, reconhecimento, humor, interesse, interaccao, nauseas, desequilibrios, pertubacoesVisuais, observacoes, cuidadorID)
 {
 	
 	
-	var insertQuery = "INSERT INTO VIDEOS_OBSERVACAO SET ?";
-	var toInsert = {VIDEO_TITLE: tituloVideo,
-					DOENTE_ID: doenteID,
-					EMAIL_ID: cuidadorID,
-					SESSAO_ID: sessaoID, 
-					OBSERVACAO: observacao};
+	var insertQuery = "INSERT INTO OBSERVACOES SET ?";
+	var toInsert = {SESSAO_ID: sessaoID, 
+                    TEMPO: elapseTime,
+					RECONHECIMENTO: reconhecimento,
+					HUMOR: humor,
+                    INTERESSE: interesse,
+                    INTERACCAO: interaccao,
+                    NAUSEAS: nauseas,
+                    DESEQUILIBRIOS: desequilibrios,
+                    PERTURBACOES_VISUAIS: pertubacoesVisuais,
+					OBSERVACOES: observacoes};
 					
 	return doQueryIfLogged(insertQuery, toInsert, cuidadorID);
 }
 
+exports.updateObservacao = function(sessaoID, reconhecimento, humor, interesse, interaccao, nauseas, desequilibrios, pertubacoesVisuais, observacoes, cuidadorID)
+{
+	
+	var updateQuery =  "UPDATE OBSERVACOES "
+                    + "SET "
+                    + "RECONHECIMENTO = ?, "
+                    + "HUMOR = ?, "
+                    + "INTERESSE = ?, "
+                    + "INTERACCAO = ?, "
+                    + "NAUSEAS = ?, "
+                    + "DESEQUILIBRIOS = ?, "
+                    + "PERTURBACOES_VISUAIS = ?, "
+                    + "OBSERVACOES = ? "
+                    + "WHERE SESSAO_ID = ?";
+    
+
+	var toUpdate = [reconhecimento,
+					humor,
+                    interesse,
+                    interaccao,
+                    nauseas,
+                    desequilibrios,
+                    pertubacoesVisuais,
+					observacoes,
+                    sessaoID];
+
+   /* var defer = makeQuery(updateQuery, toUpdate);
+	return defer.promise;*/
+    console.log("update obs: "+cuidadorID);
+    return doQueryIfLogged(updateQuery, toUpdate, cuidadorID);
+}
+
+
 exports.getObservacaoSessaoID = function(sessaoID)
 {
-	var getSessaoQuery = "SELECT * "
-					+ "FROM VIDEOS_OBSERVACAO "
+	var getObservacaoQuery = "SELECT * "
+					+ "FROM OBSERVACOES "
 					+ "WHERE SESSAO_ID = ? ";
 						
-	var defer = makeQuery(getSessoesQuery, sessaoID);
+	var defer = makeQuery(getObservacaoQuery, sessaoID);
 	
 	return defer.promise;
 }
 
-exports.getObservacaoDoenteID = function(doenteID)
+function deleteObservacaoDaSessao (sessaoID)
 {
-	var getSessaoQuery = "SELECT * "
-					+ "FROM VIDEOS_OBSERVACAO "
-					+ "WHERE DOENTE_ID = ? ";
-						
-	var defer = makeQuery(getSessoesQuery, sessaoID);
-	
-	return defer.promise;
+    var deleteObservacaoQuery   = "DELETE "
+                                + "FROM OBSERVACOES "
+                                + "WHERE SESSAO_ID = ? ";
+    
+    connection.query(deleteObservacaoQuery, sessaoID);
+    
 }
-
-
 /****************************************************************************/
 /*                                  SE LOGGED                               */  
 /****************************************************************************/
