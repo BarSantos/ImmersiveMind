@@ -39,6 +39,9 @@
     flex: 1;
     justify-content: center;
     align-items: center;
+    border-top: 0.5px solid #ededed !important;
+    border-left: 0.5px solid #ededed !important;
+    border-right: 0.5px solid #ededed !important;
 }
 
 .nav-tabs > li > a.active{
@@ -52,7 +55,6 @@
 
 .nav-tabs > li > a:hover{
   background-color: #a4a4a4 !important;
-    border-radius: 0;
     border: none;
     color:#fff;
 }
@@ -246,16 +248,26 @@ marquee{
     }
     .avisos{
         font-size: 10px;
-        height: 35px;
+        height: 49px;
     }
     .imgaviso{
-        height: 30px;
-        width: 33.1px;
+        height: 45px;
+        width: 46px;
+    }
+    .text_warning{
+        padding-bottom: 10px;
     }
   
 }
 
+@media(max-width: 407px) {
+    .text_warning{
+        padding-bottom: 10px;
+        font-size: 10px;
+    }
+}
 
+   
 /********** Barra de Search **************/
 /* hide the blue outline */
 .form-control:focus {
@@ -266,8 +278,14 @@ marquee{
 .searchs{
     font-family: 'Muli';
 }
-.input-group-text{
+.input-group-text:hover{
     background-color: #f5dbcf;
+    color: #7e7e7e;
+}
+
+.input-group-text{
+    background-color: #7e7e7e;
+    color: white;
 }
 
 /************ Butões Guardar/Sair Terminar *******/
@@ -413,4 +431,196 @@ li.slidecolor.active{
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+/******* tamanho letras do content dos videos ******/
+
+@media (max-width: 425px){
+    .title_video{
+        font-size: 13px;
+    }
+    .thumbnail_image{
+        width: 110%;
+        height: 110%;
+    }
+}
+
+@media (max-width: 992px){
+    #results{
+        width: inherit;
+    }
+}
+
+
+/**************************************/
+/***************************************/
+/************************************/
+
+/*********************** OBSERVAÇÕES *************************/
+
+input[type=radio] {
+    display: block;
+    margin: 0 auto; 
+}
+
+label {
+    display: inline-block;
+}
+                        
+.radio-inline{
+    text-align: center;
+    font-size: 15px;
+}
+.checkbox-inline{
+    text-align: center;
+    font-size: 15px;
+}
+                        
+                        
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+.col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+/*** Tamanhos das letras ***/
+
+@media (max-width: 495px){
+    #ObservacoesRelevantes{
+        font-size: 12px;
+    }
+    .checkbox-inline2{
+        font-size: 12px;
+    }
+    .radio-inline{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 375px){
+    #ObservacoesRelevantes{
+        font-size: 10px;
+    }
+    .checkbox-inline2{
+        font-size: 10px;
+    }
+    .radio-inline{
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 379px){
+    #dados-sessao{
+        font-size: 14px;
+    }
+    #obs-sessao{
+        font-size: 14px;
+    }
+}
+
+/***** Tab Balanço final *****/
+.disabled {
+    pointer-events:none; /*This makes it not clickable*/
+    opacity:0.6;         /*This grays it out to look disabled*/
+}
+
+/********* Na procura de videos **********/
+
+@media (max-width: 768px){
+    .textsmaller{
+        font-size: 14px;
+    }
+}
+
+/************* Btao procurar *********/
+
+.input-group-text{
+    background-color: #7e7e7e;
+    color: white;
+    
+}
+.input-group-text:hover{
+    background-color: #f5dbcf;
+    color: #7e7e7e;
+    -o-transition:.3s;
+  -ms-transition:.3s;
+  -moz-transition:.3s;
+  -webkit-transition:.3s;
+  /* ...and now for the proper property */
+  transition:.3s;
+}
+
+
+.modal-titulo{
+    font-family: 'Muli';
+    color: #7e7e7e;
+}
+
+.modal-body{
+    font-family: 'Muli';
+}
+
+.modal-header
+ {
+     padding:9px 15px;
+     border-bottom:0px solid #3f3f3f;
+     background-color: #f5dbcf;
+ }
+
+.modal-title{
+    text-align: center !important;
+}
+ .modal-header .close{
+    position: inherit;
+}
+
+.modal-footer{
+    border-top: 1px solid #7e7e7e;
+    display: block;
+}
+
+@media (max-width: 466px){
+    #saveandleave{
+        font-size: 12px;
+    }
+    #leave{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 345px){
+    #saveandleave{
+        font-size: 11px;
+    }
+    #leave{
+        font-size: 11px;
+    }
 }

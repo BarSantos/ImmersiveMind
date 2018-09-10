@@ -209,7 +209,7 @@
                     <div class="input-group">
                         <input class="form-control py-2 border-right-0 border searchs" type="search" value="" id="search-input" placeholder="Procure vídeos e seleccione os que quer visualizar">
                             <span class="input-group-append">
-                                <div class="input-group-text"><a onclick="search_list_sessao()"><i class="fa fa-search"></i></a></div>
+                                <div class="input-group-text"><a class="searchbutton" onclick="search_list_sessao()"><i class="fa fa-search"></i></a></div>
                             </span>
                     </div>
                     <div class="row">
@@ -274,7 +274,7 @@
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="2humor" value="2">2</label>
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="3humor" value="3">3</label>
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="4humor" value="4">4</label>
-                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="5humor" value="5">5 <p>Sem alterações</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="5humor" value="5">5 <p>Sem alteração</p></label>
                             </div>
                         </div>
                         
@@ -286,7 +286,7 @@
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="2interesse" value="2">2</label>
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="3interesse" value="3">3</label>
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="4interesse" value="4">4</label>
-                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="5interesse" value="5">5 <p>Muito interessado(a)</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="5interesse" value="5">5 <p>Muito interessado</p></label>
                             </div>
                         </div>
                         
@@ -310,10 +310,10 @@
                             <label style="font-weight: bold">Náuseas:</label>
                             <p class="small"></p>
                             <div class="row" style="text-align: center">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <label class="radio-inline"><input type="radio" name="nauseasradio" id="SimNauseas" value="1">Sim</label>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <label class="radio-inline"><input type="radio" name="nauseasradio" id="NaoNauseas" value="0">Não</label>
                                 </div>
                             </div>
@@ -323,10 +323,10 @@
                             <label style="font-weight: bold">Desequilíbrios:</label>
                             <p class="small"></p>
                             <div class="row" style="text-align: center">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <label class="radio-inline"><input type="radio" name="desequilibriosradio" id="SimDesequilibrios" value="1">Sim</label>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <label class="radio-inline"><input type="radio" name="desequilibriosradio" id="NaoDesequilibrios" value="0">Não</label>
                                 </div>
                             </div>
@@ -337,11 +337,11 @@
                             <label style="font-weight: bold">Perturbações visuais:</label>
                             <p class="small"></p>
                             <div class="row">
-                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosChorosos" id="OlhosChorosos" name="Olhos">Olhos chorosos</label>
-                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosSecos" id="OlhosSecos" name="Olhos">Olhos secos</label>
-                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos doridos</label>
-                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos cansados</label>
-                                <label class="checkbox-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="Nada" id="OlhosNada" name="Olhos">Nada</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosChorosos" id="OlhosChorosos" name="Olhos">Olhos chorosos</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosSecos" id="OlhosSecos" name="Olhos">Olhos secos</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos doridos</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos cansados</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="Nada" id="OlhosNada" name="Olhos">Nada</label>
                             </div>
                         </div>
                             

@@ -185,32 +185,32 @@ function getVideosDaCategoria(categoria, index, sessaoID){
                                                         fill_item += '<div class="carousel-item carousel-item-yt">';
                                                     }
                                                     fill_item += '<div class = "row">';
-                                                    fill_item += '<div class = "col-lg-6">';
+                                                    fill_item += '<div class = "col-lg-6 col-md-6 col-sm-6 col-6">';
                                                      fill_item += '<a onclick="playVideo(\''+ jsonResult[i].URL_FILE +'\')">';
                                                     fill_item += '<div class = "row">'; //row imagem
-                                                    fill_item += '<div class = "col-lg-12">';
+                                                    fill_item += '<div class = "col-lg-12 col-md-12 col-sm-12 col-12">';
                                                     fill_item += '<img class="thumbnail_image" src="'+jsonResult[i].URL_THUMBNAIL+'">';
                                                     fill_item += '</div>';
                                                     fill_item += '</div>'; // fecha row image
                                                     fill_item += '<div class = "row">'; //row título
-                                                    fill_item += '<div class = "col-lg-12">';
-                                                    fill_item += '<p></p><p>'+jsonResult[i].VIDEO_TITLE+'</p>';
+                                                    fill_item += '<div class = "col-lg-12 col-md-12 col-sm-12 col-12">';
+                                                    fill_item += '<p></p><p class="title_video">'+jsonResult[i].VIDEO_TITLE+'</p>';
                                                     fill_item += '</div>';
                                                     fill_item += '</div>'; // fecha row título
                                                     fill_item += '</a>';
                                                     fill_item += '</div>'; //fecha col-6 - primeira coluna
-                                                    fill_item += '<div class = "col-lg-6">';
+                                                    fill_item += '<div class = "col-lg-6 col-md-6 col-sm-6 col-6">';
                                                     if (jsonResult[i+1]){
                                                         
                                                         fill_item += '<a onclick="playVideo(\''+ jsonResult[i+1].URL_FILE +'\')">';
                                                         fill_item += '<div class = "row">'; //row imagem
-                                                        fill_item += '<div class = "col-lg-12">';
+                                                        fill_item += '<div class = "col-lg-12 col-md-12 col-sm-12 col-12">';
                                                         fill_item += '<img class="thumbnail_image" src="'+jsonResult[i+1].URL_THUMBNAIL+'">';
                                                         fill_item += '</div>';
                                                         fill_item += '</div>'; // fecha row image
                                                         fill_item += '<div class = "row">'; //row título
-                                                        fill_item += '<div class = "col-lg-12">';
-                                                        fill_item += '<p></p><p>'+jsonResult[i+1].VIDEO_TITLE+'</p>';
+                                                        fill_item += '<div class = "col-lg-12 col-md-12 col-sm-12 col-12">';
+                                                        fill_item += '<p></p><p class="title_video">'+jsonResult[i+1].VIDEO_TITLE+'</p>';
                                                         fill_item += '</div>';
                                                         fill_item += '</div>'; // fecha row título
                                                         fill_item += '</a>';

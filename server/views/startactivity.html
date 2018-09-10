@@ -135,10 +135,60 @@
      <!-- Call to Action Well -->
     <div class="subcontainer">
         <!------------------------- AVISOS --------------------->
-      <div class="text-white bg-secondary avisos">
+      <div class="text-white bg-secondary avisos row">
+          <div class="col-lg-1 col-md-1 col-sm-1 col-1" style="padding-right: 0px; font-family: 'Muli'">
           <img class="img-responsive imgaviso" width="50px" height="" src="images/warning-img-yellow.png" style="padding-bottom: 1px; padding-top: 1px;">
+              </div>
+          <div class="col-lg-11 col-md-11 col-sm-11 col-11" style="padding-left: 0px; padding-bottom: 8px; font-family: 'Muli'">
+          <p class='text_warning'><strong>Verifique, no máximo intervalo de 15 minutos, se o utilizador do óculos sente algum incómodo!</strong><strong class="hidden">Ajuste os óculos de acordo com a sua preferência.</strong></p>
+          </div>
           
-          <marquee behavior="scroll" scrollamount="8" direction="left">Verifique, no máximo intervalo de 15 minutos, se o utilizador do óculos sente algum incómodo! &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Ajuste os óculos de acordo com a sua preferência.</marquee>
+          <script>
+          	$(document).ready(function() {
+
+		// run the fade() function every 2 seconds
+		setInterval(function(){
+			fade();
+		},7000);
+
+
+		// toggle between fadeIn and fadeOut with 0.3s fade duration.
+		function fade(){
+			$("strong").fadeToggle(1000);
+		}
+
+	});
+          </script>
+          
+          <style>
+          .hidden {
+    display:none;
+}
+strong {
+    position: absolute;
+    left:45px;
+    font-weight:normal;
+    
+}
+.text_warning {
+    
+    position:relative;
+}
+              
+              @media (max-width: 856px){
+                  .text_warning{
+                      font-size: 13px;
+                  }
+              }
+              
+              @media(max-width: 407px) {
+    .text_warning{
+        padding-bottom: 10px;
+        font-size: 10px;
+    }
+}
+          </style>
+         <!-- <marquee behavior="scroll" scrollamount="8" direction="left">Verifique, no máximo intervalo de 15 minutos, se o utilizador do óculos sente algum incómodo! &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Ajuste os óculos de acordo com a sua preferência.</marquee>-->
       </div>
 
       <!-- Heading Row -->
@@ -157,7 +207,7 @@
         <!-- /.col-lg-8 -->
           
           <!------------------------- CATEGORIAS --------------------->
-    <div class="col-lg-6 col-sm-12">
+    <div class="col-lg-6 col-sm-12" style="padding-right:0px">
         <div style="padding-top: 10px">
             <ul class="nav nav-tabs" role="tablist" id="tabsCategorias"></ul>
         </div>
@@ -185,7 +235,7 @@
             </div>
                     <!-- Para resultados da pesquisa -->
         <div class="row">
-            <div class="col-lg-12 resultzinhos">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 resultzinhos">
                 <div id="results"></div>
             </div>
         </div>
@@ -194,7 +244,7 @@
               <!------------------------ BOTÕES FINAIS ------------------->
               <div class="row">
                 <div class="col-lg-6">
-                    <button id="btnGuardarTerminar" class="btn btn-block btn-primary btn-default">Guardar e Terminar</button>
+                    <button id="btnGuardarTerminar" class="btn btn-block btn-primary btn-default" data-toggle="modal" data-target="#modalBalancoFinal">Guardar e Terminar</button>
                 </div>
                 <div class="col-lg-6">
                     <button id="btnSairTerminar" class="btn btn-block btn-primary btn-default">Sair sem Terminar</button>
@@ -207,6 +257,144 @@
       <!-- /.row -->
 
 </div>
+            
+            <!------------------------- POPUP DO BALANÇO FINAL --------------------------->
+    <div class="modal fade popup-plus" id="modalBalancoFinal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h2 class="modal-title w-100 font-weight-bold modal-titulo" id="utente-titulo">Balanço Final</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+               
+                    <!------------------------------------------------------------------>
+                    <!--                        OBSERVACOES                           -->
+                    <!------------------------------------------------------------------>
+
+                <div class="modal-body">
+                        <div class= "form-group">
+                            <label for="" id="tempoid"><h4>Duração da Sessão: 00:00:00</h4></label>
+                        </div>
+                    
+                        <div class="form-group">
+                            <h4 id="estimulacao_cognitiva">Estimulação Cognitiva</h4>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Reconhecimento dos objectos visualizados:</label>
+                            <p class="small"></p>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="1reconhecimento" value="1">1 <p>Nenhum objecto</p></label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="2reconhecimento" value="2">2</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="3reconhecimento" value="3">3</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="4reconhecimento" value="4">4</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="5reconhecimento" value="5">5 <p>Todos os objectos</p></label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Alterações de humor:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="1humor" value="1">1 <p>Muitas alterações</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="2humor" value="2">2</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="3humor" value="3">3</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="4humor" value="4">4</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="5humor" value="5">5 <p>Sem alteração</p></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Interesse durante a sessão:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="1interesse" value="1">1 <p>Sem interesse</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="2interesse" value="2">2</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="3interesse" value="3">3</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="4interesse" value="4">4</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="5interesse" value="5">5 <p>Muito interessado</p></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Interacção entre o cuidador e o utente:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="1interesse" value="1">1<p>Nenhuma interacção</p></label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="2interesse" value="2">2</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="3interesse" value="3">3</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="4interesse" value="4">4</label>
+                                <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="5interesse" value="5">5<p>Muita interacção</p></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h4 id="estimulacao_cognitiva">Alterações Fisiológicas</h4>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Náuseas:</label>
+                            <p class="small"></p>
+                            <div class="row" style="text-align: center">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <label class="radio-inline"><input type="radio" name="nauseasradio" id="SimNauseas" value="1">Sim</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <label class="radio-inline"><input type="radio" name="nauseasradio" id="NaoNauseas" value="0">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Desequilíbrios:</label>
+                            <p class="small"></p>
+                            <div class="row" style="text-align: center">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <label class="radio-inline"><input type="radio" name="desequilibriosradio" id="SimDesequilibrios" value="1">Sim</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                    <label class="radio-inline"><input type="radio" name="desequilibriosradio" id="NaoDesequilibrios" value="0">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label style="font-weight: bold">Perturbações visuais:</label>
+                            <p class="small"></p>
+                            <div class="row">
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosChorosos" id="OlhosChorosos" name="Olhos">Olhos chorosos</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosSecos" id="OlhosSecos" name="Olhos">Olhos secos</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos doridos</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosCansados" id="OlhosCansados" name="Olhos">Olhos cansados</label>
+                                <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="Nada" id="OlhosNada" name="Olhos">Nada</label>
+                            </div>
+                        </div>
+                            
+                      <div class="form-group">
+                          <label style="font-weight: bold">Outras observações relevantes:</label>
+                            <textarea class="form-control" rows="3" id="ObservacoesRelevantes" placeholder="p.e.: O que gostou mais/menos"></textarea>
+                        </div>
+                </div>
+                        
+                        
+                        
+            <div class="modal-footer">
+                
+                <!-- Botões Adicionar/Guardar - Apagar - Terminar - Cancelar -->
+                <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6" id="botaoAdicionar">
+                           <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-success" id="saveandleave"><i class="fas fa-save"></i> Guardar e Sair</button> 
+                        </div>
+                    
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-6" id="botaoCancelar">
+                            <button data-dismiss="modal" onclick="resetModalSessao()" class="btn btn-default btn-lg btn-block button-popup-fail" id="leave"><i class="fas fa-times-circle"></i> Cancelar</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        </div>
+    </div>
     </div>
     <!-- /.container -->
 
