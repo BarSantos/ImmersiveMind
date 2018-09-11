@@ -22,6 +22,8 @@ $(document).ready(function(){
     ChamarDoentes();
     ChamarCategorias();
     CheckDate();
+    document.getElementById('obs-sessao').addEventListener("click", validateObsForm);
+    showPage();
 })
 
 /*** Funcao criar bolinhas ***/
@@ -149,6 +151,8 @@ function CheckDate(){
                                                 document.getElementById('infodatas').innerHTML = fillstring;
                                             
                                             $('#ModalTime').modal('toggle');
+                                            
+                                            
                                         }
                                     }
      };
@@ -612,8 +616,8 @@ function AddSession(){
     
     xhttp.onreadystatechange  = function () {
                                     if (this.readyState == 4 && this.status == 200) {
-                                        Sessoes();  
-                                        }
+                                        Sessoes();
+                                    }
                                 };
     xhttp.send(fd);
     resetModalSessao();
@@ -672,6 +676,15 @@ function resetModalSessao(){
     savedVideosArray = new Array();
     document.getElementById("results").innerHTML = '';
      document.getElementById('tabBalancoFinal').classList.add('disabled');
+    
+    document.getElementById("tabDados").classList.add("active");
+    
+    document.getElementById("dados-sessao").classList.add("active");
+    document.getElementById("dados-sessao").classList.add("show");
+    
+    document.getElementById("tabObs").classList.remove("active");
+    document.getElementById("obs-sessao").classList.remove("active");
+    document.getElementById("obs-sessao").classList.remove("show");
 }
 
 /************* Disable do botao quando não esta preenchido *****************/
@@ -759,4 +772,31 @@ function deleteFromArray(titulo, videoid)
     savedVideosArray.splice(savedVideosArray.indexOf(video), 1);
     
     displaySavedVideos();
+}
+
+
+function validateObsForm()
+{
+    var olhos = checkCheckbox('Olhos');
+    
+    if(olhos)
+        $("#olhs").html('');
+    else
+         $("#olhs").html('Obrigatório!');
+    
+}
+
+
+function checkCheckbox(checkboxName){
+    
+    var result = '';
+    var check = document.getElementsByName(checkboxName);
+    
+    for(var i=0; check[i]; i++){
+         if (check[i].checked) {
+             result += check[i].value+';';
+        }
+    }
+    
+    return result;
 }

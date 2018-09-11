@@ -6,7 +6,11 @@ var IPADDR = '192.168.1.74';
 /*                          I M P O R T A N T E                              */
 /*****************************************************************************/
 
-
+/** Activa a página depois de loaded **/
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("allPageActivity").style.display = "block";
+}
 
 /* Funcao para registar um novo cuidador para o servidor*/
 function RegistaCuidador() {
@@ -101,6 +105,9 @@ function Logout(){
                                             window.sessionStorage.removeItem("email_id");
                                             window.sessionStorage.removeItem("primeiro_nome");
                                             window.sessionStorage.removeItem("ultimo_nome");
+                                            window.sessionStorage.removeItem("sessaoID");
+                                            window.sessionStorage.removeItem("doenteID");
+                                           window.sessionStorage.removeItem("sessaoNome");
                                         /* Volta para a página principal */
                                             location.href = "/";
                                         
@@ -160,4 +167,5 @@ $(document).ready(function(){
     var ultimo_nome = window.sessionStorage.getItem("ultimo_nome");
     
     document.getElementById('primeiroultimonome').innerHTML = "Olá, "+primeiro_nome+" "+ultimo_nome;
+    showPage();
 })

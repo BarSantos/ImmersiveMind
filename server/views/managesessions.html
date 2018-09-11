@@ -54,6 +54,8 @@
 
     <body>
         
+        <div id="loader"></div>
+      <div style="display:none;" id="allPageActivity">
          <!-- ***********************************************NAVBAR E TRALHA*************************************************** -->
     <!-- Navigation -->
 
@@ -160,9 +162,9 @@
                 
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#dados-sessao">Dados da Sessão</a></li>
+                        <a id="tabDados" class="nav-link active" data-toggle="tab" href="#dados-sessao">Dados da Sessão</a></li>
                     <li class="nav-item disabled" id="tabBalancoFinal">
-                        <a class="nav-link" data-toggle="tab" href="#obs-sessao" onclick="Observacoes()">Balanço Final</a></li>
+                        <a id="tabObs" class="nav-link" data-toggle="tab" href="#obs-sessao" onclick="Observacoes()">Balanço Final</a></li>
                 </ul>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetModalSessao()">
                     <span aria-hidden="true">&times;</span>
@@ -249,7 +251,14 @@
                     <!------------------------------------------------------------------>
                     <div id="obs-sessao" class="tab-pane fade">
                         <div class= "form-group">
-                            <label for="" id="tempoid"><h4>Duração da Sessão: 00:00:00</h4></label>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-8" style="padding-left: 0px;">
+                                    <label for="" id="tempoid"><h4>Duração da Sessão</h4></label>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-4" style="padding-right: 0px; text-align: center">
+                                    <h4 id="difftime">00:00:00</h4>
+                                </div>
+                            </div>
                         </div>
                     
                         <div class="form-group">
@@ -335,7 +344,7 @@
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Perturbações visuais:</label>
-                            <p class="small"></p>
+                            <p class="small" style="color: red" id="olhs"></p>
                             <div class="row">
                                 <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosChorosos" id="OlhosChorosos" name="Olhos">Olhos chorosos</label>
                                 <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosSecos" id="OlhosSecos" name="Olhos">Olhos secos</label>
@@ -381,7 +390,6 @@
         </div>
         </div>
     </div>
-</div>
 
  
         
@@ -418,5 +426,6 @@
             </div>
           </div>
         </div>
+    </div>
   </body>
 </html>

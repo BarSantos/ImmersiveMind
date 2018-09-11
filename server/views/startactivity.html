@@ -10,14 +10,14 @@
 
         <title>ImmersiveMind</title>
         
-        
+        <script src="https://www.youtube.com/iframe_api"></script>
         <script src="/js/search.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://apis.google.com/js/client.js?onload=init"></script>
         <script src="/js/server.js"></script>
         <script src="/js/popularActividade.js"></script>
-       
-        <script src="https://www.youtube.com/iframe_api"></script>
+        <script src="/js/observacoes.js"></script>
+        
 
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -78,8 +78,9 @@
                 </ul>
             </div>
         </nav>
- 
-        <!-- Popup do LOGOUT -->
+          
+          
+          <!-- Popup do LOGOUT -->
         <div class="modal fade success-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -103,6 +104,7 @@
             </div>
           </div>
         </div>
+          
         <!--page Content --> 
         <div class="container-fluid">
     
@@ -110,8 +112,8 @@
             <div class="row" style="height: 50px; position:relative" >
             
                 <div class="col-lg-6 col-md-7 col-sm-7 col-12" style="padding-left: 0px;">
-                    <div class="btn btn-default btn-arrow-right"><a href="frontpage"><i class="fas fa-home bread"></i></a></div>
-                    <div class="btn btn-default btn-arrow-right"><a href="sessions" class="bread">Gerir Sessões</a></div>
+                    <div class="btn btn-default btn-arrow-right"><a href="frontpage" onclick="cleanSession()"><i class="fas fa-home bread"></i></a></div>
+                    <div id="gerirbread" class="btn btn-default btn-arrow-right"><a href="sessions" onclick="cleanSession()" class="bread">Gerir Sessões</a></div>
                     <div class="btn btn-default btn-arrow-right"><a href="" class="bread">Actividade</a></div>
                 </div>
     
@@ -198,7 +200,7 @@ strong {
         <div class="col-lg-6 col-sm-12" style="position:relative">
             
             <div class = "resp-container">
-                <iframe class="resp-iframe" id="iframes" src="https://www.youtube.com/embed/0XrH2WO1Mzs" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                <div class="resp-iframe" id="iframes"></div>
             </div>
         
         </div>
@@ -244,10 +246,10 @@ strong {
               <!------------------------ BOTÕES FINAIS ------------------->
               <div class="row">
                 <div class="col-lg-6">
-                    <button id="btnGuardarTerminar" class="btn btn-block btn-primary btn-default" data-toggle="modal" data-target="#modalBalancoFinal">Guardar e Terminar</button>
+                    <button id="btnGuardarTerminar" onclick="finalDate()" class="btn btn-block btn-primary btn-default" data-toggle="modal" data-target="#modalBalancoFinal">Guardar e Terminar</button>
                 </div>
                 <div class="col-lg-6">
-                    <button id="btnSairTerminar" class="btn btn-block btn-primary btn-default">Sair sem Terminar</button>
+                    <button id="btnSairTerminar" data-toggle="modal" data-target="#sairActividade" class="btn btn-block btn-primary btn-default">Sair sem Terminar</button>
                 </div>
             </div>
           </div>
@@ -255,6 +257,28 @@ strong {
 
       </div>
       <!-- /.row -->
+         <!-- Popup do SAIR -->
+        <div class="modal fade success-popup" id="sairActividade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Sair da Actividade?</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <p>A saída implica que nenhum dado seja guardado.</p>
+                <p></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                           <button data-dismiss="modal" class="btn btn-default btn-lg btn-block button-popup-success">Ficar</button> 
+                        </div>
+                        <div class="col-sm-6">
+                            <button data-dismiss="modal" onclick="cleanSession();sairActividade()" class="btn btn-default btn-lg btn-block button-popup-fail">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
 
 </div>
             
@@ -273,9 +297,16 @@ strong {
                     <!--                        OBSERVACOES                           -->
                     <!------------------------------------------------------------------>
 
-                <div class="modal-body">
+                <div class="modal-body" id="observacoesForm">
                         <div class= "form-group">
-                            <label for="" id="tempoid"><h4>Duração da Sessão: 00:00:00</h4></label>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-8" style="padding-left: 0px;">
+                                    <label for="" id="tempoid"><h4>Duração da Sessão</h4></label>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-4" style="padding-right: 0px; text-align: center">
+                                    <h4 id="difftime">00:00:00</h4>
+                                </div>
+                            </div>
                         </div>
                     
                         <div class="form-group">
@@ -284,17 +315,18 @@ strong {
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Reconhecimento dos objectos visualizados:</label>
-                            <p class="small"></p>
-                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="1reconhecimento" value="1">1 <p>Nenhum objecto</p></label>
-                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="2reconhecimento" value="2">2</label>
-                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="3reconhecimento" value="3">3</label>
-                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="4reconhecimento" value="4">4</label>
-                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="5reconhecimento" value="5">5 <p>Todos os objectos</p></label>
+                            <p class="small" style="color: red" id="recon">Obrigatório!</p>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="1reconhecimento" value="1" required>1 <p>Nenhum objecto</p></label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="2reconhecimento" value="2" required>2</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="3reconhecimento" value="3" required>3</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="4reconhecimento" value="4" required>4</label>
+                            <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="reconhecimentoradio" id="5reconhecimento" value="5" required>5 <p>Todos os objectos</p></label>
                         </div>
+                        
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Alterações de humor:</label>
-                            <p class="small"></p>
+                            <p class="small" style="color: red" id="hum">Obrigatório!</p>
                             <div class="row">
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="1humor" value="1">1 <p>Muitas alterações</p></label>
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="humorradio" id="2humor" value="2">2</label>
@@ -306,7 +338,7 @@ strong {
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Interesse durante a sessão:</label>
-                            <p class="small"></p>
+                            <p class="small" style="color: red" id="interesse">Obrigatório!</p>
                             <div class="row">
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="1interesse" value="1">1 <p>Sem interesse</p></label>
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interesseradio" id="2interesse" value="2">2</label>
@@ -318,7 +350,7 @@ strong {
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Interacção entre o cuidador e o utente:</label>
-                            <p class="small"></p>
+                             <p class="small" style="color: red" id="interaccao">Obrigatório!</p>
                             <div class="row">
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="1interesse" value="1">1<p>Nenhuma interacção</p></label>
                                 <label class="radio-inline col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="radio" name="interaccaoradio" id="2interesse" value="2">2</label>
@@ -334,7 +366,7 @@ strong {
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Náuseas:</label>
-                            <p class="small"></p>
+                             <p class="small" style="color: red" id="naus">Obrigatório!</p>
                             <div class="row" style="text-align: center">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <label class="radio-inline"><input type="radio" name="nauseasradio" id="SimNauseas" value="1">Sim</label>
@@ -347,7 +379,7 @@ strong {
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Desequilíbrios:</label>
-                            <p class="small"></p>
+                            <p class="small" style="color: red" id="deseq">Obrigatório!</p>
                             <div class="row" style="text-align: center">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <label class="radio-inline"><input type="radio" name="desequilibriosradio" id="SimDesequilibrios" value="1">Sim</label>
@@ -361,7 +393,7 @@ strong {
                         
                         <div class="form-group">
                             <label style="font-weight: bold">Perturbações visuais:</label>
-                            <p class="small"></p>
+                            <p class="small" style="color: red" id="olhs">Obrigatório!</p>
                             <div class="row">
                                 <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosChorosos" id="OlhosChorosos" name="Olhos">Olhos chorosos</label>
                                 <label class="checkbox-inline checkbox-inline2 col-lg-5ths col-md-5ths col-sm-5ths col-xs-5ths"><input type="checkbox" value="OlhosSecos" id="OlhosSecos" name="Olhos">Olhos secos</label>
@@ -372,7 +404,7 @@ strong {
                         </div>
                             
                       <div class="form-group">
-                          <label style="font-weight: bold">Outras observações relevantes:</label>
+                          <label style="font-weight: bold">Outras observações relevantes (opcional):</label>
                             <textarea class="form-control" rows="3" id="ObservacoesRelevantes" placeholder="p.e.: O que gostou mais/menos"></textarea>
                         </div>
                 </div>
@@ -384,7 +416,7 @@ strong {
                 <!-- Botões Adicionar/Guardar - Apagar - Terminar - Cancelar -->
                 <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6" id="botaoAdicionar">
-                           <button data-dismiss="modal" onclick="" class="btn btn-default btn-lg btn-block button-popup-success" id="saveandleave"><i class="fas fa-save"></i> Guardar e Sair</button> 
+                           <button data-dismiss="modal" onclick="endSession()"class="btn btn-default btn-lg btn-block button-popup-success" id="saveandleave" disabled><i class="fas fa-save"></i> Guardar e Sair</button> 
                         </div>
                     
                         <div class="col-lg-6 col-md-6 col-sm-6 col-6" id="botaoCancelar">

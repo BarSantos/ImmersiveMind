@@ -388,6 +388,7 @@ li.slidecolor.active{
 
 .botoezinhos{
     padding-right: 0px;
+    height: 50px;
 }
 
 .resultzinhos{
@@ -403,59 +404,6 @@ li.slidecolor.active{
     max-width: 200px;
 }
 
-/******************** LOADING ********************/
-
-/* Center the loader */
-#loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #7e7e7e;
-  border-radius: 50%;
-  border-top: 16px solid #f5dbcf;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 0.5s linear infinite;
-  animation: spin 0.5s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
-/******* tamanho letras do content dos videos ******/
-
-@media (max-width: 425px){
-    .title_video{
-        font-size: 13px;
-    }
-    .thumbnail_image{
-        width: 110%;
-        height: 110%;
-    }
-}
-
-@media (max-width: 992px){
-    #results{
-        width: inherit;
-    }
-}
-
-
-/**************************************/
-/***************************************/
-/************************************/
 
 /*********************** OBSERVAÇÕES *************************/
 

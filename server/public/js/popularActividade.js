@@ -6,23 +6,34 @@ var IPADDR = '192.168.1.74';
 /*                          I M P O R T A N T E                              */
 /*****************************************************************************/
 
+var player;
 
 
 
 $(document).ready(function(){
     
     Actividade();
-    initPlayer();
+    onYouTubeIframeAPIReady();
+
 })
 
-function initPlayer()
+function sairActividade()
 {
-    YT.Player('iframes', {
-       events: {
-            onStateChange: playerStateChange
-       } 
-    });
+    window.sessionStorage.removeItem("sessaoID");
+    window.location = "/frontpage";
 }
+
+function onYouTubeIframeAPIReady() {
+    
+        player = new YT.Player('iframes', {
+          height: '360',
+          width: '640',
+          videoId: '0XrH2WO1Mzs',
+          events: {
+            'onStateChange': playerStateChange
+          }
+        });
+  }
 
 function playerStateChange(event)
 {
@@ -40,16 +51,20 @@ function playerStateChange(event)
     }
 }
 
-/** Activa a página depois de loaded **/
-function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("allPageActivity").style.display = "block";
+
+function cleanSession()
+{
+     window.sessionStorage.removeItem("sessaoID");
+     window.sessionStorage.removeItem("sessaoNome");
 }
 
 /*** Funcao popular actividade ***/
 function Actividade(){
     var xhttp = new XMLHttpRequest();
     var sessaoID = window.sessionStorage.getItem("sessaoID");
+    
+    if(!sessaoID)
+        $("#gerirbread").remove();
     
     xhttp.open("GET", "http://"+IPADDR+":8080/api/sessoes/", true);
 	xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -174,6 +189,8 @@ function getVideosDaCategoria(categoria, index, sessaoID){
                                             
                                             
                                             for(var i=0; jsonResult[i]; i+=2){
+                                                    var video_title_decoded = jsonResult[i].VIDEO_TITLE;
+                                                    video_title_decoded = unescape(video_title_decoded);
                                                     fill_li += '<li data-target="#carouselYT-'+categoria+'" ';
                                                     if(i == 0){
                                                         fill_li += 'data-slide-to="0" class="active slidecolor"></li>';
@@ -194,13 +211,16 @@ function getVideosDaCategoria(categoria, index, sessaoID){
                                                     fill_item += '</div>'; // fecha row image
                                                     fill_item += '<div class = "row">'; //row título
                                                     fill_item += '<div class = "col-lg-12 col-md-12 col-sm-12 col-12">';
-                                                    fill_item += '<p></p><p class="title_video">'+jsonResult[i].VIDEO_TITLE+'</p>';
+                                                    fill_item += '<p></p><p class="title_video">'+video_title_decoded+'</p>';
                                                     fill_item += '</div>';
                                                     fill_item += '</div>'; // fecha row título
                                                     fill_item += '</a>';
                                                     fill_item += '</div>'; //fecha col-6 - primeira coluna
                                                     fill_item += '<div class = "col-lg-6 col-md-6 col-sm-6 col-6">';
                                                     if (jsonResult[i+1]){
+                                                        
+                                                        var video_title_decoded_plus_one = jsonResult[i+1].VIDEO_TITLE;
+                                                        video_title_decoded_plus_one = unescape(video_title_decoded_plus_one);
                                                         
                                                         fill_item += '<a onclick="playVideo(\''+ jsonResult[i+1].URL_FILE +'\')">';
                                                         fill_item += '<div class = "row">'; //row imagem
@@ -210,7 +230,7 @@ function getVideosDaCategoria(categoria, index, sessaoID){
                                                         fill_item += '</div>'; // fecha row image
                                                         fill_item += '<div class = "row">'; //row título
                                                         fill_item += '<div class = "col-lg-12 col-md-12 col-sm-12 col-12">';
-                                                        fill_item += '<p></p><p class="title_video">'+jsonResult[i+1].VIDEO_TITLE+'</p>';
+                                                        fill_item += '<p></p><p class="title_video">'+video_title_decoded_plus_one+'</p>';
                                                         fill_item += '</div>';
                                                         fill_item += '</div>'; // fecha row título
                                                         fill_item += '</a>';
@@ -257,6 +277,12 @@ function getVideosDaCategoria(categoria, index, sessaoID){
     };
    xhttp.send();                                         
 }
+ 
+
+
+
+
+
 
 function playVideo(urlToPlay)
 {
@@ -268,6 +294,8 @@ function playVideo(urlToPlay)
     else
        urlToPlay = correctFormat + urlToPlay;
     
-    document.getElementById("iframes").src = urlToPlay;
+    player.loadVideoByUrl({mediaContentUrl:urlToPlay});
 }
+
+
 

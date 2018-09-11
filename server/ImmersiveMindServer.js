@@ -259,8 +259,11 @@ router.route('/sessoes').put(
             var terminado = req.body.terminado;
             var videos = req.body.videos;
             
+            var splitCategorias = "";
             
+            console.log(req);
             if(terminado){
+                console.log("ENTRA NO TERMINADO");
                 var updateTerminarSessaoPromise = DB.terminaSessao(cuidadorId, sessaoId);
                 promiseResolve(updateTerminarSessaoPromise, res, 'Sessao terminada', 'Error a terminar sessão');
             }
@@ -274,8 +277,8 @@ router.route('/sessoes').put(
                                       console.log("Imagem da Sessão Criada");
                                     });
                 }
-                var splitCategorias = categorias.split('-');
-                var splitNotCAtegorias = notcategorias.split('-');
+                if(categorias)
+                 splitCategorias = categorias.split('-');
 
                 if(doenteID == '- Nenhum -')
                     doenteID = null;
@@ -308,7 +311,8 @@ router.route('/sessoes').post(
             var categorias = req.body.categorias;
             var videos = req.body.videos;
             
-            console.log("videos: "+videos);
+            var splitCategorias = "";
+           
             if(imagem)
             {
                 var base64Data = imagem.split(';base64,').pop().replace(/ /g, '+');
@@ -318,15 +322,17 @@ router.route('/sessoes').post(
                                   console.log("Imagem da Sessão Criada");
                                 });
             }
-			var splitCategorias = categorias.split('-');
+            
+             splitCategorias = categorias.split('-');
             
             if(doenteID == '- Nenhum -')
                 doenteID = null;
             if(!dia)
                 dia = null;
-            
+                
+            console.log("DB - create");
 			var createSessaoPromise = DB.createSessao(sessaoNome, doenteID, cuidadorId, dia, imageName, splitCategorias, JSON.parse(videos));
-			promiseResolve(createSessaoPromise, res, 'Sessao criada', 'Error a criar Sessao');
+			promiseWithResult(createSessaoPromise, res, 'Sessao criada', 'Error a criar Sessao');
             
             
 		});
@@ -440,8 +446,12 @@ router.route('/observacao').post(
             var desequilibrios = req.body.desequilibrios;
             var perturbacoes_visuais = req.body.perturbacoes_visuais;
             var observacoes = req.body.observacoes;
+            var cuidadorID = req.body.cuidadorid;
 			
-			var createObservacaoPromise = DB.createObservacao(sessaoID, tempo, reconhecimento, humor, interesse, interaccao, nauseas, desequilibrios, perturbacoes_visuais, observacoes);
+            
+            console.log("This is the cuidador id: " + cuidadorID);
+            
+			var createObservacaoPromise = DB.createObservacao(sessaoID, tempo, reconhecimento, humor, interesse, interaccao, nauseas, desequilibrios, perturbacoes_visuais, observacoes, cuidadorID);
             
 			promiseResolve(createObservacaoPromise, res, 'Observacao Criada', 'Error a criar Observacao'); 
 		});

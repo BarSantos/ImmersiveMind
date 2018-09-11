@@ -265,6 +265,7 @@ exports.createSessao = function(nomeSessao, doenteID, cuidadorID, dia, imagem, c
 					IMAGEM: imagem,
                     TERMINADO: 0};
     
+    console.log("This is the day: " + dia);
 	var promise = categoriasIfLogged(insertQuery, toInsert, cuidadorID, categorias, false, null, videos);
         
 	return promise;						
@@ -650,8 +651,17 @@ function categoriasIfLogged(query, params, cuidadorID, categorias, sessaoID, not
 	checkLoggedInPromise.done(function()
 								{
                                 
-									connection.query(query, params);
-        
+									connection.query(query, params,function (err, result)
+									  {
+							 		  	if(err || result.length <= 0){
+                                            result = "";
+                                        }
+							 			else
+								 			result = JSON.stringify(result);
+                                        
+                                        defer.resolve(result);
+							 		  });
+
                                     if(sessaoID)
                                     {
                                         for(var i = 0; notCategorias[i]; i++)
@@ -677,7 +687,7 @@ function categoriasIfLogged(query, params, cuidadorID, categorias, sessaoID, not
                                             insertVideoToSession(videos[j].title, thumbnail, url);
                                         }
                                     }
-									defer.resolve();
+									
 								},
 							  function()
 							  	{

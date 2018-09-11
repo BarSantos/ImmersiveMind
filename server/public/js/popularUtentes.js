@@ -63,7 +63,7 @@ function Bolinhas(){
                                         fillstring+= '</a>';
                                         fillstring+= '</div>';
                                         document.getElementById("rowbolinhas").innerHTML = fillstring;
- 
+                                        showPage();
                                     }
                                 };
     xhttp.send();
